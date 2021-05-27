@@ -59,4 +59,8 @@ abstract class Person {
         this.function = function;
     }
 
+     @Override
+    public String toString() {
+        return "Pessoa{" + "id=" + id + ", nome=" + name + ", nacionalidade=" + nationality + ",funçao" + function + '}';
+    }
 }

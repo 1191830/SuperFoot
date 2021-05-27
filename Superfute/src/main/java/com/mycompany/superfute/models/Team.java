@@ -50,5 +50,8 @@ public class Team {
     public void setStadium(Stadium stadium) {
         this.stadium = stadium;
     }
-
+ @Override
+    public String toString() {
+        return "Tean{" + "id=" + id + ", nome=" + name + ", estádio=" + stadium + '}';
+    }
 }

@@ -68,5 +68,8 @@ public class Event {
     public void setTypeEvent(int typeEvent) {
         this.typeEvent = typeEvent;
     }
-
+ @Override
+    public String toString() {
+        return "Evento{" + "minuto=" + minute + ", id jogo=" + idGame + ", id equipa=" + idTeam + ", id jogador =" + idPlayer + ",tipo de evento"  + typeEvent + '}';
+    }
 }
