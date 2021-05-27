@@ -5,17 +5,20 @@
  */
 package com.mycompany.superfute.models;
 
-/**
- *
+import com.mycompany.superfute.models.Pais;
+
+ /**
  * @author nelso
  */
 public class Cidade {
     
+
     private Pais pais;
     private int id;
     private String nome;
 
     
+
     public Cidade(Pais pais, int id, String nome) {
         this.pais = pais;
         this.id = id;
@@ -24,6 +27,7 @@ public class Cidade {
 
     public Cidade() {
     }
+
 
     public Pais getPais() {
         return pais;

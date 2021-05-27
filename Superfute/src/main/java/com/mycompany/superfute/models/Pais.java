@@ -9,15 +9,18 @@ package com.mycompany.superfute.models;
  *
  * @author nelso
  */
+
 public class Pais {
     
     private int id;
     private String nome;
 
+
     public Pais(int id, String nome) {
         this.id = id;
         this.nome = nome;
     }
+
 
     public Pais() {
     }
