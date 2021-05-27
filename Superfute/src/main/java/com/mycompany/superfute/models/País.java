@@ -9,28 +9,17 @@ package com.mycompany.superfute.models;
  *
  * @author nelso
  */
-public class City {
+public class País {
     
-    private Country pais;
     private int id;
     private String nome;
 
-    
-    public City(Country pais, int id, String nome) {
-        this.pais = pais;
+    public País(int id, String nome) {
         this.id = id;
         this.nome = nome;
     }
 
-    public City() {
-    }
-
-    public Country getPais() {
-        return pais;
-    }
-
-    public void setPais(Country pais) {
-        this.pais = pais;
+    public País() {
     }
 
     public int getId() {
@@ -51,7 +40,7 @@ public class City {
 
     @Override
     public String toString() {
-        return "Cidade{" + "pais=" + pais + ", id=" + id + ", nome=" + nome + '}';
+        return "Pais{" + "id=" + id + ", nome=" + nome + '}';
     }
     
 }

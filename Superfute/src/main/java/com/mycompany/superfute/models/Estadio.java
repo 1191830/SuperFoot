@@ -9,28 +9,28 @@ package com.mycompany.superfute.models;
  *
  * @author pcoelho
  */
-public class Stadium {
+public class Estadio {
 
-    private String name;
+    private String nome;
     private String local;
     private int id;
 
-    public Stadium() {
+    public Estadio() {
 
     }
 
-    public Stadium(String name, String local, int id) {
-        this.name = name;
+    public Estadio(String nome, String local, int id) {
+        this.nome = nome;
         this.local = local;
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getnome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setnome(String nome) {
+        this.nome = nome;
     }
 
     public String getLocal() {
@@ -50,6 +50,6 @@ public class Stadium {
     }
  @Override
     public String toString() {
-        return "Estádio{" + "nome=" + name + ", local=" + local + ", id=" + id + '}';
+        return "Estádio{" + "nome=" + nome + ", local=" + local + ", id=" + id + '}';
     }
 }
