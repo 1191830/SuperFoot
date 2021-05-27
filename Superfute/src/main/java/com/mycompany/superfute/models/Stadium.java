@@ -48,5 +48,8 @@ public class Stadium {
     public void setId(int id) {
         this.id = id;
     }
-
+ @Override
+    public String toString() {
+        return "Estádio{" + "nome=" + name + ", local=" + local + ", id=" + id + '}';
+    }
 }
