@@ -5,7 +5,7 @@
  */
 package com.mycompany.superfute.models;
 
-import com.mycompany.superfute.models.Pais;
+import com.mycompany.superfute.models.Country;
 
 /**
  *
@@ -13,12 +13,12 @@ import com.mycompany.superfute.models.Pais;
  */
 public class Cidade {
     
-    private Pais pais;
+    private Country pais;
     private int id;
     private String nome;
 
     
-    public Cidade(Pais pais, int id, String nome) {
+    public Cidade(Country pais, int id, String nome) {
         this.pais = pais;
         this.id = id;
         this.nome = nome;
@@ -27,11 +27,11 @@ public class Cidade {
     public Cidade() {
     }
 
-    public Pais getPais() {
+    public Country getPais() {
         return pais;
     }
 
-    public void setPais(Pais pais) {
+    public void setPais(Country pais) {
         this.pais = pais;
     }
 
