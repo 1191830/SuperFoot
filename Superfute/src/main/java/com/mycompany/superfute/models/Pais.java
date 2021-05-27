@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.mycompany.superfute.models;
 
 /**
  *
- * @author pcoelho
+ * @author nelso
  */
-public class Estadio {
-
+public class Pais {
     
 }
