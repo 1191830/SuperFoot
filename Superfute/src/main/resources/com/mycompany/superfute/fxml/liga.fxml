@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.LigaController">
+   <children>
+      <TableView fx:id="listaLigas" layoutX="10.0" layoutY="57.0" prefHeight="438.0" prefWidth="290.0">
+        <columns>
+          <TableColumn fx:id="colunaLiga" prefWidth="134.0" text="Liga" />
+          <TableColumn fx:id="colunaAno" prefWidth="16.0" text="Ano" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button fx:id="btnCriarLiga" layoutX="10.0" layoutY="521.0" mnemonicParsing="false" onAction="#btnCriarLiga" prefHeight="34.0" prefWidth="80.0" text="Criar Liga" />
+      <Button fx:id="btnEditarLiga" layoutX="115.0" layoutY="521.0" mnemonicParsing="false" onAction="#btnEditarLiga" prefHeight="34.0" prefWidth="80.0" text="Editar Liga" />
+      <Button fx:id="btnApagarLiga" layoutX="220.0" layoutY="521.0" mnemonicParsing="false" onAction="#btnApagarLiga" prefHeight="34.0" prefWidth="80.0" text="Apagar Liga" />
+      <Button fx:id="btnJornadas" layoutX="383.0" layoutY="100.0" mnemonicParsing="false" onAction="#btnJornadas" prefHeight="51.0" prefWidth="126.0" text="JORNADAS" />
+      <Button fx:id="btnEquipas" layoutX="383.0" layoutY="165.0" mnemonicParsing="false" onAction="#btnEquipas" prefHeight="51.0" prefWidth="126.0" text="EQUIPAS" />
+      <Button fx:id="btnJogadores" layoutX="383.0" layoutY="231.0" mnemonicParsing="false" onAction="#btnJogadores" prefHeight="51.0" prefWidth="126.0" text="JOGADORES" />
+      <Button fx:id="btnClassificacao" layoutX="383.0" layoutY="376.0" mnemonicParsing="false" onAction="#btnClassificacao" prefHeight="51.0" prefWidth="126.0" text="VER CLASSIFICAÇÃO" />
+      <Button fx:id="btnEstatisticas" layoutX="383.0" layoutY="444.0" mnemonicParsing="false" onAction="#btnEstatisticas" prefHeight="51.0" prefWidth="126.0" text="VER ESTATÍSTICAS" />
+      <Label alignment="CENTER" layoutX="362.0" layoutY="57.0" prefHeight="27.0" prefWidth="167.0" text="CONFIGURAÇÕES" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="363.0" layoutY="331.0" prefHeight="27.0" prefWidth="167.0" text="DADOS DA LIGA" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelLigaAno" layoutX="93.0" layoutY="14.0" text="LIGA - ANO">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
