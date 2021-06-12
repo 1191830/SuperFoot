@@ -109,7 +109,7 @@ public class LigaController implements Initializable {
     
         ObservableList<Liga> listaLiga = FXCollections.observableArrayList();
         Connection conn = Dbconn.getConn();
-        String query = "SELECT * FROM  LIGAS";
+        String query = "SELECT * FROM  LIGA";
         Statement st;
         ResultSet rs;
         
