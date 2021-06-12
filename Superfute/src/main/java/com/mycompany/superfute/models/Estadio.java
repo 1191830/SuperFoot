@@ -11,34 +11,19 @@ package com.mycompany.superfute.models;
  */
 public class Estadio {
 
-    private String nome;
-    private String local;
+
     private int id;
+    private String nome;
+    private int id_cidade;
 
     public Estadio() {
 
     }
 
-    public Estadio(String nome, String local, int id) {
-        this.nome = nome;
-        this.local = local;
+    public Estadio(int id, String nome, int id_cidade) {
         this.id = id;
-    }
-
-    public String getnome() {
-        return nome;
-    }
-
-    public void setnome(String nome) {
         this.nome = nome;
-    }
-
-    public String getLocal() {
-        return local;
-    }
-
-    public void setLocal(String local) {
-        this.local = local;
+        this.id_cidade = id_cidade;
     }
 
     public int getId() {
@@ -48,8 +33,31 @@ public class Estadio {
     public void setId(int id) {
         this.id = id;
     }
- @Override
-    public String toString() {
-        return "Estádio{" + "nome=" + nome + ", local=" + local + ", id=" + id + '}';
+
+    public String getNome() {
+        return nome;
     }
-}
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getId_cidade() {
+        return id_cidade;
+    }
+
+    public void setId_cidade(int id_cidade) {
+        this.id_cidade = id_cidade;
+    }
+
+    @Override
+    public String toString() {
+        return "Estadio{" + "id=" + id + ", nome=" + nome + ", id_cidade=" + id_cidade + '}';
+    }
+    
+    
+    
+    
+    
+
+} 
