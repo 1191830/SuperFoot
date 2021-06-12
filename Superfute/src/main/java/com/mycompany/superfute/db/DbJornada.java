@@ -5,9 +5,8 @@
  */
 package com.mycompany.superfute.db;
 
-import static Utils.MessageBoxes.ShowMessage;
 import com.mycompany.superfute.models.Jornada;
-import java.nio.file.Files;
+import static dias.videoteca.models.MessageBoxes.ShowMessage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -110,18 +109,8 @@ public class DbJornada {
         boolean exist = existsJornada(jornada,liga);
 
         try {
-            if (exist) {
-                
-                //Update
-                cmd = "UPDATE jornada SET "
-                        + " jornada=?,"
-                        + " liga=?, ";
 
-            } else {
-                //Novo
                 cmd = "INSERT INTO jornada(jornada, liga) VALUES (?,?)";
-                
-            }
 
             PreparedStatement st = conn.prepareStatement(cmd);
             st.setInt(1, jornada);
@@ -142,8 +131,9 @@ public class DbJornada {
             ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
         }
     }
+    
 
-    public static void deleteFilme(Integer jornada, Integer liga) throws SQLException {
+    public static void deleteJornada(Integer jornada, Integer liga) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd1 = "";
 
