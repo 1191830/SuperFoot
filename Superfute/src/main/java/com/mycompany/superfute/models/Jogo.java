@@ -5,76 +5,60 @@
  */
 package com.mycompany.superfute.models;
 
+import com.mycompany.superfute.models.Equipa;
+import com.mycompany.superfute.models.Estadio;
+import com.mycompany.superfute.models.Jornada;
+import com.mycompany.superfute.models.Liga;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 /**
  *
  * @author user
  */
 public class Jogo {
-    
-    private int idLiga; // id da liga
-    private int idJogo; // id do jogo
-    private int idJornada; // id da jornada
-    private int idEquipaCasa; //id da equipa da casa
-    private int idEquipaFora; //id da equipa de Fora 
+
+    private Jogo Jogo; // id do jogo
+    private Equipa EquipaCasa; //id da equipa da casa
+    private Equipa EquipaFora; //id da equipa de Fora 
     private LocalDate data; // data do jogo
-    private int tempoExtra; // tempo extra em minutos
-    private int idEstadio; // id do Estadio
+    private Estadio Estadio; // id do Estadio
+    private ArrayList<Evento> listEvento = new ArrayList();
 
     public Jogo() {
     }
 
-    public Jogo(int idLiga, int idJogo, int idJornada, int idEquipaCasa, int idEquipaFora, LocalDate data, int tempoExtra, int idEstadio) {
-        this.idLiga = idLiga;
-        this.idJogo = idJogo;
-        this.idJornada = idJornada;
-        this.idEquipaCasa = idEquipaCasa;
-        this.idEquipaFora = idEquipaFora;
+    public Jogo(Jogo Jogo, Equipa EquipaCasa, Equipa EquipaFora, LocalDate data, Estadio Estadio) {
+        this.Jogo = Jogo;
+        this.EquipaCasa = EquipaCasa;
+        this.EquipaFora = EquipaFora;
         this.data = data;
-        this.tempoExtra = tempoExtra;
-        this.idEstadio = idEstadio;
+        this.Estadio = Estadio;
     }
 
-    public int getIdLiga() {
-        return idLiga;
+    public Jogo getJogo() {
+        return Jogo;
     }
 
-    public void setIdLiga(int idLiga) {
-        this.idLiga = idLiga;
+    public void setJogo(Jogo Jogo) {
+        this.Jogo = Jogo;
     }
 
-    public int getIdJogo() {
-        return idJogo;
+    public Equipa getEquipaCasa() {
+        return EquipaCasa;
     }
 
-    public void setIdJogo(int idJogo) {
-        this.idJogo = idJogo;
+    public void setEquipaCasa(Equipa EquipaCasa) {
+        this.EquipaCasa = EquipaCasa;
     }
 
-    public int getIdJornada() {
-        return idJornada;
+    public Equipa getEquipaFora() {
+        return EquipaFora;
     }
 
-    public void setIdJornada(int idJornada) {
-        this.idJornada = idJornada;
-    }
-
-    public int getIdEquipaCasa() {
-        return idEquipaCasa;
-    }
-
-    public void setIdEquipaCasa(int idEquipaCasa) {
-        this.idEquipaCasa = idEquipaCasa;
-    }
-
-    public int getIdEquipaFora() {
-        return idEquipaFora;
-    }
-
-    public void setIdEquipaFora(int idEquipaFora) {
-        this.idEquipaFora = idEquipaFora;
+    public void setEquipaFora(Equipa EquipaFora) {
+        this.EquipaFora = EquipaFora;
     }
 
     public LocalDate getData() {
@@ -85,33 +69,22 @@ public class Jogo {
         this.data = data;
     }
 
-    public int getTempoExtra() {
-        return tempoExtra;
+    public Estadio getEstadio() {
+        return Estadio;
     }
 
-    public void setTempoExtra(int tempoExtra) {
-        this.tempoExtra = tempoExtra;
-    }
-
-    public int getIdEstadio() {
-        return idEstadio;
-    }
-
-    public void setIdEstadio(int idEstadio) {
-        this.idEstadio = idEstadio;
+    public void setEstadio(Estadio Estadio) {
+        this.Estadio = Estadio;
     }
 
     @Override
     public String toString() {
-        return "Jogo{" + "idLiga=" + idLiga + ", idJogo=" + idJogo + ", idJornada=" + idJornada + ", idEquipaCasa=" + idEquipaCasa + ", idEquipaFora=" + idEquipaFora + ", data=" + data + ", tempoExtra=" + tempoExtra + ", idEstadio=" + idEstadio + '}';
+        return "Jogo{" + "Jogo=" + Jogo + ", EquipaCasa=" + EquipaCasa +
+                ", EquipaFora=" + EquipaFora + ", data=" + data + ", Estadio="
+                + Estadio + ", listEvento=" + listEvento + '}';
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    public Object getLiga() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

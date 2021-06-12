@@ -66,7 +66,7 @@ public class Dbconn {
             resultSet = statement.executeQuery(texto);
             
             while (resultSet.next()){
-                System.out.println("slect");
+                System.out.println("select");
             
                 System.out.println("id: " + resultSet.getString("id"));
                 System.out.println("estado: " + resultSet.getString("estado"));
