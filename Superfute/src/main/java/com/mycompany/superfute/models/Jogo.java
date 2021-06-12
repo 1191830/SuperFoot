@@ -20,7 +20,6 @@ public class Jogo {
     private int idEquipaCasa; //id da equipa da casa
     private int idEquipaFora; //id da equipa de Fora 
     private LocalDate data; // data do jogo
-    private int tempoExtra; // tempo extra em minutos
     private int idEstadio; // id do Estadio
 
     public Jogo() {
@@ -33,7 +32,6 @@ public class Jogo {
         this.idEquipaCasa = idEquipaCasa;
         this.idEquipaFora = idEquipaFora;
         this.data = data;
-        this.tempoExtra = tempoExtra;
         this.idEstadio = idEstadio;
     }
 
@@ -85,13 +83,6 @@ public class Jogo {
         this.data = data;
     }
 
-    public int getTempoExtra() {
-        return tempoExtra;
-    }
-
-    public void setTempoExtra(int tempoExtra) {
-        this.tempoExtra = tempoExtra;
-    }
 
     public int getIdEstadio() {
         return idEstadio;
@@ -103,7 +94,10 @@ public class Jogo {
 
     @Override
     public String toString() {
-        return "Jogo{" + "idLiga=" + idLiga + ", idJogo=" + idJogo + ", idJornada=" + idJornada + ", idEquipaCasa=" + idEquipaCasa + ", idEquipaFora=" + idEquipaFora + ", data=" + data + ", tempoExtra=" + tempoExtra + ", idEstadio=" + idEstadio + '}';
+        return "Jogo{" + "idLiga=" + idLiga + ", idJogo=" + idJogo +
+                ", idJornada=" + idJornada + ", idEquipaCasa=" + idEquipaCasa + 
+                ", idEquipaFora=" + idEquipaFora + ", data=" + data +
+                ", idEstadio=" + idEstadio + '}';
     }
     
     
