@@ -9,8 +9,8 @@ package com.mycompany.superfute.models;
  *
  * @author user
  */
+
 public class Liga {
-    
     
     private String nome; // Nome da liga
     private int ano; // ano da liga
