@@ -13,19 +13,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
  *
  * @author nelso
  */
-public class JogadorFormController implements Initializable {
+public class JogadorFuncaoController implements Initializable {
 
-    @FXML
-    private Label labelLigaAno;
     @FXML
     private DatePicker dataInicio;
     @FXML
@@ -34,20 +29,6 @@ public class JogadorFormController implements Initializable {
     private Button btnAplicar;
     @FXML
     private Button btnCancelar;
-    @FXML
-    private TableView<?> tabelaPessoas;
-    @FXML
-    private TableColumn<?, ?> colunaPessoa;
-    @FXML
-    private TableView<?> tabelaPessoasEquipa;
-    @FXML
-    private TableColumn<?, ?> colunaPessoaEquipa;
-    @FXML
-    private TableColumn<?, ?> colunaFuncaoEquipa;
-    @FXML
-    private Button btnAddPessoa;
-    @FXML
-    private Button btnRemoverJogadorEquipa;
 
     /**
      * Initializes the controller class.
@@ -63,10 +44,6 @@ public class JogadorFormController implements Initializable {
 
     @FXML
     private void btnCancelar(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnAddPessoa(ActionEvent event) {
     }
     
 }

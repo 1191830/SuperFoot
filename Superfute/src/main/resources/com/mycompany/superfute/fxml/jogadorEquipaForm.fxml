@@ -4,36 +4,58 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="221.0" prefWidth="405.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.mycompany.superfute.JogadorFormController">
+<AnchorPane id="AnchorPane" prefHeight="631.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.JogadorFormController">
    <children>
-      <Label fx:id="labelLigaAno" alignment="CENTER" layoutX="99.0" layoutY="26.0" prefHeight="35.0" prefWidth="201.0" text="PESSOA EQUIPA">
+      <Label fx:id="labelLigaAno" alignment="CENTER" layoutX="179.0" layoutY="22.0" prefHeight="35.0" prefWidth="201.0" text="PESSOA EQUIPA">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="144.0" layoutY="78.0" text="Data início">
+      <Label layoutX="304.0" layoutY="429.0" text="Data início">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="274.0" layoutY="78.0" text="Data fim">
+      <DatePicker fx:id="dataInicio" layoutX="289.0" layoutY="462.0" prefHeight="25.0" prefWidth="111.0" />
+      <Label layoutX="188.0" layoutY="429.0" text="Função ">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dataInicio" layoutX="144.0" layoutY="111.0" prefHeight="25.0" prefWidth="111.0" />
-      <DatePicker fx:id="dataFim" layoutX="274.0" layoutY="111.0" prefHeight="25.0" prefWidth="111.0" />
-      <Label layoutX="15.0" layoutY="78.0" text="Função ">
+      <ComboBox fx:id="selecionarFuncao" layoutX="160.0" layoutY="462.0" prefHeight="25.0" prefWidth="111.0" />
+      <Button fx:id="btnAplicar" layoutX="362.0" layoutY="514.0" mnemonicParsing="false" onAction="#btnAplicar" prefHeight="34.0" prefWidth="80.0" text="Aplicar" />
+      <Button fx:id="btnCancelar" layoutX="458.0" layoutY="514.0" mnemonicParsing="false" onAction="#btnCancelar" prefHeight="34.0" prefWidth="80.0" text="Cancelar" />
+      <ScrollPane layoutX="36.0" layoutY="86.0" prefHeight="311.0" prefWidth="202.0">
+         <content>
+            <TableView fx:id="tabelaPessoas" prefHeight="308.0" prefWidth="200.0">
+               <columns>
+                  <TableColumn fx:id="colunaPessoa" prefWidth="199.0" text="Pessoa" />
+               </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <Label layoutX="368.0" layoutY="57.0" text="Pessoas da Equipa">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="selecionarFuncao" layoutX="15.0" layoutY="111.0" prefHeight="25.0" prefWidth="111.0" />
-      <Button fx:id="btnAplicar" layoutX="209.0" layoutY="166.0" mnemonicParsing="false" onAction="#btnAplicar" prefHeight="34.0" prefWidth="80.0" text="Aplicar" />
-      <Button fx:id="btnCancelar" layoutX="305.0" layoutY="166.0" mnemonicParsing="false" onAction="#btnCancelar" prefHeight="34.0" prefWidth="80.0" text="Cancelar" />
+      <ScrollPane layoutX="341.0" layoutY="86.0" prefHeight="311.0" prefWidth="202.0">
+         <content>
+            <TableView fx:id="tabelaPessoasEquipa" prefHeight="308.0" prefWidth="200.0">
+               <columns>
+                  <TableColumn fx:id="colunaPessoaEquipa" prefWidth="125.0" text="Pessoa" />
+                  <TableColumn fx:id="colunaFuncaoEquipa" prefWidth="73.0" text="Função" />
+               </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <Button fx:id="btnAddPessoa" layoutX="262.0" layoutY="188.0" mnemonicParsing="false" onAction="#btnAddPessoa" text="&gt;&gt;&gt;" />
+      <Button fx:id="btnRemoverJogadorEquipa" layoutX="373.0" layoutY="404.0" mnemonicParsing="false" text="Remover da Equipa" />
    </children>
 </AnchorPane>
