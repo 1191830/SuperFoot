@@ -6,14 +6,19 @@
 package com.mycompany.superfute;
 
 import com.mycompany.superfute.db.DbJornada;
+import com.mycompany.superfute.db.DbLiga;
 import com.mycompany.superfute.models.Jornada;
 import com.mycompany.superfute.models.Liga;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -43,22 +48,34 @@ public class NewJornadaController implements Initializable {
         // TODO
     }
 
-    public void initLiga(int liga){
-        txtNewJornada.setText(String.valueOf(liga));
+    public void initLiga(Liga liga){
+        selectedLiga = liga;
     }
     
     @FXML
-    private void OnActionNewJornada(ActionEvent event) throws SQLException {
+    private void OnActionNewJornada(ActionEvent event) throws SQLException, IOException {
         if(event.getSource() == btnSair){
+            
+            FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("fxml/jornada.fxml"));
+                Parent root = loader.load();
+                JornadaController controller = loader.getController();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            
+            controller.initLiga(selectedLiga);
             // get a handle to the stage
-            Stage stage = (Stage) btnSair.getScene().getWindow();
+            Stage stage2 = (Stage) btnSair.getScene().getWindow();
             // close the scene
-            stage.close();
+            stage2.close();
         }else if (event.getSource() == btnAplicar){
             jornada = Integer.parseInt(txtNewJornada.getText());
             
-            DbJornada.saveJornada(jornada, 2021);
+            DbJornada.saveJornada(jornada, selectedLiga.getAno() );
             txtNewJornada.setText(null);
+           
             
         }
     }

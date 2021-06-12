@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -23,24 +25,32 @@ public class DbLiga {
      *
      * @return
      */
-    public static ArrayList<Liga> ligaDB() throws SQLException {
-        ArrayList<Liga> liga = new ArrayList<>();
-
-        try {
-            Connection con = Dbconn.getConn();
-            Statement st = con.createStatement();
-            ResultSet rst = st.executeQuery("Select * from liga");
-            while (rst.next()) {
-                Liga l = new Liga();
-                l.setNome(rst.getString("nome"));
-                l.setAno(rst.getInt("ano"));
-                liga.add(l);
+    public static ObservableList<Liga> obterLigas() throws SQLException{
+    
+        ObservableList<Liga> listaLiga = FXCollections.observableArrayList();
+        Connection conn = Dbconn.getConn();
+        String query = "SELECT * FROM  LIGA";
+        Statement st;
+        ResultSet rs;
+        
+        try{
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Liga liga; 
+            
+            while(rs.next()){
+            
+                liga = new Liga(rs.getString("nome"),rs.getInt("ano"));
+                listaLiga.add(liga);
             }
-            return liga;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            
+        } catch(Exception ex){       
+            ex.printStackTrace();      
         }
-        return null;
+        
+        return listaLiga;
+   
+    
     }
 
     public static boolean inserirLigaDB(Liga liga) throws SQLException {

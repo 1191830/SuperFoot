@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -63,8 +64,8 @@ public class JornadaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {      
-            initTable();
+           
+            
             
             //o utilizador faz duplo clica na tabela e seleciona a jornada que pretende
         listaJornadas.setRowFactory(tr -> {
@@ -80,17 +81,19 @@ public class JornadaController implements Initializable {
             return row;
         });
             
-        } catch (SQLException ex) {
-            Logger.getLogger(JornadaController.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("error");
-        }
+        
+    }
+    
+    public void initLiga(Liga ligaSelecionada) throws SQLException{
+        liga = ligaSelecionada;
+        initTable();
     }
     
     private void initTable() throws SQLException {
       
         colunaJornada.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getIdJornada())));
         colunaLiga.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getIdLiga())));
-        listaJornadas.setItems(DbJornada.getJornadaByLiga(2021));
+        listaJornadas.setItems(DbJornada.getJornadaByLiga(liga.getAno()));
     }
 
     private void btnCriarJornada(ActionEvent event) {
@@ -100,23 +103,32 @@ public class JornadaController implements Initializable {
 
     @FXML
     private void btnApagarJornada(ActionEvent event) throws SQLException {
-        DbJornada.deleteJornada(jornadaSelecionada.getIdJornada(), jornadaSelecionada.getIdLiga());
-        initTable();
+        if(jornadaSelecionada != null){
+            DbJornada.deleteJornada(jornadaSelecionada.getIdJornada(), jornadaSelecionada.getIdLiga());
+            initTable(); }
+        else{
+            Alert alertBox2 = new Alert(Alert.AlertType.ERROR);
+            alertBox2.setHeaderText("Impossivel alterar");
+            alertBox2.setContentText("Por favor selecione uma Liga");
+            alertBox2.showAndWait();
+        }
     }
 
     @FXML
     private void OnActionButtonPressed(ActionEvent event) throws IOException {
         if (event.getSource() == btnCriarJornada){
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("fxml/newJornada.fxml"));
-            Parent root = loader.load();
-            NewJornadaController controller = loader.getController();
-            
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-                      
-            controller.initLiga(2021);         
+            if(liga != null){
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("fxml/newJornada.fxml"));
+                Parent root = loader.load();
+                NewJornadaController controller = loader.getController();
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                controller.initLiga(liga);
+            }
             
         }
     }
