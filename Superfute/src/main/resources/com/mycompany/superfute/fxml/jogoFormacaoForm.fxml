@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="662.0" prefWidth="551.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.mycompany.superfute.JogoFormacaoFormController">
+   <children>
+      <Label fx:id="labelLigaAno" alignment="CENTER" layoutX="181.0" layoutY="14.0" prefHeight="35.0" prefWidth="241.0" text="FORMAÇÃO EQUIPA">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnAddTitular" layoutX="273.0" layoutY="171.0" mnemonicParsing="false" onAction="#btnAddTitular" text="&gt;&gt;&gt;" />
+      <Button fx:id="btnRemoverTitutal" layoutX="273.0" layoutY="214.0" mnemonicParsing="false" onAction="#btnRemoverTitutal" text="&lt;&lt;&lt;" />
+      <Button fx:id="btnAddSuplente" layoutX="273.0" layoutY="417.0" mnemonicParsing="false" onAction="#btnAddSuplente" text="&gt;&gt;&gt;" />
+      <Button fx:id="btnRemoverSuplente" layoutX="273.0" layoutY="460.0" mnemonicParsing="false" onAction="#btnRemoverSuplente" text="&lt;&lt;&lt;" />
+      <Label layoutX="92.0" layoutY="82.0" text="JOGADORES">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="389.0" layoutY="95.0" text="TITULARES">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="396.0" layoutY="342.0" text="SUPLENTES">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnAplicar" layoutX="206.0" layoutY="598.0" mnemonicParsing="false" onAction="#btnAplicar" prefHeight="34.0" prefWidth="80.0" text="Aplicar" />
+      <Button fx:id="btnCancelar" layoutX="302.0" layoutY="598.0" mnemonicParsing="false" onAction="#btnCancelar" prefHeight="34.0" prefWidth="80.0" text="Cancelar" />
+      <ScrollPane layoutX="21.0" layoutY="119.0" prefHeight="445.0" prefWidth="241.0">
+         <content>
+            <ListView fx:id="listViewJogadores" prefHeight="443.0" prefWidth="239.0" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="331.0" layoutY="118.0" prefHeight="200.0" prefWidth="200.0">
+         <content>
+            <ListView fx:id="listViewTitulares" prefHeight="198.0" prefWidth="198.0" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="331.0" layoutY="364.0" prefHeight="200.0" prefWidth="200.0">
+         <content>
+            <ListView fx:id="listViewSuplentes" prefHeight="198.0" prefWidth="198.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
