@@ -31,22 +31,6 @@ public class EquipaFormController implements Initializable {
     @FXML
     private ComboBox<?> selecionarEstadio;
     @FXML
-    private TableView<?> tabelaPessoas;
-    @FXML
-    private TableColumn<?, ?> colunaPessoa;
-    @FXML
-    private TextField campoPesquisa;
-    @FXML
-    private TableView<?> tabelaPessoasEquipa;
-    @FXML
-    private TableColumn<?, ?> colunaPessoaEquipa;
-    @FXML
-    private TableColumn<?, ?> colunaFuncaoEquipa;
-    @FXML
-    private Button btnAddPessoa;
-    @FXML
-    private Button btnRemovePessoa;
-    @FXML
     private Button btnAplicar;
     @FXML
     private Button btnCancelar;
@@ -59,13 +43,6 @@ public class EquipaFormController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void btnAddPessoa(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnRemovePessoa(ActionEvent event) {
-    }
 
     @FXML
     private void btnAplicar(ActionEvent event) {
