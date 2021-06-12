@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="570.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.mycompany.superfute.JornadaController">
+<AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.JornadaController">
    <children>
       <TableView fx:id="listaJornadas" layoutX="20.0" layoutY="67.0" prefHeight="438.0" prefWidth="315.0">
          <columns>
             <TableColumn fx:id="colunaJornada" prefWidth="134.0" text="Jornada" />
+            <TableColumn fx:id="colunaLiga" prefWidth="75.0" text="Liga" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

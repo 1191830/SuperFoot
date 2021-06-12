@@ -11,30 +11,30 @@ package com.mycompany.superfute.models;
  */
 public class Jornada {
     
-    private int idJornada; // id da jornada
-    private int idLiga; // id da liga
+    private Integer idJornada; // id da jornada
+    private Integer idLiga; // id da liga
 
     public Jornada() {
     }
 
-    public Jornada(int idJornada, int idLiga) {
+    public Jornada(Integer idJornada, Integer idLiga) {
         this.idJornada = idJornada;
         this.idLiga = idLiga;
     }
 
-    public int getIdJornada() {
+    public Integer getIdJornada() {
         return idJornada;
     }
 
-    public void setIdJornada(int idJornada) {
+    public void setIdJornada(Integer idJornada) {
         this.idJornada = idJornada;
     }
 
-    public int getIdLiga() {
+    public Integer getIdLiga() {
         return idLiga;
     }
 
-    public void setIdLiga(int idLiga) {
+    public void setIdLiga(Integer idLiga) {
         this.idLiga = idLiga;
     }
 
