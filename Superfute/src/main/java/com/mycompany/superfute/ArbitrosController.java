@@ -20,20 +20,26 @@ import javafx.scene.control.TableView;
  *
  * @author nelso
  */
-public class JogadorController implements Initializable {
+public class ArbitrosController implements Initializable {
 
     @FXML
     private Label labelNomeEquipa;
     @FXML
-    private TableView<?> listaJogadores;
+    private Button btnInserirArbitro;
     @FXML
-    private TableColumn<?, ?> colunaJogador;
+    private Button btnRemoverArbitro;
     @FXML
-    private Button btnVoltar;
+    private Button btnCancelar;
     @FXML
-    private Button btnVerJogador;
+    private TableView<?> tabelaPessoa;
     @FXML
-    private TableColumn<?, ?> colunaEquipa;
+    private TableColumn<?, ?> colunaNome;
+    @FXML
+    private TableView<?> tabelaArbitros;
+    @FXML
+    private TableColumn<?, ?> colunaNomeArbitro;
+    @FXML
+    private Button btnGuardar;
 
     /**
      * Initializes the controller class.
@@ -43,13 +49,20 @@ public class JogadorController implements Initializable {
         // TODO
     }    
 
-
     @FXML
-    private void btnVoltar(ActionEvent event) {
+    private void btnInserirArbitro(ActionEvent event) {
     }
 
     @FXML
-    private void btnVerJogador(ActionEvent event) {
+    private void btnRemoverArbitro(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnCancelar(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnGuardar(ActionEvent event) {
     }
     
 }

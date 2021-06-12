@@ -11,44 +11,45 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
  *
  * @author nelso
  */
-public class JogoFormacaoFormController implements Initializable {
+public class EquipaFormController implements Initializable {
 
     @FXML
     private Label labelLigaAno;
     @FXML
-    private Button btnAddTitular;
+    private TextField nomeEquipa;
     @FXML
-    private Button btnRemoverTitutal;
+    private ComboBox<?> selecionarEstadio;
     @FXML
-    private Button btnAddSuplente;
+    private TableView<?> tabelaPessoas;
     @FXML
-    private Button btnRemoverSuplente;
+    private TableColumn<?, ?> colunaPessoa;
+    @FXML
+    private TextField campoPesquisa;
+    @FXML
+    private TableView<?> tabelaPessoasEquipa;
+    @FXML
+    private TableColumn<?, ?> colunaPessoaEquipa;
+    @FXML
+    private TableColumn<?, ?> colunaFuncaoEquipa;
+    @FXML
+    private Button btnAddPessoa;
+    @FXML
+    private Button btnRemovePessoa;
     @FXML
     private Button btnAplicar;
     @FXML
     private Button btnCancelar;
-    @FXML
-    private TableView<?> tabelaJogadores;
-    @FXML
-    private TableColumn<?, ?> colunaNome;
-    @FXML
-    private TableView<?> tabelaJogadoresTitulares;
-    @FXML
-    private TableColumn<?, ?> colunaNomeTitulares;
-    @FXML
-    private TableView<?> tabelaJogadoresSuplentes;
-    @FXML
-    private TableColumn<?, ?> colunaNomeSuplentes;
 
     /**
      * Initializes the controller class.
@@ -59,19 +60,11 @@ public class JogoFormacaoFormController implements Initializable {
     }    
 
     @FXML
-    private void btnAddTitular(ActionEvent event) {
+    private void btnAddPessoa(ActionEvent event) {
     }
 
     @FXML
-    private void btnRemoverTitutal(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnAddSuplente(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnRemoverSuplente(ActionEvent event) {
+    private void btnRemovePessoa(ActionEvent event) {
     }
 
     @FXML

@@ -11,29 +11,27 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
  *
  * @author nelso
  */
-public class JogadorController implements Initializable {
+public class PessoaFormController implements Initializable {
 
     @FXML
     private Label labelNomeEquipa;
     @FXML
-    private TableView<?> listaJogadores;
+    private TextField nomePessoa;
     @FXML
-    private TableColumn<?, ?> colunaJogador;
+    private ComboBox<?> selecionarNacionalidade;
     @FXML
-    private Button btnVoltar;
+    private Button btnAplicar;
     @FXML
-    private Button btnVerJogador;
-    @FXML
-    private TableColumn<?, ?> colunaEquipa;
+    private Button btnCancelar;
 
     /**
      * Initializes the controller class.
@@ -43,13 +41,12 @@ public class JogadorController implements Initializable {
         // TODO
     }    
 
-
     @FXML
-    private void btnVoltar(ActionEvent event) {
+    private void btnAplicar(ActionEvent event) {
     }
 
     @FXML
-    private void btnVerJogador(ActionEvent event) {
+    private void btnCancelar(ActionEvent event) {
     }
     
 }

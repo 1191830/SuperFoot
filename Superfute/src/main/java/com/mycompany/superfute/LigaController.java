@@ -57,6 +57,10 @@ public class LigaController implements Initializable {
     private Button btnEstatisticas;
     @FXML
     private Label labelLigaAno;
+    @FXML
+    private Button btnArbitros;
+    @FXML
+    private Button btnVoltar;
 
     /**
      * Initializes the controller class.
@@ -142,6 +146,14 @@ public class LigaController implements Initializable {
         
 
     
+    }
+
+    @FXML
+    private void btnArbitros(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnVoltar(ActionEvent event) {
     }
     
     

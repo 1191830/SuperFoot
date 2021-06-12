@@ -11,29 +11,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
  *
  * @author nelso
  */
-public class JogadorController implements Initializable {
+public class InicioController implements Initializable {
 
     @FXML
-    private Label labelNomeEquipa;
+    private Button btnPessoas;
     @FXML
-    private TableView<?> listaJogadores;
+    private Button btnLigas;
     @FXML
-    private TableColumn<?, ?> colunaJogador;
-    @FXML
-    private Button btnVoltar;
-    @FXML
-    private Button btnVerJogador;
-    @FXML
-    private TableColumn<?, ?> colunaEquipa;
+    private Button btnSair;
 
     /**
      * Initializes the controller class.
@@ -43,13 +34,16 @@ public class JogadorController implements Initializable {
         // TODO
     }    
 
-
     @FXML
-    private void btnVoltar(ActionEvent event) {
+    private void btnPessoas(ActionEvent event) {
     }
 
     @FXML
-    private void btnVerJogador(ActionEvent event) {
+    private void btnLigas(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnSair(ActionEvent event) {
     }
     
 }
