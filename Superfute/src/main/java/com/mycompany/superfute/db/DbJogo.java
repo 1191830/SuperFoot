@@ -26,7 +26,7 @@ public class DbJogo {
             ResultSet rst = st.executeQuery("Select * from liga");
             while (rst.next()) {
                 Jogo j = new Jogo();
-                j.getJogo().setJogo(rst.getInt("idJogo"));
+//                j.getJogo().setJogo(rst.getInt("idJogo"));
                 jogo.add(j);
             }
             return jogo;

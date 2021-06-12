@@ -5,8 +5,11 @@
  */
 package com.mycompany.superfute;
 
+import com.mycompany.superfute.db.DbJornada;
+import com.mycompany.superfute.models.Jornada;
 import com.mycompany.superfute.models.Liga;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,6 +34,7 @@ public class NewJornadaController implements Initializable {
     private Button btnSair;
     
     private Liga selectedLiga;
+    private int jornada;
     /**
      * Initializes the controller class.
      */
@@ -44,13 +48,17 @@ public class NewJornadaController implements Initializable {
     }
     
     @FXML
-    private void OnActionNewJornada(ActionEvent event) {
+    private void OnActionNewJornada(ActionEvent event) throws SQLException {
         if(event.getSource() == btnSair){
             // get a handle to the stage
             Stage stage = (Stage) btnSair.getScene().getWindow();
             // close the scene
             stage.close();
         }else if (event.getSource() == btnAplicar){
+            jornada = Integer.parseInt(txtNewJornada.getText());
+            
+            DbJornada.saveJornada(jornada, 2021);
+            txtNewJornada.setText(null);
             
         }
     }
