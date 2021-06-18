@@ -6,7 +6,7 @@
 package com.mycompany.superfute.db;
 
 import com.mycompany.superfute.models.Jornada;
-import static dias.videoteca.models.MessageBoxes.ShowMessage;
+import Utils.MessageBoxes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -125,10 +125,10 @@ public class DbJornada {
             conn.close();
         } catch (SQLIntegrityConstraintViolationException ex) {
             System.err.println("Erro: " + ex.getMessage());
-            ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex.getMessage());
-            ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
         }
     }
     

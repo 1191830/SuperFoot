@@ -5,12 +5,20 @@
  */
 package com.mycompany.superfute;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -35,7 +43,14 @@ public class InicioController implements Initializable {
     }    
 
     @FXML
-    private void btnPessoas(ActionEvent event) {
+    private void btnPessoas(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/pessoa.fxml"));
+        Scene scene = new Scene(root);
+         Stage window = new Stage();
+        window.setTitle("Pessoa");
+        window.setResizable(false);
+        window.setScene(scene);
+        window.showAndWait();
     }
 
     @FXML

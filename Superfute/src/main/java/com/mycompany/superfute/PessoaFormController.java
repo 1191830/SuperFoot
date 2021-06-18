@@ -5,15 +5,26 @@
  */
 package com.mycompany.superfute;
 
+import Utils.MessageBoxes;
+import com.mycompany.superfute.db.DbPais;
+import com.mycompany.superfute.models.Pais;
+import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -27,26 +38,101 @@ public class PessoaFormController implements Initializable {
     @FXML
     private TextField nomePessoa;
     @FXML
-    private ComboBox<?> selecionarNacionalidade;
+    private ComboBox<String> selecionarNacionalidade;
     @FXML
     private Button btnAplicar;
     @FXML
     private Button btnCancelar;
+
+    private Stage stageDialog;
+    private Pessoa pessoa;
+    boolean btnReturn;
+
+    /**
+     * Getters e Setters
+     *
+     * @return
+     */
+    public Stage getStageDialog() {
+        return stageDialog;
+    }
+
+    public void setStageDialog(Stage StageDialog) {
+        this.stageDialog = StageDialog;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+        preencherCampos();
+    }
+
+    public boolean isBtnReturn() {
+        return btnReturn;
+    }
+
+    public void setBtnReturn(boolean btnReturn) {
+        this.btnReturn = btnReturn;
+    }
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        try {
+            inserirNacionalidade();
+        } catch (SQLException ex) {
+            MessageBoxes.ShowMessage(Alert.AlertType.WARNING,
+                    "Não carregou os países", "Países");
+        }
+    }
 
     @FXML
     private void btnAplicar(ActionEvent event) {
+        setDadosPessoa();
+        System.out.println(pessoa);
+        setBtnReturn(true);
+        stageDialog.close();
+        
     }
 
     @FXML
     private void btnCancelar(ActionEvent event) {
+        stageDialog.close();
     }
-    
+
+    public void preencherCampos() {
+        if (pessoa != null) {
+            nomePessoa.setText(pessoa.getnome());
+        }
+    }
+
+    public void inserirNacionalidade() throws SQLException {
+        for (Pais p : DbPais.getTodosPaises()) {
+            selecionarNacionalidade.getItems().addAll(p.getNome());
+        }
+    }
+
+    public void setDadosPessoa() {
+        if (validarCampos()) {
+            pessoa.setnome(nomePessoa.getText());
+            System.out.println(pessoa);
+            pessoa.setnacionalidade(selecionarNacionalidade.
+                    getValue());
+        }
+    }
+
+    public boolean validarCampos() {
+
+        if ((nomePessoa.getText() == null || nomePessoa.getText().isEmpty())
+                && selecionarNacionalidade.getValue().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
 }

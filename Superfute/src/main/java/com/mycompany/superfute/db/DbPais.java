@@ -5,7 +5,6 @@
  */
 package com.mycompany.superfute.db;
 
-
 import com.mycompany.superfute.models.Pais;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -22,6 +22,28 @@ import javafx.scene.control.Alert;
  * @author pcoelho
  */
 public class DbPais {
+
+    public static ArrayList<Pais> getTodosPaises() throws SQLException {
+        ArrayList<Pais> paises = new ArrayList();
+        Connection conn = Dbconn.getConn();
+
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * from Pais");
+            while (rs.next()) {
+                paises.add(
+                        new Pais(
+                        rs.getInt("id"),
+                        rs.getString("nome")
+                        )
+                );
+            }
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return paises;
+    }
 
     public static ObservableList<Pais> getPaises() throws SQLException {
         ObservableList<Pais> lista = FXCollections.observableArrayList();
@@ -104,9 +126,8 @@ public class DbPais {
         }
 
     }
-    
-    
-     public static void deletePais(int id) throws SQLException {
+
+    public static void deletePais(int id) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
 
@@ -140,6 +161,5 @@ public class DbPais {
         alert.setContentText(msg);
         alert.showAndWait();
     }
-
 
 }

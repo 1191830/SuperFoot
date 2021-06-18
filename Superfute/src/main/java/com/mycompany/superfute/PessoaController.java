@@ -5,15 +5,32 @@
  */
 package com.mycompany.superfute;
 
+import Utils.MessageBoxes;
+import com.mycompany.superfute.db.DbPessoa;
+import com.mycompany.superfute.models.Pessoa;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -31,36 +48,92 @@ public class PessoaController implements Initializable {
     @FXML
     private Button btnVoltar;
     @FXML
-    private TableView<?> listaPessoas;
+    private TableView<Pessoa> listaPessoas;
     @FXML
-    private TableColumn<?, ?> colunaNome;
+    private TableColumn<Pessoa, String> colunaNome;
     @FXML
-    private TableColumn<?, ?> colunaNacionalidade;
+    private TableColumn<Pessoa, String> colunaNacionalidade;
     @FXML
     private Button btnRemoverPessoa;
 
+    private ObservableList<Pessoa> observableList;
+    private ArrayList<Pessoa> arrPessoas;
+
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            preencherTabelaPessoas();
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     @FXML
-    private void btnInserirPessoa(ActionEvent event) {
+    private void btnInserirPessoa(ActionEvent event) throws IOException {
+        Pessoa pessoa = new Pessoa();
+        if(controllerPessoaForm(pessoa)){
+            System.out.println(pessoa);
+        }else{
+         MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                 "Não foi possível inserir uma pessoa.", "Erro ao inserir");
+        }
     }
 
     @FXML
-    private void btnEditarPessoa(ActionEvent event) {
+    private void btnEditarPessoa(ActionEvent event) throws IOException {
+        Pessoa pessoa =  listaPessoas.getSelectionModel().getSelectedItem();
+        if(pessoa != null){
+            controllerPessoaForm(pessoa);
+        }else{
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR, 
+                    "Selecionar Pessoa para editar.", "Erro ao editar");
+        }
     }
 
     @FXML
     private void btnVoltar(ActionEvent event) {
+    Stage stage = (Stage) btnVoltar.getScene().getWindow();
+    stage.close();
     }
 
     @FXML
     private void btnRemoverPessoa(ActionEvent event) {
     }
+
+    public static boolean controllerPessoaForm(Pessoa pessoa) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PessoaFormController.class.getResource("fxml/pessoaForm.fxml"));
+        AnchorPane page = loader.load();
+
+        // Criando um Estágio de Diálogo (Stage Dialog)
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Pessoa");
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+        // Setando o cliente no Controller.
+        PessoaFormController controller = loader.getController();
+        controller.setStageDialog(dialogStage);
+        controller.setPessoa(pessoa);
+
+        // Mostra o Dialog e espera até que o usuário o feche
+        dialogStage.showAndWait();
+
+        return controller.isBtnReturn();
+    }
     
+    public void preencherTabelaPessoas() throws SQLException{
+        
+        colunaNome.setCellValueFactory(cellData ->
+                new SimpleObjectProperty<String>(cellData.getValue().getnome()));
+        colunaNacionalidade.setCellValueFactory(cellData ->
+                new SimpleObjectProperty<String>(cellData.getValue().getnacionalidade()));
+        arrPessoas = DbPessoa.obterPessoas();
+        observableList = FXCollections.observableArrayList(arrPessoas);
+        listaPessoas.setItems(observableList);
+    }
 }
