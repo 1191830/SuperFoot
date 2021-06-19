@@ -42,12 +42,16 @@ public class DbEstadio {
             ResultSet rs = st.executeQuery(cmd);
 
             while (rs.next()) {
-             //   Estadio obj = new Estadio(
-               //         rs.getInt("id"),
-                 //       rs.getString("nome"));
-                      //  rs.getInt("cidade"));
+                Cidade c = new Cidade();
+                c.setId(rs.getInt("idCidade"));
+                c.setNome(rs.getString("nomeCidade"));
                 
-              //  lista.add(obj);
+                Estadio obj = new Estadio(
+                        rs.getInt("idEstadio"),
+                        rs.getString("nomeEstadio"),
+                        c);
+                
+                lista.add(obj);
             }
 
             st.close();
