@@ -154,6 +154,34 @@ public class DbPais {
         }
 
     }
+    
+     public static Pais getPaisbyNome(String nome) throws SQLException {
+        Pais pais = new Pais();
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+        
+        try {
+            cmd = "SELECT * from Pais where nome like '" + nome + "'";
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery(cmd);
+
+            while (rs.next()) {
+                    
+                    pais.setId(rs.getInt("id"));
+                    pais.setNome(rs.getString("nome"));
+                    
+                    
+                
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return pais;
+    }
 
     public static void ShowMessage(Alert.AlertType type, String msg, String header) {
         Alert alert = new Alert(type);

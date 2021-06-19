@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="318.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.CidadeFormController">
+   <children>
+      <Label layoutX="99.0" layoutY="25.0" prefHeight="43.0" prefWidth="124.0" text="CIDADE" textAlignment="JUSTIFY">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="71.0" layoutY="79.0" text="Nome:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="71.0" layoutY="150.0" text="Pais">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbPais" layoutX="62.0" layoutY="175.0" prefHeight="25.0" prefWidth="171.0" />
+      <TextField fx:id="txtNome" layoutX="62.0" layoutY="104.0" prefHeight="18.0" prefWidth="171.0" />
+      <Button fx:id="btnAplicar" layoutX="59.0" layoutY="236.0" mnemonicParsing="false" onAction="#btnAplicar" prefHeight="36.0" prefWidth="84.0" text="Aplicar" />
+      <Button fx:id="btnCancelar" layoutX="161.0" layoutY="236.0" mnemonicParsing="false" onAction="#btnCancelar" prefHeight="36.0" prefWidth="84.0" text="Cancelar" />
+   </children>
+</AnchorPane>

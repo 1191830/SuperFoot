@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute.db;
 
+import com.mycompany.superfute.models.Cidade;
 import com.mycompany.superfute.models.Estadio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -23,6 +25,9 @@ import javafx.scene.control.Alert;
  * 
  */
 public class DbEstadio {
+
+
+
     
      public static ObservableList<Estadio> getEstadios() throws SQLException {
         ObservableList<Estadio> lista = FXCollections.observableArrayList();
@@ -37,12 +42,12 @@ public class DbEstadio {
             ResultSet rs = st.executeQuery(cmd);
 
             while (rs.next()) {
-                Estadio obj = new Estadio(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getInt("cidade"));
+             //   Estadio obj = new Estadio(
+               //         rs.getInt("id"),
+                 //       rs.getString("nome"));
+                      //  rs.getInt("cidade"));
                 
-                lista.add(obj);
+              //  lista.add(obj);
             }
 
             st.close();
@@ -51,7 +56,45 @@ public class DbEstadio {
         }
         return lista;
     }
+     
+     
+     
+     public static ArrayList<Estadio> obterEstadios() throws SQLException {
+        ArrayList<Estadio> arrEstadio = new ArrayList();; 
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
 
+        try {
+            cmd = "select estadio.id as 'idEstadio', estadio.nome as 'nomeEstadio' , cidade as 'idCidade', cidade.nome as 'nomeCidade' from estadio " +
+                  "INNER JOIN cidade ON estadio.cidade = cidade.id";
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery(cmd);
+
+            while (rs.next()) {
+                Cidade c = new Cidade();
+                c.setId(rs.getInt("idCidade"));
+                c.setNome(rs.getString("nomeCidade"));
+                
+                Estadio obj = new Estadio(
+                        rs.getInt("idEstadio"),
+                        rs.getString("nomeEstadio"),
+                        c);
+                
+               arrEstadio.add(obj);
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        
+        
+        return arrEstadio;
+     
+     }
+     
     public static void saveEstadio(String nome, int cidade) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";

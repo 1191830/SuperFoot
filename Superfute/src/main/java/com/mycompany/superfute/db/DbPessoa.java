@@ -48,29 +48,29 @@ public class DbPessoa {
 
     }
 
-    /**
-     * Inserir pessoa na base de dados
-     * @return 
-     * @throws SQLException 
-     */
-    public static inserirPessoa() throws SQLException {
-
-        try {
-            Connection conn = Dbconn.getConn();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("");
-            while (rs.next()) {
-                Pessoa pessoa = new Pessoa();
-                pessoa.setnome(rs.getString("nome"));
-                pessoa.setnacionalidade(rs.getString("pais"));
-                System.out.println(pessoa);
-                listaPessoa.add(pessoa);
-            }
-
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
-
-    }
+//    /**
+//     * Inserir pessoa na base de dados
+//     * @return 
+//     * @throws SQLException 
+//     */
+//    public static boolean inserirPessoa() throws SQLException {
+//
+//        try {
+//            Connection conn = Dbconn.getConn();
+//            Statement st = conn.createStatement();
+//            ResultSet rs = st.executeQuery("");
+//            while (rs.next()) {
+//                Pessoa pessoa = new Pessoa();
+//                pessoa.setnome(rs.getString("nome"));
+//                pessoa.setnacionalidade(rs.getString("pais"));
+//                System.out.println(pessoa);
+//                listaPessoa.add(pessoa);
+//            }
+//
+//            return true;
+//        } catch (Exception ex) {
+//            return false;
+//        }
+//
+//    }
 }

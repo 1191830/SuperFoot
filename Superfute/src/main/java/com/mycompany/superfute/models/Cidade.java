@@ -5,8 +5,6 @@
  */
 package com.mycompany.superfute.models;
 
-import com.mycompany.superfute.models.Pais;
-
  /**
  * @author nelso
  */
