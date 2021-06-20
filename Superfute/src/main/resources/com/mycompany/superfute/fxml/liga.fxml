@@ -18,8 +18,8 @@
       <Button fx:id="btnJornadas" layoutX="326.0" layoutY="158.0" mnemonicParsing="false" onAction="#btnJornadas" prefHeight="51.0" prefWidth="104.0" text="JORNADAS" />
       <Button fx:id="btnEquipas" layoutX="441.0" layoutY="158.0" mnemonicParsing="false" onAction="#btnEquipas" prefHeight="51.0" prefWidth="104.0" text="EQUIPAS" />
       <Button fx:id="btnJogadores" layoutX="327.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnJogadores" prefHeight="51.0" prefWidth="104.0" text="JOGADORES" />
-      <Button fx:id="btnClassificacao" layoutX="378.0" layoutY="359.0" mnemonicParsing="false" onAction="#btnClassificacao" prefHeight="51.0" prefWidth="126.0" text="VER CLASSIFICAÇÃO" />
-      <Button fx:id="btnEstatisticas" layoutX="378.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnEstatisticas" prefHeight="51.0" prefWidth="126.0" text="VER ESTATÍSTICAS" />
+      <Button fx:id="btnClassificacao" layoutX="378.0" layoutY="359.0" mnemonicParsing="false" onAction="#btnClassificacao" prefHeight="51.0" prefWidth="140.0" text="VER CLASSIFICAÇÃO" />
+      <Button fx:id="btnEstatisticas" layoutX="378.0" layoutY="479.0" mnemonicParsing="false" onAction="#btnEstatisticas" prefHeight="51.0" prefWidth="140.0" text="VER ESTATÍSTICAS" />
       <Label alignment="CENTER" layoutX="348.0" layoutY="117.0" prefHeight="27.0" prefWidth="167.0" text="CONFIGURAÇÕES" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
@@ -55,5 +55,6 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <Button fx:id="btnMelhorMarcador" layoutX="378.0" layoutY="419.0" mnemonicParsing="false" onAction="#btnMelhorMarcador" prefHeight="51.0" prefWidth="140.0" text="MELHOR MARCADOR" />
    </children>
 </AnchorPane>

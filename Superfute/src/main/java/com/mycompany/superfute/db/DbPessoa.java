@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute.db;
 
+import com.mycompany.superfute.models.Liga;
 import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -46,6 +47,63 @@ public class DbPessoa {
             return null;
         }
 
+    }
+    
+    public static ArrayList<Pessoa> obterMelhorMarcadorLiga(Liga liga) throws SQLException{
+        Pessoa jogador;
+        ArrayList<Pessoa> listaJogadores = new ArrayList();
+        Connection conn = Dbconn.getConn();
+        String query = "select jogador, golos from view_melhorMarcador  where Liga = "
+                + liga.getAno() + " order by golos desc ";
+        Statement st;
+        ResultSet rs;
+        
+        try{
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            
+            while(rs.next()){
+            
+                jogador = new Pessoa(rs.getString("jogador"),rs.getInt("golos"));
+                
+                listaJogadores.add(jogador);
+
+            }
+            
+        } catch(Exception ex){       
+            ex.printStackTrace();      
+        }
+        
+        return listaJogadores;
+    
+    }
+    
+    public static ArrayList<Pessoa> obterMelhorMarcadorGeral() throws SQLException{
+        Pessoa jogador;
+        ArrayList<Pessoa> listaJogadores = new ArrayList();
+        Connection conn = Dbconn.getConn();
+        String query = "select jogador, golos from view_melhorMarcador order by golos desc ";
+        Statement st;
+        ResultSet rs;
+        
+        try{
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            
+            while(rs.next()){
+            
+                jogador = new Pessoa(rs.getString("jogador"),rs.getInt("golos"));
+                
+                listaJogadores.add(jogador);
+
+            }
+            
+        } catch(Exception ex){       
+            ex.printStackTrace();      
+        }
+        
+        return listaJogadores;
+    
     }
 
 //    /**

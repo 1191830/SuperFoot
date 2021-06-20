@@ -66,6 +66,10 @@ public class LigaController implements Initializable {
     private Liga liga;
     @FXML
     private Label labelAno;
+    @FXML
+    private Button btnMelhorMarcador;
+
+  
 
     /**
      * Initializes the controller class.
@@ -128,6 +132,17 @@ public class LigaController implements Initializable {
     private void btnEstatisticas(ActionEvent event) {
     }
     
+    @FXML
+    private void btnMelhorMarcador(ActionEvent event) throws IOException, SQLException {
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/melhorMarcador.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show(); 
+    }
+    
     public void mostrarLigas() throws SQLException{
         
         ObservableList<Liga> listaLiga = DbLiga.obterLigas();
@@ -178,6 +193,9 @@ public class LigaController implements Initializable {
                 Stage stage2 = (Stage) btnJornadas.getScene().getWindow();
                 // close the scene
                 stage2.close();
+            }else if(event.getSource() == btnClassificacao){
+                            
+                
             }
 
             
@@ -190,6 +208,8 @@ public class LigaController implements Initializable {
             alertBox2.showAndWait();
         }
     }
+
+    
     
     
 }
