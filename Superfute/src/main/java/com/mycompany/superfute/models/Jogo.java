@@ -21,7 +21,11 @@ public class Jogo {
 
     private Jogo Jogo; // id do jogo
     private Equipa EquipaCasa; //id da equipa da casa
-    private Equipa EquipaFora; //id da equipa de Fora 
+    private String nomeCasa; //nome Equipa casa
+    private Equipa EquipaFora; //id da equipa de Fora
+    private String nomeFora; //nome Equipa fora
+    private int golosCasa;
+    private int golosFora;
     private LocalDate data; // data do jogo
     private Estadio Estadio; // id do Estadio
     private ArrayList<Evento> listEvento = new ArrayList();
@@ -35,6 +39,15 @@ public class Jogo {
         this.EquipaFora = EquipaFora;
         this.data = data;
         this.Estadio = Estadio;
+    }
+    
+    //Construtor para apresentar os jogos da jornada
+    public Jogo(String casa, int golosCasa, String fora, int golosFora){
+        this.nomeCasa = casa;
+        this.golosCasa = golosCasa;
+        this.nomeFora = fora;
+        this.golosFora = golosFora;
+        
     }
 
     public Jogo getJogo() {
@@ -76,6 +89,40 @@ public class Jogo {
     public void setEstadio(Estadio Estadio) {
         this.Estadio = Estadio;
     }
+
+    public int getGolosCasa() {
+        return golosCasa;
+    }
+
+    public int getGolosFora() {
+        return golosFora;
+    }
+
+    public String getNomeCasa() {
+        return nomeCasa;
+    }
+
+    public String getNomeFora() {
+        return nomeFora;
+    }
+
+    public void setGolosCasa(int golosCasa) {
+        this.golosCasa = golosCasa;
+    }
+
+    public void setGolosFora(int golosFora) {
+        this.golosFora = golosFora;
+    }
+
+    public void setNomeCasa(String nomeCasa) {
+        this.nomeCasa = nomeCasa;
+    }
+
+    public void setNomeFora(String nomeFora) {
+        this.nomeFora = nomeFora;
+    }
+    
+    
 
     @Override
     public String toString() {

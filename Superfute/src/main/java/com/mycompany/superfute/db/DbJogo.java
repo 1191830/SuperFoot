@@ -5,7 +5,9 @@
  */
 package com.mycompany.superfute.db;
 
+import com.mycompany.superfute.models.Classificacao;
 import com.mycompany.superfute.models.Jogo;
+import com.mycompany.superfute.models.Jornada;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,5 +36,36 @@ public class DbJogo {
             throwables.printStackTrace();
         }
         return null;
+    }
+     
+     public static ArrayList<Jogo> obterJogosLigaJornada(Jornada jornada) throws SQLException {
+       
+        ArrayList<Jogo> arrJogos = new ArrayList();; 
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+        int id;
+
+        try {
+            cmd = "Select Distinct * from func_resultadoTodos(-1) where jornada = " + jornada.getIdJornada();
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery(cmd);
+
+            while (rs.next()) {
+                Jogo jogo = new Jogo(
+                        rs.getNString("equipaCasa"),                       
+                        rs.getInt("golosCasa"),
+                        rs.getNString("equipaFora"),                       
+                        rs.getInt("golosFora"));
+            
+            arrJogos.add(jogo);
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return arrJogos;
     }
 }

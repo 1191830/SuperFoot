@@ -5,10 +5,12 @@
  */
 package com.mycompany.superfute;
 
-import com.mycompany.superfute.db.DbClassificacao;
-import com.mycompany.superfute.models.Classificacao;
+import com.mycompany.superfute.db.DbJogo;
+import com.mycompany.superfute.db.DbLiga;
+import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Jornada;
 import com.mycompany.superfute.models.Liga;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,11 +20,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -42,26 +48,27 @@ public class JogoController implements Initializable {
     private Button btnVerJogo;
     @FXML
     private Button btnVoltar;
+    
     @FXML
-    private TableView<Classificacao> tableCasa;
+    private TableView<Jogo> tableCasa;
     @FXML
-    private TableView<Classificacao> tableFora;
+    private TableColumn<Jogo, String> columnEquipaCasa;
     @FXML
-    private TableColumn<Classificacao, String> columnResultadoCasa;
+    private TableColumn<Jogo, String> columnResultadoCasa;
     @FXML
-    private TableColumn<Classificacao, String> columnFora;
+    private TableColumn<Jogo, String> columnResultadoFora;
     @FXML
-    private TableColumn<Classificacao, String> columnCasa;
-    @FXML
-    private TableColumn<Classificacao, String> columnResultadoFora;   
+    private TableColumn<Jogo, String> columnFora; 
     @FXML
     private Label labelLiga;
     @FXML
     private Label LabelJornada;
     
     private Jornada jornada;
-    private ArrayList<Classificacao> listaJogos;
-    private ObservableList<Classificacao> observableList;
+    private Liga liga;
+    private ArrayList<Jogo> listaJogos;
+    private ObservableList<Jogo> observableList;
+    
     
 
     /**
@@ -77,19 +84,15 @@ public class JogoController implements Initializable {
         labelLiga.setText(String.valueOf(jornada.getIdLiga()));
         LabelJornada.setText(String.valueOf(jornada.getIdJornada()));
         
-        columnCasa.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getEquipa())));
-        columnResultadoCasa.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getGolosMarcados())));
+        columnEquipaCasa.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getNomeCasa())));
+        columnResultadoCasa.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getGolosCasa())));
         
-        columnFora.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getEquipa())));
-        columnResultadoFora.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getGolosMarcados())));
+        columnFora.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getNomeFora())));
+        columnResultadoFora.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getGolosFora())));
         
-        listaJogos = DbClassificacao.obterJogosLigaJornada(jornada, 0);
+        listaJogos = DbJogo.obterJogosLigaJornada(jornada);
         observableList = FXCollections.observableArrayList(listaJogos);
         tableCasa.setItems(observableList);
-        
-        listaJogos = DbClassificacao.obterJogosLigaJornada(jornada, 1);
-        observableList = FXCollections.observableArrayList(listaJogos);
-        tableFora.setItems(observableList);
         
     }
 
@@ -116,7 +119,25 @@ public class JogoController implements Initializable {
     }
 
     @FXML
-    private void btnVoltar(ActionEvent event) {
+    private void btnVoltar(ActionEvent event) throws IOException, SQLException {
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/jornada.fxml"));
+        Parent root = loader.load();
+            
+        JornadaController controller = loader.getController();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+        liga = DbLiga.obterLigaID(jornada.getIdLiga());
+        controller.initLiga(liga);
+                
+        // get a handle to the stage
+        Stage stage2 = (Stage) btnVoltar.getScene().getWindow();
+        // close the scene
+        stage2.close();
+        
     }
     
 }
