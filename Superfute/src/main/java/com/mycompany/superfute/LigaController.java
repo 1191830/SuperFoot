@@ -59,13 +59,13 @@ public class LigaController implements Initializable {
     @FXML
     private Button btnEstatisticas;
     @FXML
-    private Label labelLigaAno;
-    @FXML
     private Button btnArbitros;
     @FXML
     private Button btnVoltar;
     
     private Liga liga;
+    @FXML
+    private Label labelAno;
 
     /**
      * Initializes the controller class.

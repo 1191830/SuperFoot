@@ -47,14 +47,16 @@ public class JornadaController implements Initializable {
     @FXML
     private Button btnApagarJornada;
     @FXML
-    private Label labelLigaAno;
-    @FXML
     private Button btnVerJogos;
     @FXML
     private Button btnVoltar;
     
     private Liga liga;
     private Jornada jornadaSelecionada;
+    @FXML
+    private Label labelLiga;
+    @FXML
+    private Label labelJornada;
     
 
     /**
@@ -84,6 +86,8 @@ public class JornadaController implements Initializable {
     
     public void initLiga(Liga ligaSelecionada) throws SQLException{
         liga = ligaSelecionada;
+        labelLiga.setText(String.valueOf(ligaSelecionada.getAno()));
+        labelJornada.setText(String.valueOf(ligaSelecionada.getNome()));
         initTable();
     }
     
