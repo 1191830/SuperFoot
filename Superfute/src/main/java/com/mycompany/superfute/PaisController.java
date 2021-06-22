@@ -74,7 +74,14 @@ public class PaisController implements Initializable {
     }
 
     @FXML
-    private void btnInserir(ActionEvent event) {
+    private void btnInserir(ActionEvent event) throws IOException {
+        Pais pais = new Pais();
+        if(controllerPaisesForm(pais)){
+            System.out.println(pais);
+        }else{
+         MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                 "Não foi possível inserir uma pessoa.", "Erro ao inserir");
+        }
     }
 
     @FXML

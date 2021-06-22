@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute;
 
+import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -31,13 +32,13 @@ public class ArbitrosController implements Initializable {
     @FXML
     private Button btnCancelar;
     @FXML
-    private TableView<?> tabelaPessoa;
+    private TableView<Pessoa> tabelaPessoa;
     @FXML
-    private TableColumn<?, ?> colunaNome;
+    private TableColumn<Pessoa, String> colunaNome;
     @FXML
-    private TableView<?> tabelaArbitros;
+    private TableView<Pessoa> tabelaArbitros;
     @FXML
-    private TableColumn<?, ?> colunaNomeArbitro;
+    private TableColumn<Pessoa, String> colunaNomeArbitro;
     @FXML
     private Button btnGuardar;
 

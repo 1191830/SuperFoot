@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -40,8 +41,11 @@ public class CidadeFormController implements Initializable {
    
    
     boolean btnReturn;
+    
     @FXML
     private TextField txtNome;
+    @FXML
+    private Label labelPais;
     /**
      * Getters e Setters
      *
@@ -62,6 +66,7 @@ public class CidadeFormController implements Initializable {
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
         preencherCampos();
+       
     }
 
     public boolean isBtnReturn() {
@@ -79,8 +84,7 @@ public class CidadeFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        try {
-            inserirNacionalidade();
+        try {            inserirNacionalidade();
         } catch (SQLException ex) {
             MessageBoxes.ShowMessage(Alert.AlertType.WARNING,
                     "Não carregou os países", "Países");
@@ -102,9 +106,21 @@ public class CidadeFormController implements Initializable {
     }
     
     public void preencherCampos() {
-        if (cidade != null) {
+        
+        System.out.println(cidade);
+        System.out.println("Ver ACIMA");
+        
+        if (cidade.getId() !=0) {
+            System.out.println("IN");
             txtNome.setText(cidade.getNome());
-            cbPais.setValue(cidade.getPais().getNome());
+            labelPais.setVisible(false);
+            cbPais.setVisible(false);
+            
+            
+            //cbPais.setValue(cidade.getPais().getNome());
+        } else{
+        
+            System.out.println("NOVO");
         }
     }
     
@@ -136,5 +152,7 @@ public class CidadeFormController implements Initializable {
         }
         return true;
     }
+
+  
     
 }

@@ -72,7 +72,14 @@ public class EstadioController implements Initializable {
     }    
 
     @FXML
-    private void btnInserir(ActionEvent event) {
+    private void btnInserir(ActionEvent event) throws IOException {
+        Estadio estadio = new Estadio();
+        if(controllerEstadioForm(estadio)){
+            System.out.println(estadio);
+        }else{
+         MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                 "Não foi possível inserir uma pessoa.", "Erro ao inserir");
+        }
     }
 
     @FXML

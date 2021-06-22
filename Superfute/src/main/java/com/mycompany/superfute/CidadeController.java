@@ -77,7 +77,15 @@ public class CidadeController implements Initializable {
     }
 
     @FXML
-    private void btnInserir(ActionEvent event) {
+    private void btnInserir(ActionEvent event) throws IOException {
+        Cidade cidade = new Cidade();
+        if(controllerCidadeForm(cidade)){
+            System.out.println(cidade);
+        }else{
+         MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                 "Não foi possível inserir uma pessoa.", "Erro ao inserir");
+        }
+        
     }
 
     @FXML

@@ -19,7 +19,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="150.0" text="Pais">
+      <Label fx:id="labelPais" layoutX="71.0" layoutY="150.0" text="Pais">
          <font>
             <Font size="16.0" />
          </font>

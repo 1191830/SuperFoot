@@ -24,6 +24,9 @@
                       <TableColumn fx:id="colNome" prefWidth="102.00000381469727" text="Nome" />
                       <TableColumn fx:id="colPais" prefWidth="138.66675567626953" text="Pais" />
                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                </children>
             </AnchorPane>

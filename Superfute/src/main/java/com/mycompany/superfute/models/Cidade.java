@@ -23,8 +23,11 @@ public class Cidade {
         this.nome = nome;
     }
 
+    
+
     public Cidade() {
     }
+
 
 
     public Pais getPais() {
@@ -50,6 +53,8 @@ public class Cidade {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+
 
     @Override
     public String toString() {
