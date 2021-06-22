@@ -6,6 +6,7 @@
 package com.mycompany.superfute;
 
 import Utils.MessageBoxes;
+import com.mycompany.superfute.db.DbCidade;
 import com.mycompany.superfute.db.DbPais;
 import com.mycompany.superfute.models.Cidade;
 import com.mycompany.superfute.models.Pais;
@@ -95,6 +96,17 @@ public class CidadeFormController implements Initializable {
     private void btnAplicar(ActionEvent event) throws SQLException {
         setDadosCidade();
         System.out.println(cidade);
+        if (cidade.getId() ==0){
+            
+            DbCidade.saveCidade(cidade.getNome(), cidade.getPais().getId());
+        
+        }else {
+        
+            DbCidade.updateCidade(cidade.getId(), cidade.getNome());
+            
+            
+        
+        }
         setBtnReturn(true);
         stageDialog.close();
         
@@ -108,10 +120,9 @@ public class CidadeFormController implements Initializable {
     public void preencherCampos() {
         
         System.out.println(cidade);
-        System.out.println("Ver ACIMA");
-        
+
         if (cidade.getId() !=0) {
-            System.out.println("IN");
+          
             txtNome.setText(cidade.getNome());
             labelPais.setVisible(false);
             cbPais.setVisible(false);

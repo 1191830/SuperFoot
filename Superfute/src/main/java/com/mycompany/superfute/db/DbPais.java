@@ -71,14 +71,14 @@ public class DbPais {
         return lista;
     }
 
-    public static void savePais(int id, String nome) throws SQLException {
+    public static void savePais( String nome) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
 
         try {
 
             //Novo Pais
-            cmd = "INSERT INTO pais(id, nome) VALUES (NEWID(), ?)";
+            cmd = "INSERT INTO pais( nome) VALUES ( ?)";
 
             PreparedStatement statement = conn.prepareStatement(cmd);
             statement.setString(1, nome);
@@ -97,7 +97,7 @@ public class DbPais {
         }
     }
 
-    public static void updatePais(int id) throws SQLException {
+    public static void updatePais(int id,String nome) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
 
@@ -109,7 +109,7 @@ public class DbPais {
                     + "WHERE id='" + id + "'";;
 
             PreparedStatement statement = conn.prepareStatement(cmd);
-            statement.setInt(1, id);
+            statement.setString(1, nome);
 
             //Execute the update
             statement.executeUpdate();

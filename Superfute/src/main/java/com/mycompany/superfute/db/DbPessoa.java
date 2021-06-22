@@ -38,17 +38,18 @@ public class DbPessoa {
                 Pessoa pessoa = new Pessoa();
                 pessoa.setnome(rs.getString("nome"));
                 pessoa.setnacionalidade(rs.getString("pais"));
-                System.out.println(pessoa);
                 listaPessoa.add(pessoa);
             }
 
             return listaPessoa;
         } catch (Exception ex) {
+             System.err.println("Erro: " + ex.getMessage());
             return null;
         }
 
     }
     
+
     public static ArrayList<Pessoa> obterMelhorMarcadorLiga(Liga liga) throws SQLException{
         Pessoa jogador;
         ArrayList<Pessoa> listaJogadores = new ArrayList();
@@ -105,6 +106,45 @@ public class DbPessoa {
         return listaJogadores;
     
     }
+
+    public static ArrayList<Pessoa> obterPessoasSemFuncao() throws SQLException {
+
+        ArrayList<Pessoa> listaPessoa = new ArrayList();
+        String cmd ="";
+        
+        try {
+            Connection conn = Dbconn.getConn();
+            Statement st = conn.createStatement();
+         
+            cmd = "select * from vPessoasSemFuncoes";
+            
+            ResultSet rs = st.executeQuery(cmd);
+                    
+                    
+            while (rs.next()) {
+                Pessoa pessoa = new Pessoa();
+                pessoa.setId(rs.getInt("idPessoa"));
+                pessoa.setnome(rs.getString("nomePessoa"));
+              ;
+                listaPessoa.add(pessoa);
+            }
+
+            
+        }   catch (Exception ex) {
+            
+            
+            System.err.println("Erro: " + ex.getMessage());
+            return null;
+        }
+        
+       
+            return listaPessoa;
+    }
+    
+    
+    
+    
+  
 
 //    /**
 //     * Inserir pessoa na base de dados

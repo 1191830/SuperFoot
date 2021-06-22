@@ -107,7 +107,7 @@ public class DbCidade {
         try {
 
             //Novo Pais
-            cmd = "INSERT INTO cidade(id,nome,pais) VALUES (NEWID(), ?, ?)";
+            cmd = "INSERT INTO cidade(nome,pais) VALUES (?, ?)";
 
             PreparedStatement statement = conn.prepareStatement(cmd);
             statement.setString(1, nome);
@@ -127,7 +127,7 @@ public class DbCidade {
         }
     }
 
-    public static void updateCidade(int id,String nome, int pais) throws SQLException {
+    public static void updateCidade(int id,String nome) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
 
@@ -135,13 +135,12 @@ public class DbCidade {
 
            
             cmd = "UPDATE cidade SET "
-                    + " nome=? "
-                    + " pais=? "
+                    + " nome=? "               
                     + "WHERE id='" + id + "'";;
 
             PreparedStatement statement = conn.prepareStatement(cmd);
             statement.setString(1, nome);
-            statement.setInt(2,pais);
+            ;
 
             //Execute the update
             statement.executeUpdate();
