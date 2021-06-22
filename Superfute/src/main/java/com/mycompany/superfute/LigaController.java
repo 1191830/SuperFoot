@@ -156,7 +156,16 @@ public class LigaController implements Initializable {
     }
 
     @FXML
-    private void btnArbitros(ActionEvent event) {
+    private void btnArbitros(ActionEvent event) throws IOException {
+        
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/Arbitros.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show(); 
+        
     }
 
     @FXML
