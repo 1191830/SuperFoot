@@ -52,6 +52,33 @@ public class DbLiga {
    
     
     }
+    
+    public static Liga obterLigaID(int id) throws SQLException{
+    
+        Liga liga = new Liga();
+        Connection conn = Dbconn.getConn();
+        String query = "SELECT * FROM  LIGA where ano = " + id;
+        Statement st;
+        ResultSet rs;
+        
+        try{
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            
+            while(rs.next()){
+            
+                liga = new Liga(rs.getString("nome"),rs.getInt("ano"));
+
+            }
+            
+        } catch(Exception ex){       
+            ex.printStackTrace();      
+        }
+        
+        return liga;
+   
+    
+    }
 
     public static boolean inserirLigaDB(Liga liga) throws SQLException {
 
@@ -100,4 +127,5 @@ public class DbLiga {
             return false;
         }
     }
+    
 }

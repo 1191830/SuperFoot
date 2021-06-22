@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -18,11 +20,6 @@
       </TableView>
       <Button fx:id="btnCriarJornada" layoutX="20.0" layoutY="531.0" mnemonicParsing="false" onAction="#OnActionButtonPressed" prefHeight="34.0" prefWidth="101.0" text="Criar Jornada" />
       <Button fx:id="btnApagarJornada" layoutX="235.0" layoutY="531.0" mnemonicParsing="false" onAction="#btnApagarJornada" prefHeight="34.0" prefWidth="101.0" text="Apagar Jornada" />
-      <Label fx:id="labelLigaAno" layoutX="103.0" layoutY="24.0" text="LIGA - ANO">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
       <Button fx:id="btnVerJogos" layoutX="391.0" layoutY="289.0" mnemonicParsing="false" onAction="#btnVerJogos" prefHeight="51.0" prefWidth="126.0" text="VER JOGOS" />
       <Label alignment="CENTER" layoutX="370.0" layoutY="246.0" prefHeight="27.0" prefWidth="167.0" text="VISUALIZAR" textAlignment="CENTER">
          <font>
@@ -30,5 +27,20 @@
          </font>
       </Label>
       <Button fx:id="btnVoltar" layoutX="476.0" layoutY="531.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="34.0" prefWidth="80.0" text="Voltar" />
+      <ImageView fitHeight="104.0" fitWidth="102.0" layoutX="403.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../assets/fixtures.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelLiga" layoutX="71.0" layoutY="24.0" text="Label">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelJornada" layoutX="261.0" layoutY="24.0" text="Label">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

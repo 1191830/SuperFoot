@@ -14,6 +14,7 @@ public class Pessoa {
     private int id;
     private String nome;
     private String nacionalidade;
+    private int golosMarcados;
     private String funcao;
 
     public Pessoa() {
@@ -25,6 +26,12 @@ public class Pessoa {
         this.nome = nome;
         this.nacionalidade = nacionalidade;
         this.funcao = funcao;
+    }
+    
+    //classe para apresentar golos do jogador
+    public Pessoa(String nome, int golos){
+        this.nome = nome;
+        this.golosMarcados = golos;
     }
 
     public int getId() {
@@ -58,6 +65,16 @@ public class Pessoa {
     public void setfuncao(String funcao) {
         this.funcao = funcao;
     }
+
+    public int getGolosMarcados() {
+        return golosMarcados;
+    }
+
+    public void setGolosMarcados(int golosMarcados) {
+        this.golosMarcados = golosMarcados;
+    }
+    
+    
 
      @Override
     public String toString() {
