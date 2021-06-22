@@ -106,7 +106,7 @@ public class DbEstadio {
         try {
 
             //Novo Pais
-            cmd = "INSERT INTO estadio(id, nome, cidade) VALUES (NEWID(), ?, ?)";
+            cmd = "INSERT INTO estadio(nome, cidade) VALUES ( ?, ?)";
 
             PreparedStatement statement = conn.prepareStatement(cmd);
             statement.setString(1, nome);
@@ -127,7 +127,7 @@ public class DbEstadio {
         }
     }
 
-    public static void updateEstadio(int id, String nome, int cidade ) throws SQLException {
+    public static void updateEstadio(int id, String nome) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
 
@@ -136,12 +136,11 @@ public class DbEstadio {
             //2º eliminar filme
             cmd = "UPDATE estadio SET "
                     + " nome=? "
-                    + " cidade=? "
                     + "WHERE id='" + id + "'";;
 
             PreparedStatement statement = conn.prepareStatement(cmd);
             statement.setString(1, nome);
-            statement.setInt(2, cidade);
+ 
 
             //Execute the update
             statement.executeUpdate();
@@ -188,8 +187,8 @@ public class DbEstadio {
     }
 
     public static void ShowMessage(Alert.AlertType type, String msg, String header) {
-        Alert alert = new Alert(type);
-        alert.setHeaderText(header);
+        Alert alert = new Alert(type); 
+       alert.setHeaderText(header);
         alert.setContentText(msg);
         alert.showAndWait();
     }

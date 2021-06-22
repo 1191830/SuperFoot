@@ -6,6 +6,7 @@
 package com.mycompany.superfute;
 
 import Utils.MessageBoxes;
+import com.mycompany.superfute.db.DbPais;
 import com.mycompany.superfute.models.Pais;
 import java.net.URL;
 import java.sql.SQLException;
@@ -76,6 +77,17 @@ public class PaisFormController implements Initializable {
     private void btnAplicar(ActionEvent event) throws SQLException {
         setDadosPais();
         System.out.println(pais);
+        if (pais.getId() == 0){
+        
+            DbPais.savePais(pais.getNome());
+        
+        } else {
+        
+            DbPais.updatePais(pais.getId(),pais.getNome());
+        
+        }
+        
+        
         setBtnReturn(true);
         stageDialog.close();
         
@@ -113,6 +125,12 @@ public class PaisFormController implements Initializable {
         }
         return true;
     }
+     
+     
+
+
+     
+     
     
     
 }

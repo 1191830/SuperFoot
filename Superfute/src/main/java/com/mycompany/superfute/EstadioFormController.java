@@ -7,6 +7,7 @@ package com.mycompany.superfute;
 
 import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbCidade;
+import com.mycompany.superfute.db.DbEstadio;
 import com.mycompany.superfute.models.Cidade;
 import com.mycompany.superfute.models.Estadio;
 import java.net.URL;
@@ -18,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -40,6 +42,8 @@ public class EstadioFormController implements Initializable {
     private Stage stageDialog;
     private Estadio estadio;
     boolean btnReturn;
+    @FXML
+    private Label labelCidade;
     
      public Stage getStageDialog() {
         return stageDialog;
@@ -83,7 +87,16 @@ public class EstadioFormController implements Initializable {
     @FXML
     private void btnAplicar(ActionEvent event) throws SQLException {
         setDadosEstadio();
+        if (estadio.getId() == 0){
         System.out.println(estadio);
+        DbEstadio.saveEstadio(estadio.getNome(), estadio.getCidade().getId());
+        
+        }
+        else {
+        
+           DbEstadio.updateEstadio(estadio.getId(), estadio.getNome());
+        
+        }
         setBtnReturn(true);
         stageDialog.close();
         
@@ -97,9 +110,12 @@ public class EstadioFormController implements Initializable {
     
     
      public void preencherCampos() {
-        if (estadio != null) {
+        if (estadio.getId() != 0) {
             txtNome.setText(estadio.getNome());
-            cbCidade.setValue(estadio.getCidade().getNome());
+            cbCidade.setVisible(false);
+            labelCidade.setVisible(false);
+            
+          
         }
     }
     
