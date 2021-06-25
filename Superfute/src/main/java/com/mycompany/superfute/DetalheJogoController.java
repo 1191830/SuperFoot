@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -115,9 +114,6 @@ public class DetalheJogoController implements Initializable {
         labelEstadio.setText(jogo.getEstadio().getNome());
         labelLocal.setText(jogo.getEstadio().getCidade().getNome());
         labelArbitro.setText(jogo.getArbitro().getnome());
-        System.out.println(jogo.getArbitro().getnacionalidade());
-        System.out.println(jogo.getArbitro().getId());
-        System.out.println(jogo.getArbitro().getnome());
         
         
 
