@@ -23,6 +23,7 @@ public class DbPessoa {
 
     /**
      * Buscar todos as pessoas na base de dados
+     *
      * @return lista de pessoas
      */
     public static ArrayList<Pessoa> obterPessoas() throws SQLException {
@@ -43,14 +44,13 @@ public class DbPessoa {
 
             return listaPessoa;
         } catch (Exception ex) {
-             System.err.println("Erro: " + ex.getMessage());
+            System.err.println("Erro: " + ex.getMessage());
             return null;
         }
 
     }
-    
 
-    public static ArrayList<Pessoa> obterMelhorMarcadorLiga(Liga liga) throws SQLException{
+    public static ArrayList<Pessoa> obterMelhorMarcadorLiga(Liga liga) throws SQLException {
         Pessoa jogador;
         ArrayList<Pessoa> listaJogadores = new ArrayList();
         Connection conn = Dbconn.getConn();
@@ -58,93 +58,113 @@ public class DbPessoa {
                 + liga.getAno() + " order by golos desc ";
         Statement st;
         ResultSet rs;
-        
-        try{
+
+        try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
-            
-            while(rs.next()){
-            
-                jogador = new Pessoa(rs.getString("jogador"),rs.getInt("golos"));
-                
+
+            while (rs.next()) {
+
+                jogador = new Pessoa(rs.getString("jogador"), rs.getInt("golos"));
+
                 listaJogadores.add(jogador);
 
             }
-            
-        } catch(Exception ex){       
-            ex.printStackTrace();      
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        
+
         return listaJogadores;
-    
+
     }
-    
-    public static ArrayList<Pessoa> obterMelhorMarcadorGeral() throws SQLException{
+
+    public static ArrayList<Pessoa> obterMelhorMarcadorGeral() throws SQLException {
         Pessoa jogador;
         ArrayList<Pessoa> listaJogadores = new ArrayList();
         Connection conn = Dbconn.getConn();
         String query = "select jogador, golos from view_melhorMarcador order by golos desc ";
         Statement st;
         ResultSet rs;
-        
-        try{
+
+        try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
-            
-            while(rs.next()){
-            
-                jogador = new Pessoa(rs.getString("jogador"),rs.getInt("golos"));
-                
+
+            while (rs.next()) {
+
+                jogador = new Pessoa(rs.getString("jogador"), rs.getInt("golos"));
+
                 listaJogadores.add(jogador);
 
             }
-            
-        } catch(Exception ex){       
-            ex.printStackTrace();      
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        
+
         return listaJogadores;
-    
+
     }
 
     public static ArrayList<Pessoa> obterPessoasSemFuncao() throws SQLException {
 
         ArrayList<Pessoa> listaPessoa = new ArrayList();
-        String cmd ="";
-        
+        String cmd = "";
+
         try {
             Connection conn = Dbconn.getConn();
             Statement st = conn.createStatement();
-         
+
             cmd = "select * from vPessoasSemFuncoes";
-            
+
             ResultSet rs = st.executeQuery(cmd);
-                    
-                    
+
             while (rs.next()) {
                 Pessoa pessoa = new Pessoa();
                 pessoa.setId(rs.getInt("idPessoa"));
                 pessoa.setnome(rs.getString("nomePessoa"));
-              ;
+                ;
                 listaPessoa.add(pessoa);
             }
 
-            
-        }   catch (Exception ex) {
-            
-            
+        } catch (Exception ex) {
+
             System.err.println("Erro: " + ex.getMessage());
             return null;
         }
-        
-       
-            return listaPessoa;
+
+        return listaPessoa;
     }
-    
-    
-    
-    
-  
+
+    public static ArrayList<Pessoa> obterJogadorExpulsões() throws SQLException {
+        ArrayList<Pessoa> listaJogadores = new ArrayList();
+        Connection conn = Dbconn.getConn();
+        String query = "select jogador, sum (amareloduplos + vermelho) "
+                + "as expulsoes from dbo.func_dadosJogadorTodos(-1,-1)"
+                + "group by jogador order by expulsoes desc";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                Pessoa jogador = new Pessoa();
+                jogador.setnome(rs.getString("jogador"));
+                jogador.setNumExpulsoes(rs.getInt("Expulsoes"));
+                listaJogadores.add(jogador);
+
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return listaJogadores;
+
+    }
 
 //    /**
 //     * Inserir pessoa na base de dados
