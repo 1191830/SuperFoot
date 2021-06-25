@@ -17,16 +17,20 @@ public class Pessoa {
     private String nacionalidade;
     private int golosMarcados;
     private String funcao;
+    private int numExpulsoes;
 
     public Pessoa() {
 
     }
 
-    public Pessoa(int id, String nome, Pais pais, String funcao,String nacionalidade) {
+    public Pessoa(int id, String nome, String nacionalidade, String funcao,
+            int numExpulsoes) {
         this.id = id;
         this.nome = nome;
         this.pais = pais;
         this.funcao = funcao;
+        this.numExpulsoes = numExpulsoes;
+
         this.nacionalidade = nacionalidade;
     }
 
@@ -35,6 +39,13 @@ public class Pessoa {
     }
 
     public void setNacionalidade(String nacionalidade) {
+        this.nacionalidade = nacionalidade;
+    }
+    
+    //classe para apresentar dados principais
+    public Pessoa(int id, String nome, String nacionalidade){
+        this.id = id;
+        this.nome = nome;
         this.nacionalidade = nacionalidade;
     }
     
@@ -83,12 +94,22 @@ public class Pessoa {
     public void setGolosMarcados(int golosMarcados) {
         this.golosMarcados = golosMarcados;
     }
-    
-    
 
-     @Override
-    public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", nacionalidade=" 
-                + pais + ",funçao" + funcao + '}';
+    public int getNumExpulsoes() {
+        return numExpulsoes;
     }
+
+    public void setNumExpulsoes(int numExpulsoes) {
+        this.numExpulsoes = numExpulsoes;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", pais=" + pais +
+                ", nacionalidade=" + nacionalidade + ", golosMarcados=" 
+                + golosMarcados + ", funcao=" + funcao + ", numExpulsoes=" 
+                + numExpulsoes + '}';
+    }
+
+    
 }

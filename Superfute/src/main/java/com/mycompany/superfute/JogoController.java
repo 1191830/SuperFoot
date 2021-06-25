@@ -27,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
@@ -68,6 +69,7 @@ public class JogoController implements Initializable {
     private Liga liga;
     private ArrayList<Jogo> listaJogos;
     private ObservableList<Jogo> observableList;
+    private Jogo jogoSelecionado;
     
     
 
@@ -76,7 +78,20 @@ public class JogoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        //o utilizador faz duplo clica na tabela e seleciona a jornada que pretende
+        tableCasa.setRowFactory(tr -> {
+            TableRow<Jogo> row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if (row.isEmpty()) {
+                    tableCasa.getSelectionModel().clearSelection();
+                } else if (event.getClickCount() == 2) {
+                    //jornada selecionada passa a ser a jornada selecionada na table
+                    jogoSelecionado = row.getItem();                                     
+                }
+            });
+            return row;
+        });
     }
     
     public void initTable() throws SQLException{
@@ -115,7 +130,20 @@ public class JogoController implements Initializable {
     }
 
     @FXML
-    private void btnVerJogo(ActionEvent event) {
+    private void btnVerJogo(ActionEvent event) throws IOException, SQLException {
+        if(jogoSelecionado != null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("fxml/detalheJogo.fxml"));
+            Parent root = loader.load();
+            DetalheJogoController controller = loader.getController();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+                controller.initJogo(jogoSelecionado);
+            }
+            
     }
 
     @FXML

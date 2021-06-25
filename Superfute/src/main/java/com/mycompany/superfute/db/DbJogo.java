@@ -9,9 +9,11 @@ import com.mycompany.superfute.models.Classificacao;
 import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Jornada;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -38,6 +40,38 @@ public class DbJogo {
         return null;
     }
      
+     public static Jogo getJogoById(int id) throws SQLException{
+        Jogo jogo = new Jogo();
+         Date dia;
+        
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+
+            try {
+                cmd = "select * from jogo where id = " + id;
+
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(cmd);
+
+                while (rs.next()) {
+ 
+                   jogo = new Jogo(
+                    id,
+                    DbJornada.getJornadaByID(rs.getInt("jornada")),
+                    DbEstadio.getEstadiosByID(rs.getInt("idEstadio")), 
+                    DbArbitro.getArbitroByID(rs.getInt("arbitro")));
+                }
+                
+                
+                            
+                st.close();
+                conn.close();
+            } catch (Exception ex) {
+                System.err.println("Erro: " + ex.getMessage());
+            }
+            return jogo;
+        }
+     
      public static ArrayList<Jogo> obterJogosLigaJornada(Jornada jornada) throws SQLException {
        
         ArrayList<Jogo> arrJogos = new ArrayList();; 
@@ -54,6 +88,7 @@ public class DbJogo {
 
             while (rs.next()) {
                 Jogo jogo = new Jogo(
+                        rs.getInt("jogo"),
                         rs.getNString("equipaCasa"),                       
                         rs.getInt("golosCasa"),
                         rs.getNString("equipaFora"),                       

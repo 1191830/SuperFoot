@@ -61,6 +61,33 @@ public class DbEstadio {
         return lista;
     }
      
+     public static Estadio getEstadiosByID(int id) throws SQLException {
+        Estadio estadio = new Estadio();
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+
+        try {
+            cmd = "SELECT * from estadio where id = " + id;
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery(cmd);
+
+            while (rs.next()) {
+                
+                estadio = new Estadio(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        DbCidade.getCidadebyID(rs.getInt("cidade")));
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return estadio;
+    }
+     
      
      
      public static ArrayList<Estadio> obterEstadios() throws SQLException {
