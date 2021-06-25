@@ -28,6 +28,13 @@ public class Pessoa {
         this.funcao = funcao;
     }
     
+    //classe para apresentar dados principais
+    public Pessoa(int id, String nome, String nacionalidade){
+        this.id = id;
+        this.nome = nome;
+        this.nacionalidade = nacionalidade;
+    }
+    
     //classe para apresentar golos do jogador
     public Pessoa(String nome, int golos){
         this.nome = nome;

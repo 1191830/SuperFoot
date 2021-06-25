@@ -51,6 +51,32 @@ public class DbJornada {
             return lista;
         }
     
+    public static Jornada getJornadaByID(Integer jornada) throws SQLException{
+        Jornada newJornada = new Jornada();
+
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+
+            try {
+                cmd = "SELECT * from Jornada where jornada = " + jornada;
+
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(cmd);
+
+                while (rs.next()) {
+                    newJornada = new Jornada(
+                            rs.getInt("jornada"),
+                            rs.getInt("liga"));
+                    
+                }
+
+                st.close();
+                conn.close();
+            } catch (Exception ex) {
+                System.err.println("Erroooo: " + ex.getMessage());
+            }
+            return newJornada;
+        }
     public static ObservableList<Jornada> getJornadaByLiga(Integer liga) throws SQLException{
         Jornada jornada = new Jornada();
         ObservableList<Jornada> lista = FXCollections.observableArrayList();

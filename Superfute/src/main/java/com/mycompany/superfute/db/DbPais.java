@@ -70,6 +70,33 @@ public class DbPais {
         }
         return lista;
     }
+    
+    
+      public static Pais getPaisByID(int id) throws SQLException {
+        Pais pais = new Pais();
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+        
+        try {
+            cmd = "SELECT * from Pais where id = " + id;
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery(cmd);
+
+            while (rs.next()) {                   
+                pais = new Pais(
+                rs.getInt("id"),
+                rs.getString("nome")); 
+                
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return pais;
+    } 
 
     public static void savePais( String nome) throws SQLException {
         Connection conn = Dbconn.getConn();

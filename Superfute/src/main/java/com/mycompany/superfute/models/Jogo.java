@@ -10,7 +10,6 @@ import com.mycompany.superfute.models.Estadio;
 import com.mycompany.superfute.models.Jornada;
 import com.mycompany.superfute.models.Liga;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +18,7 @@ import java.util.ArrayList;
  */
 public class Jogo {
 
-    private Integer jogo; // id do jogo
+    private int jogo; // id do jogo
     private Jornada jornada;
     private Equipa EquipaCasa; //id da equipa da casa
     private String nomeCasa; //nome Equipa casa
@@ -28,10 +27,18 @@ public class Jogo {
     private int golosCasa;
     private int golosFora;
     private LocalDate data; // data do jogo
+    private Pessoa arbitro;
     private Estadio Estadio; // id do Estadio
     private ArrayList<Evento> listEvento = new ArrayList();
 
     public Jogo() {
+    }
+    
+    public Jogo(Integer jogo, Jornada jornada, Estadio Estadio, Pessoa arbitro) {
+        this.jogo = jogo;
+        this.jornada = jornada;
+        this.Estadio = Estadio;
+        this.arbitro = arbitro;
     }
 
     public Jogo(Integer jogo, Equipa EquipaCasa, Equipa EquipaFora, LocalDate data, Estadio Estadio) {
@@ -43,7 +50,7 @@ public class Jogo {
     }
     
     //Construtor para apresentar os jogos da jornada
-    public Jogo(Integer jogo, String casa, int golosCasa, String fora, int golosFora){
+    public Jogo(int jogo, String casa, int golosCasa, String fora, int golosFora){
         this.jogo = jogo;
         this.nomeCasa = casa;
         this.golosCasa = golosCasa;
@@ -52,11 +59,11 @@ public class Jogo {
         
     }
 
-    public Integer getJogo() {
+    public int getJogo() {
         return jogo;
     }
 
-    public void setJogo(Integer Jogo) {
+    public void setJogo(int Jogo) {
         this.jogo = Jogo;
     }
 
@@ -122,6 +129,22 @@ public class Jogo {
 
     public void setNomeFora(String nomeFora) {
         this.nomeFora = nomeFora;
+    }
+
+    public Jornada getJornada() {
+        return jornada;
+    }
+
+    public Pessoa getArbitro() {
+        return arbitro;
+    }
+
+    public void setJornada(Jornada jornada) {
+        this.jornada = jornada;
+    }
+
+    public void setArbitro(Pessoa arbitro) {
+        this.arbitro = arbitro;
     }
     
     
