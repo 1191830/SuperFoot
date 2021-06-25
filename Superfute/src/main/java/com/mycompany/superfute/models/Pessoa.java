@@ -13,6 +13,7 @@ public class Pessoa {
 
     private int id;
     private String nome;
+    private Pais pais;
     private String nacionalidade;
     private int golosMarcados;
     private String funcao;
@@ -26,9 +27,19 @@ public class Pessoa {
             int numExpulsoes) {
         this.id = id;
         this.nome = nome;
-        this.nacionalidade = nacionalidade;
+        this.pais = pais;
         this.funcao = funcao;
         this.numExpulsoes = numExpulsoes;
+
+        this.nacionalidade = nacionalidade;
+    }
+
+    public String getNacionalidade() {
+        return nacionalidade;
+    }
+
+    public void setNacionalidade(String nacionalidade) {
+        this.nacionalidade = nacionalidade;
     }
     
     //classe para apresentar golos do jogador
@@ -53,12 +64,12 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getnacionalidade() {
-        return nacionalidade;
+    public Pais getPais() {
+        return pais;
     }
 
-    public void setnacionalidade(String nacionalidade) {
-        this.nacionalidade = nacionalidade;
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 
     public String getfuncao() {
@@ -87,11 +98,11 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", nacionalidade=" +
-                nacionalidade + ", golosMarcados=" + golosMarcados + 
-                ", funcao=" + funcao + ", numExpulsoes=" + numExpulsoes + '}';
+        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", pais=" + pais +
+                ", nacionalidade=" + nacionalidade + ", golosMarcados=" 
+                + golosMarcados + ", funcao=" + funcao + ", numExpulsoes=" 
+                + numExpulsoes + '}';
     }
-    
-    
 
+    
 }

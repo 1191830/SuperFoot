@@ -11,6 +11,7 @@ import com.mycompany.superfute.models.Pais;
 import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,6 +48,7 @@ public class PessoaFormController implements Initializable {
     private Stage stageDialog;
     private Pessoa pessoa;
     boolean btnReturn;
+    private ArrayList<Pais> paises;
 
     /**
      * Getters e Setters
@@ -84,6 +86,7 @@ public class PessoaFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            paises = DbPais.getTodosPaises();
             inserirNacionalidade();
         } catch (SQLException ex) {
             MessageBoxes.ShowMessage(Alert.AlertType.WARNING,
@@ -97,7 +100,7 @@ public class PessoaFormController implements Initializable {
         System.out.println(pessoa);
         setBtnReturn(true);
         stageDialog.close();
-        
+
     }
 
     @FXML
@@ -109,10 +112,13 @@ public class PessoaFormController implements Initializable {
         if (pessoa != null) {
             nomePessoa.setText(pessoa.getnome());
         }
+        if (pessoa.getPais() != null) {
+            selecionarNacionalidade.setValue(pessoa.getPais().getNome());
+        }
     }
 
     public void inserirNacionalidade() throws SQLException {
-        for (Pais p : DbPais.getTodosPaises()) {
+        for (Pais p : paises) {
             selecionarNacionalidade.getItems().addAll(p.getNome());
         }
     }
@@ -121,8 +127,8 @@ public class PessoaFormController implements Initializable {
         if (validarCampos()) {
             pessoa.setnome(nomePessoa.getText());
             System.out.println(pessoa);
-            pessoa.setnacionalidade(selecionarNacionalidade.
-                    getValue());
+            pessoa.setPais(paises.get(selecionarNacionalidade
+                    .getSelectionModel().getSelectedIndex()));
         }
     }
 
