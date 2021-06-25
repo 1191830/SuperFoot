@@ -7,6 +7,8 @@ package com.mycompany.superfute;
 
 import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbPessoa;
+import static com.mycompany.superfute.db.DbPessoa.updatePessoa;
+import com.mycompany.superfute.models.Pais;
 import com.mycompany.superfute.models.Pessoa;
 import java.io.IOException;
 import java.net.URL;
@@ -59,7 +61,6 @@ public class PessoaController implements Initializable {
     private ObservableList<Pessoa> observableList;
     private ArrayList<Pessoa> arrPessoas;
 
-    
     /**
      * Initializes the controller class.
      */
@@ -68,36 +69,51 @@ public class PessoaController implements Initializable {
         try {
             preencherTabelaPessoas();
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }    
-
-    @FXML
-    private void btnInserirPessoa(ActionEvent event) throws IOException {
-        Pessoa pessoa = new Pessoa();
-        if(controllerPessoaForm(pessoa)){
-            System.out.println(pessoa);
-        }else{
-         MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
-                 "Não foi possível inserir uma pessoa.", "Erro ao inserir");
         }
     }
 
     @FXML
-    private void btnEditarPessoa(ActionEvent event) throws IOException {
-        Pessoa pessoa =  listaPessoas.getSelectionModel().getSelectedItem();
-        if(pessoa != null){
-            controllerPessoaForm(pessoa);
-        }else{
-            MessageBoxes.ShowMessage(Alert.AlertType.ERROR, 
-                    "Selecionar Pessoa para editar.", "Erro ao editar");
+    private void btnInserirPessoa(ActionEvent event) throws IOException, SQLException {
+        Pessoa pessoa = new Pessoa();
+        pessoa.setPais(new Pais());
+        boolean flag = false;
+        if (controllerPessoaForm(pessoa)) {
+            flag = DbPessoa.inserirPessoa(pessoa);
+            if (flag) {
+                preencherTabelaPessoas();
+                MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
+                        "Pessoa inserida com sucesso!", "Inserir Pessoa");
+            } else {
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                        "Não foi possível inserir uma pessoa.", "Erro ao inserir");
+            }
         }
+    }
+
+    @FXML
+    private void btnEditarPessoa(ActionEvent event) throws IOException, SQLException {
+        boolean flag = false;
+        Pessoa pessoa = listaPessoas.getSelectionModel().getSelectedItem();
+        if (verificaPessoaEAbriView(pessoa)) {
+          flag = updatePessoa(pessoa);
+          if(flag){
+                preencherTabelaPessoas();
+               MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
+                        "Pessoa inserida com sucesso!", "Inserir Pessoa");
+          }else{
+              MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                        "Não foi possível inserir uma pessoa.", "Erro ao inserir");
+          }
+        }
+
     }
 
     @FXML
     private void btnVoltar(ActionEvent event) {
-    Stage stage = (Stage) btnVoltar.getScene().getWindow();
-    stage.close();
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -106,18 +122,25 @@ public class PessoaController implements Initializable {
 
     public static boolean controllerPessoaForm(Pessoa pessoa) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PessoaFormController.class.getResource("fxml/pessoaForm.fxml"));
+        loader
+                .setLocation(PessoaFormController.class
+                        .getResource("fxml/pessoaForm.fxml"));
         AnchorPane page = loader.load();
 
         // Criando um Estágio de Diálogo (Stage Dialog)
         Stage dialogStage = new Stage();
-        dialogStage.setTitle("Pessoa");
+
+        dialogStage.setTitle(
+                "Pessoa");
         Scene scene = new Scene(page);
+
         dialogStage.setScene(scene);
 
         // Setando o cliente no Controller.
         PessoaFormController controller = loader.getController();
+
         controller.setStageDialog(dialogStage);
+
         controller.setPessoa(pessoa);
 
         // Mostra o Dialog e espera até que o usuário o feche
@@ -125,14 +148,30 @@ public class PessoaController implements Initializable {
 
         return controller.isBtnReturn();
     }
-    
-    public void preencherTabelaPessoas() throws SQLException{
-        
-        colunaNome.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<String>(cellData.getValue().getnome()));
-        colunaNacionalidade.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<String>(cellData.getValue().getnacionalidade()));
+
+    private static boolean verificaPessoaEAbriView(Pessoa p) throws IOException {
+
+        if (p != null) {
+            if (controllerPessoaForm(p)) {
+                return true;
+            }
+        } else {
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                    "Selecionar Pessoa para editar.", "Erro ao editar");
+        }
+        return false;
+    }
+
+    public void preencherTabelaPessoas() throws SQLException {
+
+        colunaNome.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<String>(cellData.getValue()
+                        .getnome()));
+        colunaNacionalidade.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<String>(cellData.getValue()
+                        .getPais().getNome()));
         arrPessoas = DbPessoa.obterPessoas();
+        System.out.println(arrPessoas);
         observableList = FXCollections.observableArrayList(arrPessoas);
         listaPessoas.setItems(observableList);
     }

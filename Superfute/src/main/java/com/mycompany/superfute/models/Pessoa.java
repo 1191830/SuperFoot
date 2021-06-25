@@ -13,19 +13,33 @@ public class Pessoa {
 
     private int id;
     private String nome;
+    private Pais pais;
     private String nacionalidade;
     private int golosMarcados;
     private String funcao;
+    private int numExpulsoes;
 
     public Pessoa() {
 
     }
 
-    public Pessoa(int id, String nome, String nacionalidade, String funcao) {
+    public Pessoa(int id, String nome, String nacionalidade, String funcao,
+            int numExpulsoes) {
         this.id = id;
         this.nome = nome;
-        this.nacionalidade = nacionalidade;
+        this.pais = pais;
         this.funcao = funcao;
+        this.numExpulsoes = numExpulsoes;
+
+        this.nacionalidade = nacionalidade;
+    }
+
+    public String getNacionalidade() {
+        return nacionalidade;
+    }
+
+    public void setNacionalidade(String nacionalidade) {
+        this.nacionalidade = nacionalidade;
     }
     
     //classe para apresentar dados principais
@@ -57,12 +71,12 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getnacionalidade() {
-        return nacionalidade;
+    public Pais getPais() {
+        return pais;
     }
 
-    public void setnacionalidade(String nacionalidade) {
-        this.nacionalidade = nacionalidade;
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 
     public String getfuncao() {
@@ -80,12 +94,22 @@ public class Pessoa {
     public void setGolosMarcados(int golosMarcados) {
         this.golosMarcados = golosMarcados;
     }
-    
-    
 
-     @Override
-    public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", nacionalidade=" 
-                + nacionalidade + ",funçao" + funcao + '}';
+    public int getNumExpulsoes() {
+        return numExpulsoes;
     }
+
+    public void setNumExpulsoes(int numExpulsoes) {
+        this.numExpulsoes = numExpulsoes;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", pais=" + pais +
+                ", nacionalidade=" + nacionalidade + ", golosMarcados=" 
+                + golosMarcados + ", funcao=" + funcao + ", numExpulsoes=" 
+                + numExpulsoes + '}';
+    }
+
+    
 }

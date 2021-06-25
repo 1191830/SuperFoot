@@ -74,10 +74,11 @@ public class PaisController implements Initializable {
     }
 
     @FXML
-    private void btnInserir(ActionEvent event) throws IOException {
+    private void btnInserir(ActionEvent event) throws IOException, SQLException {
         Pais pais = new Pais();
         if(controllerPaisesForm(pais)){
             System.out.println(pais);
+            preencherTabelaPaises();
         }else{
          MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
                  "Não foi possível inserir uma pessoa.", "Erro ao inserir");
@@ -85,11 +86,12 @@ public class PaisController implements Initializable {
     }
 
     @FXML
-    private void btnEditar(ActionEvent event) throws IOException {
+    private void btnEditar(ActionEvent event) throws IOException, SQLException {
          Pais pais =  tblPaises.getSelectionModel().getSelectedItem();
         System.out.println(pais);
         if(pais != null){
             controllerPaisesForm(pais);
+            preencherTabelaPaises();
         }else{
             MessageBoxes.ShowMessage(Alert.AlertType.ERROR, 
                     "Selecionar Cidade para editar.", "Erro ao editar");

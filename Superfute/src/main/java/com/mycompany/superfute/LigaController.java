@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute;
 
+import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbLiga;
 import com.mycompany.superfute.models.Liga;
 import java.io.IOException;
@@ -27,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -62,14 +64,22 @@ public class LigaController implements Initializable {
     private Button btnArbitros;
     @FXML
     private Button btnVoltar;
-    
+
     private Liga liga;
     @FXML
     private Label labelAno;
     @FXML
     private Button btnMelhorMarcador;
 
-  
+    private Stage stageDialog;
+
+    public Stage getStageDialog() {
+        return stageDialog;
+    }
+
+    public void setStageDialog(Stage stageDialog) {
+        this.stageDialog = stageDialog;
+    }
 
     /**
      * Initializes the controller class.
@@ -80,29 +90,53 @@ public class LigaController implements Initializable {
             // TODO
 
             mostrarLigas();
-            
+
             listaLigas.setRowFactory(tr -> {
-            TableRow<Liga> row = new TableRow();
-            row.setOnMouseClicked(event -> {
-                if (row.isEmpty()) {
-                    listaLigas.getSelectionModel().clearSelection();
-                } else if (event.getClickCount() == 2) {
-                    //jornada selecionada passa a ser a jornada selecionada na table
-                    liga = row.getItem();                                     
-                }
+                TableRow<Liga> row = new TableRow();
+                row.setOnMouseClicked(event -> {
+                    if (row.isEmpty()) {
+                        listaLigas.getSelectionModel().clearSelection();
+                    } else if (event.getClickCount() == 2) {
+                        //jornada selecionada passa a ser a jornada selecionada na table
+                        liga = row.getItem();
+                    }
+                });
+                return row;
             });
-            return row; });
         } catch (SQLException ex) {
             Logger.getLogger(LigaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
-
-    @FXML
-    private void btnCriarLiga(ActionEvent event) {
     }
 
     @FXML
-    private void btnEditarLiga(ActionEvent event) {
+    private void btnCriarLiga(ActionEvent event) throws IOException, SQLException {
+
+        Liga liga = new Liga();
+        if (controllerLigaForm(liga)) {
+            System.out.println(liga);
+            mostrarLigas();
+
+        } else {
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                    "Não foi possível inserir uma Liga.", "Erro ao inserir");
+        }
+
+    }
+
+    @FXML
+    private void btnEditarLiga(ActionEvent event) throws IOException, SQLException {
+
+        Liga liga = listaLigas.getSelectionModel().getSelectedItem();
+        System.out.println(liga);
+        if (liga != null) {
+            controllerLigaForm(liga);
+
+            mostrarLigas();
+        } else {
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                    "Selecionar Liga para editar.", "Erro ao editar");
+        }
+
     }
 
     @FXML
@@ -111,7 +145,7 @@ public class LigaController implements Initializable {
 
     @FXML
     private void btnJornadas(ActionEvent event) throws IOException, SQLException {
-        
+
         changeWindows("fxml/jornada.fxml", event);
     }
 
@@ -129,67 +163,72 @@ public class LigaController implements Initializable {
     }
 
     @FXML
-    private void btnEstatisticas(ActionEvent event) {
+    private void btnEstatisticas(ActionEvent event) throws IOException {
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/expulsoesJogador.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+         
     }
-    
+
     @FXML
     private void btnMelhorMarcador(ActionEvent event) throws IOException, SQLException {
-        
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("fxml/melhorMarcador.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.show(); 
+        stage.show();
     }
-    
-    public void mostrarLigas() throws SQLException{
-        
+
+    public void mostrarLigas() throws SQLException {
+
         ObservableList<Liga> listaLiga = DbLiga.obterLigas();
-        
+
         colunaLiga.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getNome())));
         colunaAno.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getAno())));
         listaLigas.setItems(listaLiga);
-        
 
-    
     }
 
     @FXML
     private void btnArbitros(ActionEvent event) throws IOException {
-        
-        
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("fxml/Arbitros.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.show(); 
-        
+        stage.show();
+
     }
 
     @FXML
     private void btnVoltar(ActionEvent event) {
     }
-    
-    public void changeWindows(String path, ActionEvent event) throws IOException, SQLException{
-        if(liga != null){
+
+    public void changeWindows(String path, ActionEvent event) throws IOException, SQLException {
+        if (liga != null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(path));
             Parent root = loader.load();
-            if (event.getSource() == btnJornadas){
+            if (event.getSource() == btnJornadas) {
                 JornadaController controller = loader.getController();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.show();
 
                 controller.initLiga(liga);
-                
+
                 // get a handle to the stage
                 Stage stage2 = (Stage) btnJornadas.getScene().getWindow();
                 // close the scene
                 stage2.close();
-            }else if (event.getSource() == btnClassificacao){
+            } else if (event.getSource() == btnClassificacao) {
                 ClassificacaoController controller = loader.getController();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
@@ -197,20 +236,16 @@ public class LigaController implements Initializable {
                 stage.show();
 
                 controller.initLiga(liga);
-                
+
                 // get a handle to the stage
                 Stage stage2 = (Stage) btnJornadas.getScene().getWindow();
                 // close the scene
                 stage2.close();
-            }else if(event.getSource() == btnClassificacao){
-                            
-                
+            } else if (event.getSource() == btnClassificacao) {
+
             }
 
-            
-            
-            
-        } else{
+        } else {
             Alert alertBox2 = new Alert(Alert.AlertType.ERROR);
             alertBox2.setHeaderText("Impossivel alterar");
             alertBox2.setContentText("Por favor selecione uma Liga");
@@ -218,7 +253,26 @@ public class LigaController implements Initializable {
         }
     }
 
-    
-    
-    
+    public static boolean controllerLigaForm(Liga liga) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(LigaFormController.class.getResource("fxml/ligaForm.fxml"));
+        AnchorPane page = loader.load();
+
+        // Criando um Estágio de Diálogo (Stage Dialog)
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Liga");
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+        // Setando o cliente no Controller.
+        LigaFormController controller = loader.getController();
+        controller.setStageDialog(dialogStage);
+        controller.setLiga(liga);
+
+        // Mostra o Dialog e espera até que o usuário o feche
+        dialogStage.showAndWait();
+
+        return controller.isBtnReturn();
+    }
+
 }

@@ -72,10 +72,11 @@ public class EstadioController implements Initializable {
     }    
 
     @FXML
-    private void btnInserir(ActionEvent event) throws IOException {
+    private void btnInserir(ActionEvent event) throws IOException, SQLException {
         Estadio estadio = new Estadio();
         if(controllerEstadioForm(estadio)){
             System.out.println(estadio);
+            preencherTabelaEstadios();
         }else{
          MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
                  "Não foi possível inserir uma pessoa.", "Erro ao inserir");
@@ -83,12 +84,13 @@ public class EstadioController implements Initializable {
     }
 
     @FXML
-    private void btnEditar(ActionEvent event) throws IOException {
+    private void btnEditar(ActionEvent event) throws IOException, SQLException {
         
         Estadio estadio =  tblEstadio.getSelectionModel().getSelectedItem();
         System.out.println(estadio);
         if(estadio != null){
             controllerEstadioForm(estadio);
+            preencherTabelaEstadios();
         }else{
             MessageBoxes.ShowMessage(Alert.AlertType.ERROR, 
                     "Selecionar Cidade para editar.", "Erro ao editar");

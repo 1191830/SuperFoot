@@ -10,17 +10,20 @@ import com.mycompany.superfute.db.DbCidade;
 import com.mycompany.superfute.db.DbPais;
 import com.mycompany.superfute.models.Cidade;
 import com.mycompany.superfute.models.Pais;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -93,7 +96,7 @@ public class CidadeFormController implements Initializable {
     }    
 
     @FXML
-    private void btnAplicar(ActionEvent event) throws SQLException {
+    private void btnAplicar(ActionEvent event) throws SQLException, IOException {
         setDadosCidade();
         System.out.println(cidade);
         if (cidade.getId() ==0){
@@ -103,12 +106,12 @@ public class CidadeFormController implements Initializable {
         }else {
         
             DbCidade.updateCidade(cidade.getId(), cidade.getNome());
-            
-            
-        
+
         }
         setBtnReturn(true);
         stageDialog.close();
+        
+      
         
     }
 

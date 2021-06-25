@@ -53,6 +53,35 @@ public class DbLiga {
     
     }
     
+    
+    public static ArrayList<Liga> obterArrayLigas() throws SQLException{
+    
+       ArrayList<Liga> listaLiga = new ArrayList<Liga>();
+        Connection conn = Dbconn.getConn();
+        String query = "SELECT * FROM  LIGA";
+        Statement st;
+        ResultSet rs;
+        
+        try{
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Liga liga; 
+            
+            while(rs.next()){
+            
+                liga = new Liga(rs.getString("nome"),rs.getInt("ano"));
+                listaLiga.add(liga);
+            }
+            
+        } catch(Exception ex){       
+            ex.printStackTrace();      
+        }
+        
+        return listaLiga;
+   
+    
+    }
+    
     public static Liga obterLigaID(int id) throws SQLException{
     
         Liga liga = new Liga();
@@ -85,7 +114,7 @@ public class DbLiga {
         try {
             Connection con = Dbconn.getConn();
             PreparedStatement pst;
-            pst = con.prepareStatement("insert into liga" + "ano,nome"
+            pst = con.prepareStatement("insert into liga" + "(ano,nome)"
                     + "values(?,?)");
             pst.setInt(1, liga.getAno());
             pst.setString(2, liga.getNome());
@@ -98,17 +127,25 @@ public class DbLiga {
     }
 
     public static boolean alterarLigaDb(Liga liga) throws SQLException {
+        
+        System.out.println("HELLO");
         try {
             Connection con = Dbconn.getConn();
             PreparedStatement pst;
-            pst = con.prepareStatement("Update liga"
-                    + "set ano = ?, nome = ?");
-            pst.setInt(1, liga.getAno());
-            pst.setString(2, liga.getNome());
-            pst.executeQuery();
+            pst = con.prepareStatement("Update liga "
+                    + "set nome= ? "
+                    + "Where ano= ?");
+            
+            pst.setString(1, liga.getNome());
+            pst.setInt(2, liga.getAno());
+            pst.executeUpdate();
             return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
+        }
+        catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
             return false;
         }
     }
