@@ -50,13 +50,13 @@ public class JornadaController implements Initializable {
     private Button btnVerJogos;
     @FXML
     private Button btnVoltar;
-    
-    private Liga liga;
-    private Jornada jornadaSelecionada;
     @FXML
     private Label labelLiga;
     @FXML
     private Label labelJornada;
+    
+     private Liga liga;
+    private Jornada jornadaSelecionada;
     
 
     /**

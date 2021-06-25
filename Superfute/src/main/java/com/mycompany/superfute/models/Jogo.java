@@ -19,7 +19,8 @@ import java.util.ArrayList;
  */
 public class Jogo {
 
-    private Jogo Jogo; // id do jogo
+    private Integer jogo; // id do jogo
+    private Jornada jornada;
     private Equipa EquipaCasa; //id da equipa da casa
     private String nomeCasa; //nome Equipa casa
     private Equipa EquipaFora; //id da equipa de Fora
@@ -33,8 +34,8 @@ public class Jogo {
     public Jogo() {
     }
 
-    public Jogo(Jogo Jogo, Equipa EquipaCasa, Equipa EquipaFora, LocalDate data, Estadio Estadio) {
-        this.Jogo = Jogo;
+    public Jogo(Integer jogo, Equipa EquipaCasa, Equipa EquipaFora, LocalDate data, Estadio Estadio) {
+        this.jogo = jogo;
         this.EquipaCasa = EquipaCasa;
         this.EquipaFora = EquipaFora;
         this.data = data;
@@ -42,7 +43,8 @@ public class Jogo {
     }
     
     //Construtor para apresentar os jogos da jornada
-    public Jogo(String casa, int golosCasa, String fora, int golosFora){
+    public Jogo(Integer jogo, String casa, int golosCasa, String fora, int golosFora){
+        this.jogo = jogo;
         this.nomeCasa = casa;
         this.golosCasa = golosCasa;
         this.nomeFora = fora;
@@ -50,12 +52,12 @@ public class Jogo {
         
     }
 
-    public Jogo getJogo() {
-        return Jogo;
+    public Integer getJogo() {
+        return jogo;
     }
 
-    public void setJogo(Jogo Jogo) {
-        this.Jogo = Jogo;
+    public void setJogo(Integer Jogo) {
+        this.jogo = Jogo;
     }
 
     public Equipa getEquipaCasa() {
@@ -126,7 +128,7 @@ public class Jogo {
 
     @Override
     public String toString() {
-        return "Jogo{" + "Jogo=" + Jogo + ", EquipaCasa=" + EquipaCasa +
+        return "Jogo{" + "Jogo=" + jogo + ", EquipaCasa=" + EquipaCasa +
                 ", EquipaFora=" + EquipaFora + ", data=" + data + ", Estadio="
                 + Estadio + ", listEvento=" + listEvento + '}';
     }

@@ -5,7 +5,12 @@
  */
 package com.mycompany.superfute;
 
+import com.mycompany.superfute.db.DbJornada;
+import com.mycompany.superfute.models.Jogo;
+import com.mycompany.superfute.models.Jornada;
+import com.mycompany.superfute.models.Liga;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,8 +28,6 @@ import javafx.scene.control.TableView;
 public class DetalheJogoController implements Initializable {
 
 
-    @FXML
-    private Label labelLigaAno;
     @FXML
     private Label labelEstadio;
     @FXML
@@ -63,14 +66,10 @@ public class DetalheJogoController implements Initializable {
     private Button btnVerFormacoesEquipas;
     @FXML
     private Label labelLocal1;
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+    @FXML
+    private Label labelLiga;
+    @FXML
+    private Label labelJornada;
     @FXML
     private void btnCriarEvento(ActionEvent event) {
     }
@@ -90,5 +89,36 @@ public class DetalheJogoController implements Initializable {
     @FXML
     private void btnVerFormacoesEquipas(ActionEvent event) {
     }
+    
+    private Jogo jogo;
+    private Jornada jornada;
+    
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+    }
+    
+    public void initJogo(Jogo jogoSelecionado) throws SQLException{
+        jogo = jogoSelecionado;
+        jornada = DbJornada.getJornadaByJogo(jogo.getJogo());
+        
+        labelLiga.setText(String.valueOf(jornada.getIdLiga()));
+        labelJornada.setText(String.valueOf(jornada.getIdJornada()));
+        labelEquipaCasa.setText(String.valueOf(jogo.getNomeCasa()));
+        labelResultadoCasa.setText(String.valueOf(jogo.getGolosCasa()));
+        labelEquipaVisitante.setText(String.valueOf(jogo.getNomeFora()));
+        labelResultadoVisitante.setText(String.valueOf(jogo.getGolosFora()));
+        labelEstadio.setText(jogo.getEstadio().getNome());
+        labelLocal.setText(jogo.getEstadio().getCidade().getNome());
+        
+        
+        
+        
+    }
+    
+    
 
 }

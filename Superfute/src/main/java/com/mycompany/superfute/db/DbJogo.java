@@ -54,6 +54,7 @@ public class DbJogo {
 
             while (rs.next()) {
                 Jogo jogo = new Jogo(
+                        rs.getInt("jogo"),
                         rs.getNString("equipaCasa"),                       
                         rs.getInt("golosCasa"),
                         rs.getNString("equipaFora"),                       
