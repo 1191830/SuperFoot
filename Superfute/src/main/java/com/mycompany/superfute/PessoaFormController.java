@@ -97,7 +97,6 @@ public class PessoaFormController implements Initializable {
     @FXML
     private void btnAplicar(ActionEvent event) {
         setDadosPessoa();
-        System.out.println(pessoa);
         setBtnReturn(true);
         stageDialog.close();
 

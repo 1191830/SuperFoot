@@ -78,8 +78,10 @@ public class PessoaController implements Initializable {
     private void btnInserirPessoa(ActionEvent event) throws IOException, SQLException {
         Pessoa pessoa = new Pessoa();
         pessoa.setPais(new Pais());
+       
         boolean flag = false;
         if (controllerPessoaForm(pessoa)) {
+             System.out.println("INSERIR----"+pessoa);
             flag = DbPessoa.inserirPessoa(pessoa);
             if (flag) {
                 preencherTabelaPessoas();
