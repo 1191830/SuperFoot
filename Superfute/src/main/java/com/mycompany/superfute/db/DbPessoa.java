@@ -5,8 +5,10 @@
  */
 package com.mycompany.superfute.db;
 
+import com.mycompany.superfute.models.Pais;
 import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,6 +24,7 @@ public class DbPessoa {
 
     /**
      * Buscar todos as pessoas na base de dados
+     *
      * @return lista de pessoas
      */
     public static ArrayList<Pessoa> obterPessoas() throws SQLException {
@@ -30,19 +33,19 @@ public class DbPessoa {
         try {
             Connection conn = Dbconn.getConn();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select pessoa.nome,pais.nome as 'pais' "
-                    + "from pessoa "
-                    + "inner join pais on pais.id = pessoa.nacionalidade");
+            ResultSet rs = st.executeQuery("select pessoa.id as idP, pessoa.nome,pais.nome as 'pais', pais.id from pessoa inner join pais on pais.id = pessoa.nacionalidade");
             while (rs.next()) {
                 Pessoa pessoa = new Pessoa();
+                pessoa.setId(rs.getInt("idP"));
                 pessoa.setnome(rs.getString("nome"));
-                pessoa.setnacionalidade(rs.getString("pais"));
+                pessoa.setPais(new Pais(rs.getInt("id"),rs.getString("pais")));
                 System.out.println(pessoa);
                 listaPessoa.add(pessoa);
             }
 
             return listaPessoa;
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             return null;
         }
 
@@ -50,27 +53,37 @@ public class DbPessoa {
 
     /**
      * Inserir pessoa na base de dados
-     * @return 
-     * @throws SQLException 
+     *
+     * @return
+     * @throws SQLException
      */
-    public static inserirPessoa() throws SQLException {
+    public static boolean inserirPessoa(Pessoa p) throws SQLException {
 
         try {
             Connection conn = Dbconn.getConn();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("");
-            while (rs.next()) {
-                Pessoa pessoa = new Pessoa();
-                pessoa.setnome(rs.getString("nome"));
-                pessoa.setnacionalidade(rs.getString("pais"));
-                System.out.println(pessoa);
-                listaPessoa.add(pessoa);
-            }
-
+            PreparedStatement stmt = conn.prepareStatement("Insert into Pessoa Values (?,?)");
+            stmt.setString(1, p.getnome());
+            stmt.setInt(2, p.getPais().getId());
+            stmt.execute();
             return true;
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             return false;
         }
+    }
+    public static boolean updatePessoa(Pessoa p) throws SQLException {
 
+        try {
+            Connection conn = Dbconn.getConn();
+            PreparedStatement stmt = conn.prepareStatement("Update Pessoa set nome = ? , nacionalidade = ? where id = ?");
+            stmt.setString(1, p.getnome());
+            stmt.setInt(2, p.getPais().getId());
+            stmt.setInt(3, p.getId());
+            stmt.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 }

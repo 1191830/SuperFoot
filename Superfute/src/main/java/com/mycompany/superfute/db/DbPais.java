@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute.db;
 
+import Utils.MessageBoxes;
 import com.mycompany.superfute.models.Pais;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,8 +34,8 @@ public class DbPais {
             while (rs.next()) {
                 paises.add(
                         new Pais(
-                        rs.getInt("id"),
-                        rs.getString("nome")
+                                rs.getInt("id"),
+                                rs.getString("nome")
                         )
                 );
             }
@@ -90,10 +91,10 @@ public class DbPais {
             conn.commit();
         } catch (SQLIntegrityConstraintViolationException ex) {
             System.err.println("Erro: " + ex.getMessage());
-            ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex.getMessage());
-            ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
         }
     }
 
@@ -119,9 +120,9 @@ public class DbPais {
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex.getMessage());
             if (ex.getErrorCode() == 547) {
-                ShowMessage(Alert.AlertType.ERROR, "Registo não pode ser actualização pois é usado noutra tabela", "Falhou a eliminação do registo!");
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR, "Registo não pode ser actualização pois é usado noutra tabela", "Falhou a eliminação do registo!");
             } else {
-                ShowMessage(Alert.AlertType.ERROR, ex.getMessage(), "Falhou a actualização do registo!");
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR, ex.getMessage(), "Falhou a actualização do registo!");
             }
         }
 
@@ -147,19 +148,28 @@ public class DbPais {
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex.getMessage());
             if (ex.getErrorCode() == 547) {
-                ShowMessage(Alert.AlertType.ERROR, "Registo não pode ser eliminado pois é usado noutra tabela", "Falhou a eliminação do registo!");
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR, "Registo não pode ser eliminado pois é usado noutra tabela", "Falhou a eliminação do registo!");
             } else {
-                ShowMessage(Alert.AlertType.ERROR, ex.getMessage(), "Falhou a eliminação do registo!");
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR, ex.getMessage(), "Falhou a eliminação do registo!");
             }
         }
 
     }
 
-    public static void ShowMessage(Alert.AlertType type, String msg, String header) {
-        Alert alert = new Alert(type);
-        alert.setHeaderText(header);
-        alert.setContentText(msg);
-        alert.showAndWait();
+    public static int getIdPaisPorNome(String nome) {
+            int id=0 ;
+        try {
+            Connection conn = Dbconn.getConn();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT id from Pais where nome = " + nome);
+            if(rs.next()) {
+               id = rs.getInt("id");
+            }
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return id;
     }
 
 }

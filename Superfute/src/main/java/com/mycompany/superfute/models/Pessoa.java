@@ -13,17 +13,17 @@ public class Pessoa {
 
     private int id;
     private String nome;
-    private String nacionalidade;
+    private Pais pais;
     private String funcao;
 
     public Pessoa() {
 
     }
 
-    public Pessoa(int id, String nome, String nacionalidade, String funcao) {
+    public Pessoa(int id, String nome, Pais pais, String funcao) {
         this.id = id;
         this.nome = nome;
-        this.nacionalidade = nacionalidade;
+        this.pais = pais;
         this.funcao = funcao;
     }
 
@@ -43,12 +43,12 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getnacionalidade() {
-        return nacionalidade;
+    public Pais getPais() {
+        return pais;
     }
 
-    public void setnacionalidade(String nacionalidade) {
-        this.nacionalidade = nacionalidade;
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 
     public String getfuncao() {
@@ -62,6 +62,6 @@ public class Pessoa {
      @Override
     public String toString() {
         return "Pessoa{" + "id=" + id + ", nome=" + nome + ", nacionalidade=" 
-                + nacionalidade + ",funçao" + funcao + '}';
+                + pais + ",funçao" + funcao + '}';
     }
 }
