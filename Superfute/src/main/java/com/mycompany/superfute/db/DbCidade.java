@@ -13,8 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
 import javafx.scene.control.Alert;
 
 /**
@@ -23,12 +22,11 @@ import javafx.scene.control.Alert;
  */
 
 
-
-
 public class DbCidade {
 
-    public static ObservableList<Cidade> getCidades() throws SQLException {
-        ObservableList<Cidade> lista = FXCollections.observableArrayList();
+    public static ArrayList<Cidade> obterCidades() throws SQLException {
+       
+        ArrayList<Cidade> arrCidades = new ArrayList();; 
         Connection conn = Dbconn.getConn();
         String cmd = "";
 
@@ -49,15 +47,58 @@ public class DbCidade {
 
                 Cidade obj = new Cidade(pais, cidade_id, cidade_nome);
 
-                lista.add(obj);
+                arrCidades.add(obj);
             }
 
             st.close();
         } catch (Exception ex) {
             System.err.println("Erro: " + ex.getMessage());
         }
-        return lista;
+        return arrCidades;
     }
+    
+    //getCidadebyNome
+      public static Cidade getCidadebyNome(String nome) throws SQLException {
+        Cidade cidade = new Cidade();
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+        
+        try {
+            cmd = "SELECT * from vCidadePais where cidade_nome = '" + nome + "'";
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery(cmd);
+
+            while (rs.next()) {
+                    
+                    Pais pais = new Pais(
+                        rs.getInt("pais_id"),
+                        rs.getString("pais_nome"));
+
+                int cidade_id = rs.getInt("cidade_id");
+                String cidade_nome = rs.getString("cidade_nome");
+
+                cidade = new Cidade(pais, cidade_id, cidade_nome);
+               
+                    
+                    
+                
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return cidade;
+    }      
+            
+    
+    
+    
+    
+    
+    
 
     public static void saveCidade(String nome, int pais_id) throws SQLException {
         Connection conn = Dbconn.getConn();
@@ -66,7 +107,7 @@ public class DbCidade {
         try {
 
             //Novo Pais
-            cmd = "INSERT INTO cidade(id,nome,pais) VALUES (NEWID(), ?, ?)";
+            cmd = "INSERT INTO cidade(nome,pais) VALUES (?, ?)";
 
             PreparedStatement statement = conn.prepareStatement(cmd);
             statement.setString(1, nome);
@@ -86,7 +127,7 @@ public class DbCidade {
         }
     }
 
-    public static void updateCidade(int id,String nome, int pais) throws SQLException {
+    public static void updateCidade(int id,String nome) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
 
@@ -94,13 +135,12 @@ public class DbCidade {
 
            
             cmd = "UPDATE cidade SET "
-                    + " nome=? "
-                    + " pais=? "
+                    + " nome=? "               
                     + "WHERE id='" + id + "'";;
 
             PreparedStatement statement = conn.prepareStatement(cmd);
             statement.setString(1, nome);
-            statement.setInt(2,pais);
+            ;
 
             //Execute the update
             statement.executeUpdate();

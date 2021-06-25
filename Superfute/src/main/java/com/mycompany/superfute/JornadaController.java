@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,14 +47,16 @@ public class JornadaController implements Initializable {
     @FXML
     private Button btnApagarJornada;
     @FXML
-    private Label labelLigaAno;
-    @FXML
     private Button btnVerJogos;
     @FXML
     private Button btnVoltar;
     
     private Liga liga;
     private Jornada jornadaSelecionada;
+    @FXML
+    private Label labelLiga;
+    @FXML
+    private Label labelJornada;
     
 
     /**
@@ -86,6 +86,8 @@ public class JornadaController implements Initializable {
     
     public void initLiga(Liga ligaSelecionada) throws SQLException{
         liga = ligaSelecionada;
+        labelLiga.setText(String.valueOf(ligaSelecionada.getAno()));
+        labelJornada.setText(String.valueOf(ligaSelecionada.getNome()));
         initTable();
     }
     
@@ -134,12 +136,26 @@ public class JornadaController implements Initializable {
     }
 
     @FXML
-    private void btnVerJogos(ActionEvent event) throws IOException {
-        Parent toLiga = FXMLLoader.load(getClass().getResource("fxml/jogo.fxml"));
+    private void btnVerJogos(ActionEvent event) throws IOException, SQLException {
+       
+        if(jornadaSelecionada != null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("fxml/jogo.fxml"));
+            Parent root = loader.load();
             
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(toLiga));
-        stage.show();
+            JogoController controller = loader.getController();
+            
+             Stage stage = new Stage();
+             stage.setScene(new Scene(root));
+             stage.show();
+
+            controller.initJornada(jornadaSelecionada);
+                
+            // get a handle to the stage
+            Stage stage2 = (Stage) btnVerJogos.getScene().getWindow();
+            // close the scene
+            stage2.close();
+        }
     }
 
     @FXML

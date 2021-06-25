@@ -72,14 +72,14 @@ public class DbPais {
         return lista;
     }
 
-    public static void savePais(int id, String nome) throws SQLException {
+    public static void savePais( String nome) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
 
         try {
 
             //Novo Pais
-            cmd = "INSERT INTO pais(id, nome) VALUES (NEWID(), ?)";
+            cmd = "INSERT INTO pais( nome) VALUES ( ?)";
 
             PreparedStatement statement = conn.prepareStatement(cmd);
             statement.setString(1, nome);
@@ -98,7 +98,7 @@ public class DbPais {
         }
     }
 
-    public static void updatePais(int id) throws SQLException {
+    public static void updatePais(int id,String nome) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
 
@@ -110,7 +110,7 @@ public class DbPais {
                     + "WHERE id='" + id + "'";;
 
             PreparedStatement statement = conn.prepareStatement(cmd);
-            statement.setInt(1, id);
+            statement.setString(1, nome);
 
             //Execute the update
             statement.executeUpdate();
@@ -154,6 +154,34 @@ public class DbPais {
             }
         }
 
+    }
+    
+     public static Pais getPaisbyNome(String nome) throws SQLException {
+        Pais pais = new Pais();
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+        
+        try {
+            cmd = "SELECT * from Pais where nome like '" + nome + "'";
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery(cmd);
+
+            while (rs.next()) {
+                    
+                    pais.setId(rs.getInt("id"));
+                    pais.setNome(rs.getString("nome"));
+                    
+                    
+                
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return pais;
     }
 
     public static int getIdPaisPorNome(String nome) {

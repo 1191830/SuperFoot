@@ -41,48 +41,23 @@ public class Dbconn {
            conn = DriverManager.getConnection(connectionUrl);
            
            
-            System.out.println("Hello");
+           
         } 
         catch (SQLException ex)           {
             System.err.println(ex.getMessage());
         }
         
-        resultadosQuery(conn);
+       
             
         return conn; 
     }   
-        
-        public static void resultadosQuery(Connection conn) throws SQLException{
-        
-            String texto = "select * from estadoJogo order by id ASC";
-            ResultSet resultSet = null;
-            
        
-                
-            try (Statement statement = conn.createStatement();) {
-
-        
-            // Retrieve the generated key from the insert.
-            resultSet = statement.executeQuery(texto);
-            
-            while (resultSet.next()){
-                System.out.println("select");
-            
-                System.out.println("id: " + resultSet.getString("id"));
-                System.out.println("estado: " + resultSet.getString("estado"));
-            }
-
-            } catch (SQLException ex){
-                
-                System.err.println(ex.getMessage());
-            }
-             
             
             
            
         
         
-        }
+        
         
         
         

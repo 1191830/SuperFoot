@@ -5,8 +5,6 @@
  */
 package com.mycompany.superfute.models;
 
-import com.mycompany.superfute.db.DbPais;
-
 /**
  *
  * @author nelso
@@ -42,6 +40,8 @@ public class Pais {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+   
 
    
     @Override

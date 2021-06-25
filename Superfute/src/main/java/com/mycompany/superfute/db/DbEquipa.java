@@ -40,15 +40,15 @@ public class DbEquipa {
                 
                 int id_equipa = rs.getInt("id_equipa");
                 String nome_cidade = rs.getString("nome_cidade");
-                Estadio estadio = new Estadio(
-                        rs.getInt("id_estadio"),
-                        rs.getString("nome_estadio"),
-                        rs.getInt("cidade"));
-                        
+//                Estadio estadio = new Estadio(
+//                        rs.getInt("id_estadio"),
+//                        rs.getString("nome_estadio"),
+//                        rs.getInt("cidade"));
+//                        
 
-                Equipa obj = new Equipa(id_equipa, nome_cidade, estadio);
+    //            Equipa obj = new Equipa(id_equipa, nome_cidade, estadio);
 
-                lista.add(obj);
+        //        lista.add(obj);
             }
 
             st.close();

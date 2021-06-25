@@ -5,21 +5,16 @@
  */
 package com.mycompany.superfute;
 
+import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbLiga;
-import com.mycompany.superfute.db.Dbconn;
-import com.mycompany.superfute.models.Jornada;
 import com.mycompany.superfute.models.Liga;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,7 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -66,13 +61,17 @@ public class LigaController implements Initializable {
     @FXML
     private Button btnEstatisticas;
     @FXML
-    private Label labelLigaAno;
-    @FXML
     private Button btnArbitros;
     @FXML
     private Button btnVoltar;
     
     private Liga liga;
+    @FXML
+    private Label labelAno;
+    @FXML
+    private Button btnMelhorMarcador;
+
+  
 
     /**
      * Initializes the controller class.
@@ -101,11 +100,37 @@ public class LigaController implements Initializable {
     }    
 
     @FXML
-    private void btnCriarLiga(ActionEvent event) {
+    private void btnCriarLiga(ActionEvent event) throws IOException, SQLException {
+        
+        Liga liga = new Liga();
+        if(controllerLigaForm(liga)){
+            System.out.println(liga);
+            mostrarLigas();
+            
+           
+        }else{
+         MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                 "Não foi possível inserir uma Liga.", "Erro ao inserir");
+        }
+        
+        
     }
 
     @FXML
-    private void btnEditarLiga(ActionEvent event) {
+    private void btnEditarLiga(ActionEvent event) throws IOException, SQLException {
+        
+        Liga liga =  listaLigas.getSelectionModel().getSelectedItem();
+        System.out.println(liga);
+        if(liga != null){
+            controllerLigaForm(liga);
+            
+            mostrarLigas();
+        }else{
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR, 
+                    "Selecionar Liga para editar.", "Erro ao editar");
+        }
+        
+        
     }
 
     @FXML
@@ -114,28 +139,8 @@ public class LigaController implements Initializable {
 
     @FXML
     private void btnJornadas(ActionEvent event) throws IOException, SQLException {
-        if(liga != null){
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("fxml/jornada.fxml"));
-            Parent root = loader.load();
-            JornadaController controller = loader.getController();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-            controller.initLiga(liga);
-            
-            // get a handle to the stage
-            Stage stage2 = (Stage) btnJornadas.getScene().getWindow();
-            // close the scene
-            stage2.close();
-        } else{
-            Alert alertBox2 = new Alert(Alert.AlertType.ERROR);
-            alertBox2.setHeaderText("Impossivel alterar");
-            alertBox2.setContentText("Por favor selecione uma Liga");
-            alertBox2.showAndWait();
-        }
+        
+        changeWindows("fxml/jornada.fxml", event);
     }
 
     @FXML
@@ -147,11 +152,23 @@ public class LigaController implements Initializable {
     }
 
     @FXML
-    private void btnClassificacao(ActionEvent event) {
+    private void btnClassificacao(ActionEvent event) throws IOException, SQLException {
+        changeWindows("fxml/classificacao.fxml", event);
     }
 
     @FXML
     private void btnEstatisticas(ActionEvent event) {
+    }
+    
+    @FXML
+    private void btnMelhorMarcador(ActionEvent event) throws IOException, SQLException {
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/melhorMarcador.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show(); 
     }
     
     public void mostrarLigas() throws SQLException{
@@ -167,13 +184,90 @@ public class LigaController implements Initializable {
     }
 
     @FXML
-    private void btnArbitros(ActionEvent event) {
+    private void btnArbitros(ActionEvent event) throws IOException {
+        
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/Arbitros.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show(); 
+        
     }
 
     @FXML
     private void btnVoltar(ActionEvent event) {
     }
     
+    public void changeWindows(String path, ActionEvent event) throws IOException, SQLException{
+        if(liga != null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(path));
+            Parent root = loader.load();
+            if (event.getSource() == btnJornadas){
+                JornadaController controller = loader.getController();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                controller.initLiga(liga);
+                
+                // get a handle to the stage
+                Stage stage2 = (Stage) btnJornadas.getScene().getWindow();
+                // close the scene
+                stage2.close();
+            }else if (event.getSource() == btnClassificacao){
+                ClassificacaoController controller = loader.getController();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Liga " + liga.getAno());
+                stage.show();
+
+                controller.initLiga(liga);
+                
+                // get a handle to the stage
+                Stage stage2 = (Stage) btnJornadas.getScene().getWindow();
+                // close the scene
+                stage2.close();
+            }else if(event.getSource() == btnClassificacao){
+                            
+                
+            }
+
+            
+            
+            
+        } else{
+            Alert alertBox2 = new Alert(Alert.AlertType.ERROR);
+            alertBox2.setHeaderText("Impossivel alterar");
+            alertBox2.setContentText("Por favor selecione uma Liga");
+            alertBox2.showAndWait();
+        }
+    }
+    
+     public static boolean controllerLigaForm(Liga liga) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(LigaFormController.class.getResource("fxml/ligaForm.fxml"));
+        AnchorPane page = loader.load();
+
+        // Criando um Estágio de Diálogo (Stage Dialog)
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Liga");
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+        // Setando o cliente no Controller.
+        LigaFormController controller = loader.getController();
+        controller.setStageDialog(dialogStage);
+        controller.setLiga(liga);
+
+        // Mostra o Dialog e espera até que o usuário o feche
+        dialogStage.showAndWait();
+
+        return controller.isBtnReturn();
+    }
+
     
     
     

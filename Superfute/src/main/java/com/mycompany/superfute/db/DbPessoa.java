@@ -6,6 +6,7 @@
 package com.mycompany.superfute.db;
 
 import com.mycompany.superfute.models.Pais;
+import com.mycompany.superfute.models.Liga;
 import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,39 +39,77 @@ public class DbPessoa {
                 Pessoa pessoa = new Pessoa();
                 pessoa.setId(rs.getInt("idP"));
                 pessoa.setnome(rs.getString("nome"));
-                pessoa.setPais(new Pais(rs.getInt("id"),rs.getString("pais")));
-                System.out.println(pessoa);
+                pessoa.setPais(new Pais(rs.getInt("id"), rs.getString("pais")));
+                pessoa.setNacionalidade(rs.getString("pais"));
                 listaPessoa.add(pessoa);
             }
-
             return listaPessoa;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            System.err.println("Erro: " + ex.getMessage());
             return null;
         }
 
     }
 
     /**
-     * Inserir pessoa na base de dados
-     *
+     * Método retorna arraylist com os melhores marcadores por liga 
+     * @param liga
      * @return
-     * @throws SQLException
+     * @throws SQLException 
      */
-    public static boolean inserirPessoa(Pessoa p) throws SQLException {
-
+    public static ArrayList<Pessoa> obterMelhorMarcadorLiga(Liga liga) throws SQLException {
+        Pessoa jogador;
+        ArrayList<Pessoa> listaJogadores = new ArrayList();
+        Connection conn = Dbconn.getConn();
+        String query = "select jogador, golos from view_melhorMarcador  where Liga = "
+                + liga.getAno() + " order by golos desc ";
+        Statement st;
+        ResultSet rs;
         try {
-            Connection conn = Dbconn.getConn();
-            PreparedStatement stmt = conn.prepareStatement("Insert into Pessoa Values (?,?)");
-            stmt.setString(1, p.getnome());
-            stmt.setInt(2, p.getPais().getId());
-            stmt.execute();
-            return true;
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                jogador = new Pessoa(rs.getString("jogador"), rs.getInt("golos"));
+                listaJogadores.add(jogador);
+            }
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return false;
+            ex.printStackTrace();
         }
+        return listaJogadores;
     }
+
+    /**
+     * Método retorna arraylist com os melhores marcadores por liga 
+     * @return
+     * @throws SQLException 
+     */
+    public static ArrayList<Pessoa> obterMelhorMarcadorGeral() throws SQLException {
+        Pessoa jogador;
+        ArrayList<Pessoa> listaJogadores = new ArrayList();
+        Connection conn = Dbconn.getConn();
+        String query = "select jogador, golos from view_melhorMarcador order by golos desc ";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                jogador = new Pessoa(rs.getString("jogador"), rs.getInt("golos"));
+                listaJogadores.add(jogador);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listaJogadores;
+    }
+
+    /**
+     * Metódo para fazer atulização na tabela pessoa
+     * @param p
+     * @return
+     * @throws SQLException 
+     */
     public static boolean updatePessoa(Pessoa p) throws SQLException {
 
         try {
@@ -86,4 +125,77 @@ public class DbPessoa {
             return false;
         }
     }
+
+    /**
+     * Inserir pessoa na base de dados
+     *
+     * @return
+     * @throws SQLException
+     */
+    public static boolean inserirPessoa(Pessoa p) throws SQLException {
+        try {
+            Connection conn = Dbconn.getConn();
+            PreparedStatement stmt = conn.prepareStatement("Insert into Pessoa Values (?,?)");
+            stmt.setString(1, p.getnome());
+            stmt.setInt(2, p.getPais().getId());
+            stmt.execute();
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Método que retorna todas as pessoas que não estão relacionadas com nenhuma
+     * tabela e função
+     * @return
+     * @throws SQLException 
+     */
+    public static ArrayList<Pessoa> obterPessoasSemFuncao() throws SQLException {
+        ArrayList<Pessoa> listaPessoa = new ArrayList();
+        String cmd = "";
+        try {
+            Connection conn = Dbconn.getConn();
+            Statement st = conn.createStatement();
+            cmd = "select * from vPessoasSemFuncoes";
+            ResultSet rs = st.executeQuery(cmd);
+            while (rs.next()) {
+                Pessoa pessoa = new Pessoa();
+                pessoa.setId(rs.getInt("idPessoa"));
+                pessoa.setnome(rs.getString("nomePessoa"));
+                listaPessoa.add(pessoa);
+            }
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            return null;
+        }
+        return listaPessoa;
+    }
+
+//    /**
+//     * Inserir pessoa na base de dados
+//     * @return 
+//     * @throws SQLException 
+//     */
+//    public static boolean inserirPessoa() throws SQLException {
+//
+//        try {
+//            Connection conn = Dbconn.getConn();
+//            Statement st = conn.createStatement();
+//            ResultSet rs = st.executeQuery("");
+//            while (rs.next()) {
+//                Pessoa pessoa = new Pessoa();
+//                pessoa.setnome(rs.getString("nome"));
+//                pessoa.setnacionalidade(rs.getString("pais"));
+//                System.out.println(pessoa);
+//                listaPessoa.add(pessoa);
+//            }
+//
+//            return true;
+//        } catch (Exception ex) {
+//            return false;
+//        }
+//
+//    }
 }

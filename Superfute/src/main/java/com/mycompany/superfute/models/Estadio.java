@@ -14,16 +14,16 @@ public class Estadio {
 
     private int id;
     private String nome;
-    private int id_cidade;
+    private  Cidade cidade;
 
     public Estadio() {
 
     }
 
-    public Estadio(int id, String nome, int id_cidade) {
+    public Estadio(int id, String nome, Cidade cidade) {
         this.id = id;
         this.nome = nome;
-        this.id_cidade = id_cidade;
+        this.cidade = cidade;
     }
 
     public int getId() {
@@ -42,17 +42,17 @@ public class Estadio {
         this.nome = nome;
     }
 
-    public int getId_cidade() {
-        return id_cidade;
+    public Cidade getCidade() {
+        return cidade;
     }
 
-    public void setId_cidade(int id_cidade) {
-        this.id_cidade = id_cidade;
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 
     @Override
     public String toString() {
-        return "Estadio{" + "id=" + id + ", nome=" + nome + ", id_cidade=" + id_cidade + '}';
+        return "Estadio{" + "id=" + id + ", nome=" + nome + ", Cidade=" + cidade + '}';
     }
     
     
