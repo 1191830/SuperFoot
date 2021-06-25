@@ -79,10 +79,12 @@ public class CidadeController implements Initializable {
     }
 
     @FXML
-    private void btnInserir(ActionEvent event) throws IOException {
+    private void btnInserir(ActionEvent event) throws IOException, SQLException {
         Cidade cidade = new Cidade();
         if(controllerCidadeForm(cidade)){
             System.out.println(cidade);
+             preencherTabelaCidades() ;
+           
         }else{
          MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
                  "Não foi possível inserir uma pessoa.", "Erro ao inserir");
@@ -91,12 +93,16 @@ public class CidadeController implements Initializable {
     }
 
     @FXML
-    private void btnEditar(ActionEvent event) throws IOException {
+    private void btnEditar(ActionEvent event) throws IOException, SQLException {
         
         Cidade cidade =  tblCidade.getSelectionModel().getSelectedItem();
         System.out.println(cidade);
         if(cidade != null){
             controllerCidadeForm(cidade);
+            preencherTabelaCidades() ;
+            
+            
+             
         }else{
             MessageBoxes.ShowMessage(Alert.AlertType.ERROR, 
                     "Selecionar Cidade para editar.", "Erro ao editar");

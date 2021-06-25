@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute;
 
+import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbLiga;
 import com.mycompany.superfute.models.Liga;
 import java.io.IOException;
@@ -27,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -98,11 +100,37 @@ public class LigaController implements Initializable {
     }    
 
     @FXML
-    private void btnCriarLiga(ActionEvent event) {
+    private void btnCriarLiga(ActionEvent event) throws IOException, SQLException {
+        
+        Liga liga = new Liga();
+        if(controllerLigaForm(liga)){
+            System.out.println(liga);
+            mostrarLigas();
+            
+           
+        }else{
+         MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                 "Não foi possível inserir uma Liga.", "Erro ao inserir");
+        }
+        
+        
     }
 
     @FXML
-    private void btnEditarLiga(ActionEvent event) {
+    private void btnEditarLiga(ActionEvent event) throws IOException, SQLException {
+        
+        Liga liga =  listaLigas.getSelectionModel().getSelectedItem();
+        System.out.println(liga);
+        if(liga != null){
+            controllerLigaForm(liga);
+            
+            mostrarLigas();
+        }else{
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR, 
+                    "Selecionar Liga para editar.", "Erro ao editar");
+        }
+        
+        
     }
 
     @FXML
@@ -216,6 +244,28 @@ public class LigaController implements Initializable {
             alertBox2.setContentText("Por favor selecione uma Liga");
             alertBox2.showAndWait();
         }
+    }
+    
+     public static boolean controllerLigaForm(Liga liga) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(LigaFormController.class.getResource("fxml/ligaForm.fxml"));
+        AnchorPane page = loader.load();
+
+        // Criando um Estágio de Diálogo (Stage Dialog)
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Liga");
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+        // Setando o cliente no Controller.
+        LigaFormController controller = loader.getController();
+        controller.setStageDialog(dialogStage);
+        controller.setLiga(liga);
+
+        // Mostra o Dialog e espera até que o usuário o feche
+        dialogStage.showAndWait();
+
+        return controller.isBtnReturn();
     }
 
     
