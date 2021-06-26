@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -22,22 +23,16 @@ import javafx.scene.control.Alert;
  * @author pcoelho
  */
 public class DbEquipa {
-    
-    
-     public static ObservableList<Equipa> getEquipas() throws SQLException {
+
+    public static ObservableList<Equipa> getEquipas() throws SQLException {
         ObservableList<Equipa> lista = FXCollections.observableArrayList();
         Connection conn = Dbconn.getConn();
         String cmd = "";
-
         try {
             cmd = "SELECT * from vEquipaEstadio";
-
             Statement st = conn.createStatement();
-
             ResultSet rs = st.executeQuery(cmd);
-
             while (rs.next()) {
-                
                 int id_equipa = rs.getInt("id_equipa");
                 String nome_cidade = rs.getString("nome_cidade");
 //                Estadio estadio = new Estadio(
@@ -46,9 +41,8 @@ public class DbEquipa {
 //                        rs.getInt("cidade"));
 //                        
 
-    //            Equipa obj = new Equipa(id_equipa, nome_cidade, estadio);
-
-        //        lista.add(obj);
+                //            Equipa obj = new Equipa(id_equipa, nome_cidade, estadio);
+                //        lista.add(obj);
             }
 
             st.close();
@@ -58,7 +52,30 @@ public class DbEquipa {
         return lista;
     }
 
-    public static void saveEquipa(String nome, int id_estadio ) throws SQLException {
+    public static ArrayList<Equipa> obterEquipasEstadio() throws SQLException {
+        ArrayList<Equipa> lista = new ArrayList<>();
+        
+        try {
+            Connection conn = Dbconn.getConn();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * from vEquipaEstadio");
+            while (rs.next()) {
+                Equipa equipa = new Equipa();
+                equipa.setestadio(new Estadio());
+                equipa.setId(rs.getInt("id_equipa"));
+                equipa.setnome(rs.getString("nome_equipa"));
+                equipa.getestadio().setId(rs.getInt("id_estadio"));
+                equipa.getestadio().setNome(rs.getString("nome_estadio"));
+                lista.add(equipa);
+            }
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return lista;
+    }
+
+    public static void saveEquipa(String nome, int id_estadio) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
 
@@ -85,27 +102,22 @@ public class DbEquipa {
         }
     }
 
-    public static void updateEquipa(int id,String nome, int id_estadio) throws SQLException {
+    public static boolean updateEquipa(int id, String nome, int id_estadio) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
-
         try {
-
-           
-            cmd = "UPDATE cidade SET "
-                    + " nome=? "
-                    + " estadio=? "
-                    + "WHERE id='" + id + "'";;
-
+            cmd = "UPDATE Equipa SET nome = ? ,estadio = ? WHERE id= ? ";
             PreparedStatement statement = conn.prepareStatement(cmd);
             statement.setString(1, nome);
             statement.setInt(2, id_estadio);
+            statement.setInt(3, id);
 
             //Execute the update
             statement.executeUpdate();
-
+            
             //commit in case you have turned autocommit to false
             conn.commit();
+            return true;
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex.getMessage());
             if (ex.getErrorCode() == 547) {
@@ -113,20 +125,17 @@ public class DbEquipa {
             } else {
                 ShowMessage(Alert.AlertType.ERROR, ex.getMessage(), "Falhou a actualização do registo!");
             }
+            return false;
         }
 
     }
 
     public static void deleteEquipa(int id) throws SQLException {
-        Connection conn = Dbconn.getConn();
-        String cmd = "";
-
+        
         try {
-
-            cmd = "DELETE FROM equipa "
-                    + "WHERE id=?";
-
-            PreparedStatement statement = conn.prepareStatement(cmd);
+            Connection conn = Dbconn.getConn();
+            PreparedStatement statement = conn.prepareStatement("DELETE FROM equipa "
+                    + "WHERE id=?");
             statement.setInt(1, id);
 
             //Execute the update
@@ -151,5 +160,29 @@ public class DbEquipa {
         alert.setContentText(msg);
         alert.showAndWait();
     }
+
     
+     public static ArrayList<String[]> obterPlantelEquipa(int idEquipa) throws SQLException {
+        ArrayList<String[]> listaPlantelFuncoes = new ArrayList<>();
+        try {
+            Connection conn = Dbconn.getConn();
+             PreparedStatement statement = conn.
+                     prepareStatement("select p.nome,f.funcao from pessoaEquipa pe "
+                     + "inner join pessoa p on p.id = pe.idPessoa "
+                        + "inner join funcaoPessoa f on f.id = pe.funcao "
+                            + "where idEquipa = ?");
+              statement.setInt(1, idEquipa);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String[] plantelFuncao = new String[2];
+                plantelFuncao[0] = rs.getString("nome");
+                plantelFuncao[1] = rs.getString("funcao");
+                listaPlantelFuncoes.add(plantelFuncao);
+            }
+             conn.commit();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return listaPlantelFuncoes;
+    }
 }

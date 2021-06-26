@@ -16,7 +16,6 @@ public class Evento {
     private int idEquipa;
     private int idJogador;
     private int tipoEvento;
-
     public Evento() {
 
     }

@@ -81,7 +81,6 @@ public class PessoaController implements Initializable {
        
         boolean flag = false;
         if (controllerPessoaForm(pessoa)) {
-             System.out.println("INSERIR----"+pessoa);
             flag = DbPessoa.inserirPessoa(pessoa);
             if (flag) {
                 preencherTabelaPessoas();

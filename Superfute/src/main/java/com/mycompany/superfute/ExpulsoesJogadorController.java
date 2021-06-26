@@ -5,7 +5,9 @@ package com.mycompany.superfute;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.mycompany.superfute.db.DbJogador;
 import com.mycompany.superfute.db.DbPessoa;
+import com.mycompany.superfute.models.Jogador;
 import com.mycompany.superfute.models.Liga;
 import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
@@ -42,15 +44,15 @@ public class ExpulsoesJogadorController implements Initializable {
         this.stageDialog = stageDialog;
     }
 
-    private ArrayList<Pessoa> listaJogador;
-    private ObservableList<Pessoa> observableList;
+    private ArrayList<Jogador> listaJogador;
+    private ObservableList<Jogador> observableList;
 
     @FXML
-    private TableView<Pessoa> tableviewExpul;
+    private TableView<Jogador> tableviewExpul;
     @FXML
-    private TableColumn <Pessoa, String> jogador;
+    private TableColumn <Jogador, String> jogador;
     @FXML
-    private TableColumn <Pessoa, Integer >expulsao;
+    private TableColumn <Jogador, Integer >expulsao;
 
     /**
      * Initializes the controller class.
@@ -68,10 +70,10 @@ public class ExpulsoesJogadorController implements Initializable {
         jogador.setCellValueFactory(cellData ->
                 new SimpleObjectProperty<String>(cellData.getValue().getnome()));
         expulsao.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<Integer>(cellData.getValue().getNumExpulsoes()));
+                new SimpleObjectProperty<Integer>(cellData.getValue().getVemelho()));
 
 
-        listaJogador = DbPessoa.obterJogadorExpulsões();
+        listaJogador = DbJogador.obterJogadorExpulsões();
         observableList = FXCollections.observableArrayList(listaJogador);
         tableviewExpul.setItems(observableList);
 
