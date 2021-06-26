@@ -138,7 +138,7 @@ public class DetalheJogoController implements Initializable {
         
         colunaEvento.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getEvento()));
         colunaPessoa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getJogador().getNome()));       
-        colunaEquipa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getEquipa().getnome()));
+        colunaEquipa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getEquipa().getNome()));
         colunaMinuto.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getminuto())));
         colunaParte.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getParte()));
         
