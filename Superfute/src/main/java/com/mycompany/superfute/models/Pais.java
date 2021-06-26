@@ -15,14 +15,20 @@ public class Pais {
     private int id;
     private String nome;
 
-
+    /**
+     * Construtor vazio de Pais
+     */
+    public Pais() {
+    }
+    
+    /**
+     * Construtor Pais com id e nome do Pais
+     * @param id
+     * @param nome 
+     */
     public Pais(int id, String nome) {
         this.id = id;
         this.nome = nome;
-    }
-
-
-    public Pais() {
     }
 
     public int getId() {
@@ -41,12 +47,8 @@ public class Pais {
         this.nome = nome;
     }
 
-   
-
-   
     @Override
     public String toString() {
         return "Pais{" + "id=" + id + ", nome=" + nome + '}';
-    }
-    
+    }  
 }

@@ -41,7 +41,7 @@ public class DbArbitro {
             while (rs.next()) {
                 Pessoa p = new Pessoa();
                 p.setId(rs.getInt("idPessoa"));
-                p.setnome(rs.getString("nome"));
+                p.setNome(rs.getString("nome"));
                 lista.add(p);
             }
 
@@ -70,7 +70,7 @@ public class DbArbitro {
             while (rs.next()) {
                 Pessoa p = new Pessoa();
                 p.setId(rs.getInt("id"));
-                p.setnome(rs.getString("nome"));
+                p.setNome(rs.getString("nome"));
                 arrArbitros.add(p);
             }
 
@@ -83,7 +83,12 @@ public class DbArbitro {
         return arrArbitros;
      
      }
-     
+     /**
+      * Recebe um id e procura o respetivo arbitro
+      * @param id
+      * @return Pessoa
+      * @throws SQLException 
+      */
      public static Pessoa getArbitroByID(int id) throws SQLException{
         Pessoa arbitro = new Pessoa();
         

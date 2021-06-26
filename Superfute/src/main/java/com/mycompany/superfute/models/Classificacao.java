@@ -19,10 +19,20 @@ public class Classificacao {
     private int vitorias;
     private int empates;
     private int derrotas;
-
+    
+    /**
+     * Construtor vazio de Classificaçao
+     */
     public Classificacao() {
     }
-
+    
+    /**
+     * Construtor classificaçao com equipa pontos e golos
+     * @param equipa
+     * @param pontos
+     * @param golosMarcados
+     * @param golosSofridos 
+     */
     public Classificacao(String equipa, int pontos, int golosMarcados, int golosSofridos) {
         this.equipa = equipa;
         this.pontos = pontos;
@@ -31,6 +41,11 @@ public class Classificacao {
         
     }
     
+    /**
+     * Construtor Classificaçao com equipa e golos marcados
+     * @param equipa
+     * @param golosMarcados 
+     */
     public Classificacao(String equipa,int golosMarcados) {
         this.equipa = equipa;
         this.golosMarcados = golosMarcados;              
@@ -98,9 +113,5 @@ public class Classificacao {
 
     public void setDerrotas(int derrotas) {
         this.derrotas = derrotas;
-    }
-    
-    
-    
-    
+    }   
 }

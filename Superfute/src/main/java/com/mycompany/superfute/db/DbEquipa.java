@@ -6,7 +6,6 @@
 package com.mycompany.superfute.db;
 
 import com.mycompany.superfute.models.Equipa;
-import com.mycompany.superfute.models.Estadio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -57,6 +56,34 @@ public class DbEquipa {
         }
         return lista;
     }
+     
+     public static Equipa getEquipaById(int id) throws SQLException{
+        Equipa equipa = new Equipa();
+
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+
+            try {
+                cmd = "select * from equipa where id = " + id;
+
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(cmd);
+
+                while (rs.next()) {
+ 
+                   equipa = new Equipa(
+                    id,
+                    rs.getString("nome"),
+                    DbEstadio.getEstadiosByID(rs.getInt("estadio")));
+                }
+                                      
+                st.close();
+                conn.close();
+            } catch (Exception ex) {
+                System.err.println("Erro: " + ex.getMessage());
+            }
+            return equipa;
+        }
 
     public static void saveEquipa(String nome, int id_estadio ) throws SQLException {
         Connection conn = Dbconn.getConn();

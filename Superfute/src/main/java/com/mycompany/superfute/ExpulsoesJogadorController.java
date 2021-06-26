@@ -6,8 +6,6 @@ package com.mycompany.superfute;
  * and open the template in the editor.
  */
 import com.mycompany.superfute.db.DbPessoa;
-import com.mycompany.superfute.models.Liga;
-import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import com.mycompany.superfute.models.Pessoa;
 import javafx.beans.property.SimpleObjectProperty;
@@ -66,7 +63,7 @@ public class ExpulsoesJogadorController implements Initializable {
 
     public void tableViewExpulsoes() throws SQLException {
         jogador.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<String>(cellData.getValue().getnome()));
+                new SimpleObjectProperty<String>(cellData.getValue().getNome()));
         expulsao.setCellValueFactory(cellData ->
                 new SimpleObjectProperty<Integer>(cellData.getValue().getNumExpulsoes()));
 

@@ -72,7 +72,12 @@ public class DbPais {
         return lista;
     }
     
-    
+    /**
+     * Procura o Pais pelo id
+     * @param id
+     * @return Pais
+     * @throws SQLException 
+     */  
       public static Pais getPaisByID(int id) throws SQLException {
         Pais pais = new Pais();
         Connection conn = Dbconn.getConn();

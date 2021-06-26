@@ -5,10 +5,6 @@
  */
 package com.mycompany.superfute.models;
 
-import com.mycompany.superfute.models.Equipa;
-import com.mycompany.superfute.models.Estadio;
-import com.mycompany.superfute.models.Jornada;
-import com.mycompany.superfute.models.Liga;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -24,16 +20,26 @@ public class Jogo {
     private String nomeCasa; //nome Equipa casa
     private Equipa EquipaFora; //id da equipa de Fora
     private String nomeFora; //nome Equipa fora
-    private int golosCasa;
-    private int golosFora;
+    private int golosCasa; //golos da equipa da casa
+    private int golosFora; //golos da equipa visitante
     private LocalDate data; // data do jogo
-    private Pessoa arbitro;
+    private Pessoa arbitro; //arbitro do Jogo
     private Estadio Estadio; // id do Estadio
     private ArrayList<Evento> listEvento = new ArrayList();
 
+    /**
+     * Construtor vazio de jogo
+     */
     public Jogo() {
     }
     
+    /**
+     * Construtor de Jogo com Jogo, Jornada, Estadio e Arbitro
+     * @param jogo
+     * @param jornada
+     * @param Estadio
+     * @param arbitro 
+     */
     public Jogo(Integer jogo, Jornada jornada, Estadio Estadio, Pessoa arbitro) {
         this.jogo = jogo;
         this.jornada = jornada;
@@ -146,9 +152,7 @@ public class Jogo {
     public void setArbitro(Pessoa arbitro) {
         this.arbitro = arbitro;
     }
-    
-    
-
+  
     @Override
     public String toString() {
         return "Jogo{" + "Jogo=" + jogo + ", EquipaCasa=" + EquipaCasa +

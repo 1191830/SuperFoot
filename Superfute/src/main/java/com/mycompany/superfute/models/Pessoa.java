@@ -19,10 +19,22 @@ public class Pessoa {
     private String funcao;
     private int numExpulsoes;
 
+    
+    /**
+     * Construtor vazio de pessoa
+     */
     public Pessoa() {
 
     }
-
+    
+    /**
+     * Construtor pessoa com id nome nacionalidade, funcao e expulsoes
+     * @param id
+     * @param nome
+     * @param nacionalidade
+     * @param funcao
+     * @param numExpulsoes 
+     */
     public Pessoa(int id, String nome, String nacionalidade, String funcao,
             int numExpulsoes) {
         this.id = id;
@@ -30,8 +42,29 @@ public class Pessoa {
         this.pais = pais;
         this.funcao = funcao;
         this.numExpulsoes = numExpulsoes;
-
         this.nacionalidade = nacionalidade;
+    }
+    
+    /**
+     * Construtor de Pessoa com id nome e nacionalidade
+     * @param id
+     * @param nome
+     * @param nacionalidade 
+     */
+    public Pessoa(int id, String nome, String nacionalidade){
+        this.id = id;
+        this.nome = nome;
+        this.nacionalidade = nacionalidade;
+    }
+    
+    /**
+     * Construtor de Pessoa com nome e golos
+     * @param nome
+     * @param golos 
+     */
+    public Pessoa(String nome, int golos){
+        this.nome = nome;
+        this.golosMarcados = golos;
     }
 
     public String getNacionalidade() {
@@ -40,20 +73,7 @@ public class Pessoa {
 
     public void setNacionalidade(String nacionalidade) {
         this.nacionalidade = nacionalidade;
-    }
-    
-    //classe para apresentar dados principais
-    public Pessoa(int id, String nome, String nacionalidade){
-        this.id = id;
-        this.nome = nome;
-        this.nacionalidade = nacionalidade;
-    }
-    
-    //classe para apresentar golos do jogador
-    public Pessoa(String nome, int golos){
-        this.nome = nome;
-        this.golosMarcados = golos;
-    }
+    } 
 
     public int getId() {
         return id;
@@ -63,11 +83,11 @@ public class Pessoa {
         this.id = id;
     }
 
-    public String getnome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setnome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
@@ -79,11 +99,11 @@ public class Pessoa {
         this.pais = pais;
     }
 
-    public String getfuncao() {
+    public String getFuncao() {
         return funcao;
     }
 
-    public void setfuncao(String funcao) {
+    public void setFuncao(String funcao) {
         this.funcao = funcao;
     }
 
@@ -110,6 +130,4 @@ public class Pessoa {
                 + golosMarcados + ", funcao=" + funcao + ", numExpulsoes=" 
                 + numExpulsoes + '}';
     }
-
-    
 }

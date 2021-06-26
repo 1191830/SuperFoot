@@ -14,8 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  *
@@ -38,7 +36,7 @@ public class DbPessoa {
             while (rs.next()) {
                 Pessoa pessoa = new Pessoa();
                 pessoa.setId(rs.getInt("idP"));
-                pessoa.setnome(rs.getString("nome"));
+                pessoa.setNome(rs.getString("nome"));
                 pessoa.setPais(new Pais(rs.getInt("id"), rs.getString("pais")));
                 pessoa.setNacionalidade(rs.getString("pais"));
                 listaPessoa.add(pessoa);
@@ -53,6 +51,36 @@ public class DbPessoa {
         }
 
     }
+    
+    public static Pessoa getPessoaById(int id) throws SQLException{
+        Pessoa pessoa = new Pessoa();
+        
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+
+            try {
+                cmd = "select * from pessoa where id = " + id;
+
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(cmd);
+
+                while (rs.next()) {
+ 
+                   pessoa = new Pessoa(
+                    id,
+                    rs.getString("nome"),
+                    rs.getString("nacionalidade"));
+                }
+                
+                
+                            
+                st.close();
+                conn.close();
+            } catch (Exception ex) {
+                System.err.println("Erro: " + ex.getMessage());
+            }
+            return pessoa;
+        }
 
     /**
      * Método retorna arraylist com os melhores marcadores por liga
@@ -126,7 +154,7 @@ public class DbPessoa {
         try {
             Connection conn = Dbconn.getConn();
             PreparedStatement stmt = conn.prepareStatement("Update Pessoa set nome = ? , nacionalidade = ? where id = ?");
-            stmt.setString(1, p.getnome());
+            stmt.setString(1, p.getNome());
             stmt.setInt(2, p.getPais().getId());
             stmt.setInt(3, p.getId());
             stmt.executeUpdate();
@@ -147,7 +175,7 @@ public class DbPessoa {
         try {
             Connection conn = Dbconn.getConn();
             PreparedStatement stmt = conn.prepareStatement("Insert into Pessoa Values (?,?)");
-            stmt.setString(1, p.getnome());
+            stmt.setString(1, p.getNome());
             stmt.setInt(2, p.getPais().getId());
             stmt.execute();
             return true;
@@ -176,7 +204,7 @@ public class DbPessoa {
             while (rs.next()) {
                 Pessoa pessoa = new Pessoa();
                 pessoa.setId(rs.getInt("idPessoa"));
-                pessoa.setnome(rs.getString("nomePessoa"));
+                pessoa.setNome(rs.getString("nomePessoa"));
                 listaPessoa.add(pessoa);
             }
 
@@ -204,7 +232,7 @@ public class DbPessoa {
 
             while (rs.next()) {
                 Pessoa jogador = new Pessoa();
-                jogador.setnome(rs.getString("jogador"));
+                jogador.setNome(rs.getString("jogador"));
                 jogador.setNumExpulsoes(rs.getInt("Expulsoes"));
                 listaJogadores.add(jogador);
 
