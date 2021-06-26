@@ -5,7 +5,6 @@
  */
 package com.mycompany.superfute.db;
 
-import com.mycompany.superfute.models.Classificacao;
 import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Jornada;
 import java.sql.Connection;
@@ -13,7 +12,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**

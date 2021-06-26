@@ -26,18 +26,7 @@ public class Jogador extends Pessoa {
      public Jogador() {
     }
 
-    public Jogador(int golosMarcados,int golosAnulados, int amarelos, int duploAmarelo, int vemelho, LocalDate dataInicio, LocalDate dataFim, int id, String nome, String nacionalidade,int idFuncao,String funcao) {
-        super(id, nome, nacionalidade);
-        this.golosMarcados = golosMarcados;
-        this.golosAnulados = golosAnulados;
-        this.amarelos = amarelos;
-        this.duploAmarelo = duploAmarelo;
-        this.vemelho = vemelho;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.idFuncao = idFuncao;
-        this.funcao = funcao;
-    }
+  
     
     public int getGolosMarcados() {
         return golosMarcados;

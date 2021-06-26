@@ -77,7 +77,7 @@ public class EquipaController implements Initializable {
     @FXML
     private void btnCriarEquipa(ActionEvent event) throws IOException {
         Equipa equipa  = new Equipa();
-        equipa.setestadio(new Estadio());
+        equipa.setEstadio(new Estadio());
         boolean btnCriarEquipa = controllerEquipaForm(equipa);
         if(btnCriarEquipa){
             System.out.println("cheguei dentro do inserir equipa");
@@ -91,8 +91,8 @@ public class EquipaController implements Initializable {
          boolean verificaEquipaNull = false;
         Equipa equipa = listaEquipas.getSelectionModel().getSelectedItem();
         if (verificaEquipaEAbriView(equipa)) {
-          verificaEquipaNull = DbEquipa.updateEquipa(equipa.getId(),equipa.getnome(),
-                  equipa.getestadio().getId());
+          verificaEquipaNull = DbEquipa.updateEquipa(equipa.getId(),equipa.getNome(),
+                  equipa.getEstadio().getId());
           if(verificaEquipaNull){
                 preencherTabelaEquipas();
                MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
@@ -145,7 +145,7 @@ public class EquipaController implements Initializable {
     public void preencherTabelaEquipas() throws SQLException {
         colunaEquipa.setCellValueFactory(cellData
                 -> new SimpleObjectProperty<String>(cellData.getValue()
-                        .getnome()));
+                        .getNome()));
         equipas = DbEquipa.obterEquipasEstadio();
         observableList = FXCollections.observableArrayList(equipas);
         listaEquipas.setItems(observableList);

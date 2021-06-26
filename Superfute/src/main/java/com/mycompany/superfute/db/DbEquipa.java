@@ -51,6 +51,34 @@ public class DbEquipa {
         }
         return lista;
     }
+     
+     public static Equipa getEquipaById(int id) throws SQLException{
+        Equipa equipa = new Equipa();
+
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+
+            try {
+                cmd = "select * from equipa where id = " + id;
+
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(cmd);
+
+                while (rs.next()) {
+ 
+                   equipa = new Equipa(
+                    id,
+                    rs.getString("nome"),
+                    DbEstadio.getEstadiosByID(rs.getInt("estadio")));
+                }
+                                      
+                st.close();
+                conn.close();
+            } catch (Exception ex) {
+                System.err.println("Erro: " + ex.getMessage());
+            }
+            return equipa;
+        }
 
     public static ArrayList<Equipa> obterEquipasEstadio() throws SQLException {
         ArrayList<Equipa> lista = new ArrayList<>();
@@ -61,11 +89,11 @@ public class DbEquipa {
             ResultSet rs = st.executeQuery("SELECT * from vEquipaEstadio");
             while (rs.next()) {
                 Equipa equipa = new Equipa();
-                equipa.setestadio(new Estadio());
+                equipa.setEstadio(new Estadio());
                 equipa.setId(rs.getInt("id_equipa"));
-                equipa.setnome(rs.getString("nome_equipa"));
-                equipa.getestadio().setId(rs.getInt("id_estadio"));
-                equipa.getestadio().setNome(rs.getString("nome_estadio"));
+                equipa.setNome(rs.getString("nome_equipa"));
+                equipa.getEstadio().setId(rs.getInt("id_estadio"));
+                equipa.getEstadio().setNome(rs.getString("nome_estadio"));
                 lista.add(equipa);
             }
             st.close();

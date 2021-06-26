@@ -5,12 +5,17 @@
  */
 package com.mycompany.superfute;
 
+import com.mycompany.superfute.db.DbEvento;
 import com.mycompany.superfute.db.DbJogo;
+import com.mycompany.superfute.models.Evento;
 import com.mycompany.superfute.models.Jogo;
-import com.mycompany.superfute.models.Jornada;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,17 +38,17 @@ public class DetalheJogoController implements Initializable {
     @FXML
     private Label labelLocal;
     @FXML
-    private TableView<?> listaEventos;
+    private TableView<Evento> listaEventos;
     @FXML
-    private TableColumn<?, ?> colunaEvento;
+    private TableColumn<Evento, String> colunaEvento;
     @FXML
-    private TableColumn<?, ?> colunaPessoa;
+    private TableColumn<Evento, String> colunaPessoa;
     @FXML
-    private TableColumn<?, ?> colunaEquipa;
+    private TableColumn<Evento, String> colunaEquipa;
     @FXML
-    private TableColumn<?, ?> colunaMinuto;
+    private TableColumn<Evento, String> colunaMinuto;
     @FXML
-    private TableColumn<?, ?> colunaParte;
+    private TableColumn<Evento, String> colunaParte;
     @FXML
     private Button btnCriarEvento;
     @FXML
@@ -89,7 +94,9 @@ public class DetalheJogoController implements Initializable {
     }
     
     private Jogo jogo;
-    private Jornada jornada;
+    private Jogo resultado;
+    private ArrayList<Evento> listaEvento;
+    private ObservableList<Evento> observableList;
     
     /**
      * Initializes the controller class.
@@ -98,29 +105,46 @@ public class DetalheJogoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
     }
-    
+    /**
+     * O jogo selecionado contem apenas o resultado e as equipas enquanto que o jogo contem as informaçoes relativas a
+     * estadio, arbitro, local etc
+     * @param jogoSelecionado
+     * @throws SQLException 
+     */
     public void initJogo(Jogo jogoSelecionado) throws SQLException{
+        //procura pelo jogo selecionado atraves do id
         jogo = DbJogo.getJogoById(jogoSelecionado.getJogo());
+        resultado = jogoSelecionado;
+        initTable();
+        
+        
+              
+    }
+    
+    public void initTable() throws SQLException{
         
         labelLiga.setText(String.valueOf(jogo.getJornada().getIdLiga()));
         labelJornada.setText(String.valueOf(jogo.getJornada().getIdJornada()));
         
-        labelEquipaCasa.setText(jogoSelecionado.getNomeCasa());
-        labelResultadoCasa.setText(String.valueOf(jogoSelecionado.getGolosCasa()));
+        labelEquipaCasa.setText(resultado.getNomeCasa());
+        labelResultadoCasa.setText(String.valueOf(resultado.getGolosCasa()));
         
-        labelEquipaVisitante.setText(jogoSelecionado.getNomeFora());
-        labelResultadoVisitante.setText(String.valueOf(jogoSelecionado.getGolosFora()));
+        labelEquipaVisitante.setText(resultado.getNomeFora());
+        labelResultadoVisitante.setText(String.valueOf(resultado.getGolosFora()));
         
         labelEstadio.setText(jogo.getEstadio().getNome());
         labelLocal.setText(jogo.getEstadio().getCidade().getNome());
-        labelArbitro.setText(jogo.getArbitro().getnome());
+        labelArbitro.setText(jogo.getArbitro().getNome());
         
+        colunaEvento.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getEvento()));
+        colunaPessoa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getJogador().getNome()));       
+        colunaEquipa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getEquipa().getNome()));
+        colunaMinuto.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getminuto())));
+        colunaParte.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getParte()));
         
-
-        
-        
-        
-        
+        listaEvento = DbEvento.getEventoByJogo(jogo);
+        observableList = FXCollections.observableArrayList(listaEvento);
+        listaEventos.setItems(observableList);
         
     }
     

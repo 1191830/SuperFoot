@@ -41,19 +41,19 @@ public class Equipa {
         this.id = id;
     }
 
-    public String getnome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setnome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public Estadio getestadio() {
+    public Estadio getEstadio() {
         return estadio;
     }
 
-    public void setestadio(Estadio estadio) {
+    public void setEstadio(Estadio estadio) {
         this.estadio = estadio;
     }
 

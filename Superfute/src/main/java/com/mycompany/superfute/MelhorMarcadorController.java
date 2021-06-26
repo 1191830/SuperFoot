@@ -12,6 +12,7 @@ import com.mycompany.superfute.models.Jogador;
 import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Jornada;
 import com.mycompany.superfute.models.Liga;
+import com.mycompany.superfute.db.DbPessoa;
 import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
 import java.sql.SQLException;
@@ -54,7 +55,7 @@ public class MelhorMarcadorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        columnJogador.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getnome())));
+        columnJogador.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getNome())));
         columnGolos.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getGolosMarcados())));
         
         try {

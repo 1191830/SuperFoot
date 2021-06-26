@@ -38,7 +38,7 @@ public class DbJogador {
             rs = st.executeQuery(query);
             while (rs.next()) {
                 Jogador jogador = new Jogador();
-                jogador.setnome(rs.getString("jogador"));
+                jogador.setNome(rs.getString("jogador"));
                 jogador.setGolosMarcados(rs.getInt("golos"));
                 listaJogadores.add(jogador);
             }
@@ -66,7 +66,7 @@ public class DbJogador {
             rs = st.executeQuery(query);
             while (rs.next()) {
                 Jogador jogador = new Jogador();
-                jogador.setnome(rs.getString("jogador"));
+                jogador.setNome(rs.getString("jogador"));
                 jogador.setGolosMarcados(rs.getInt("golos"));
                 listaJogadores.add(jogador);
             }
@@ -98,7 +98,7 @@ public class DbJogador {
 
             while (rs.next()) {
                 Jogador jogador = new Jogador();
-                jogador.setnome(rs.getString("jogador"));
+                jogador.setNome(rs.getString("jogador"));
                 jogador.setVemelho(rs.getInt("Expulsoes"));
                 listaJogadores.add(jogador);
             }
@@ -129,7 +129,7 @@ public class DbJogador {
 
             while (rs.next()) {
                 Jogador jogador = new Jogador();
-                jogador.setnome(rs.getString("jogador"));
+                jogador.setNome(rs.getString("jogador"));
                 jogador.setVemelho(rs.getInt("Expulsoes"));
                 listaJogadores.add(jogador);
             }
@@ -155,7 +155,7 @@ public class DbJogador {
             while (rs.next()) {
                 Jogador jogador = new Jogador();
                 jogador.setId(rs.getInt("idjogador"));
-                jogador.setnome(rs.getString("jogador"));
+                jogador.setNome(rs.getString("jogador"));
                 jogador.setGolosMarcados(rs.getInt("golos"));
                 jogador.setGolosAnulados(rs.getInt("golosAnulados"));
                 jogador.setAmarelos(rs.getInt("amarelos"));

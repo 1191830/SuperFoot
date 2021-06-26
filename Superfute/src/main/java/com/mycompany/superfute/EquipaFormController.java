@@ -106,10 +106,10 @@ public class EquipaFormController implements Initializable {
      */
      public void preencherCampos() {
         if (equipa != null) {
-            nomeEquipa.setText(equipa.getnome());
+            nomeEquipa.setText(equipa.getNome());
         }
-        if (equipa.getestadio()!= null) {
-            selecionarEstadio.setValue(equipa.getestadio().getNome());
+        if (equipa.getEstadio()!= null) {
+            selecionarEstadio.setValue(equipa.getEstadio().getNome());
         }
     }
     
@@ -128,8 +128,8 @@ public class EquipaFormController implements Initializable {
       */
     public void setDadosEquipa() {
         if (validarCampos()) {
-            equipa.setnome(nomeEquipa.getText());
-            equipa.setestadio(estadios.get(selecionarEstadio
+            equipa.setNome(nomeEquipa.getText());
+            equipa.setEstadio(estadios.get(selecionarEstadio
                     .getSelectionModel().getSelectedIndex()));
         }
     }

@@ -22,7 +22,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import com.mycompany.superfute.models.Pessoa;
 import javafx.beans.property.SimpleObjectProperty;
@@ -68,7 +67,7 @@ public class ExpulsoesJogadorController implements Initializable {
 
     public void tableViewExpulsoes() throws SQLException {
         jogador.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<String>(cellData.getValue().getnome()));
+                new SimpleObjectProperty<String>(cellData.getValue().getNome()));
         expulsao.setCellValueFactory(cellData ->
                 new SimpleObjectProperty<Integer>(cellData.getValue().getVemelho()));
 
