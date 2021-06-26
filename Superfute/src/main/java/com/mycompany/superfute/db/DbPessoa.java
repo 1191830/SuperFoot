@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute.db;
 
+import com.mycompany.superfute.models.Jogador;
 import com.mycompany.superfute.models.Pais;
 import com.mycompany.superfute.models.Liga;
 import com.mycompany.superfute.models.Pessoa;
@@ -103,65 +104,7 @@ public class DbPessoa {
         return nome;
     }
 
-    /**
-     * Método retorna arraylist com os melhores marcadores por liga
-     *
-     * @param liga
-     * @return
-     * @throws SQLException
-     */
-    public static ArrayList<Pessoa> obterMelhorMarcadorLiga(Liga liga) throws SQLException {
-        Pessoa jogador;
-        ArrayList<Pessoa> listaJogadores = new ArrayList();
-        Connection conn = Dbconn.getConn();
-        String query = "select jogador, golos from view_melhorMarcador  where Liga = "
-                + liga.getAno() + " order by golos desc ";
-        Statement st;
-        ResultSet rs;
-
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            while (rs.next()) {
-                jogador = new Pessoa(rs.getString("jogador"), rs.getInt("golos"));
-
-                listaJogadores.add(jogador);
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return listaJogadores;
-    }
-
-    /**
-     * Método retorna arraylist com os melhores marcadores por liga
-     *
-     * @return
-     * @throws SQLException
-     */
-    public static ArrayList<Pessoa> obterMelhorMarcadorGeral() throws SQLException {
-        Pessoa jogador;
-        ArrayList<Pessoa> listaJogadores = new ArrayList();
-        Connection conn = Dbconn.getConn();
-        String query = "select jogador, golos from view_melhorMarcador order by golos desc ";
-        Statement st;
-        ResultSet rs;
-
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            while (rs.next()) {
-                jogador = new Pessoa(rs.getString("jogador"), rs.getInt("golos"));
-                listaJogadores.add(jogador);
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return listaJogadores;
-    }
+   
 
     /**
      * Metódo para fazer atulização na tabela pessoa
@@ -238,32 +181,6 @@ public class DbPessoa {
         return listaPessoa;
     }
 
-    public static ArrayList<Pessoa> obterJogadorExpulsões() throws SQLException {
-        ArrayList<Pessoa> listaJogadores = new ArrayList();
-        Connection conn = Dbconn.getConn();
-        String query = "select jogador, sum (amareloduplos + vermelho) "
-                + "as expulsoes from dbo.func_dadosJogadorTodos(-1,-1)"
-                + "group by jogador order by expulsoes desc";
-        Statement st;
-        ResultSet rs;
-
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
-                Pessoa jogador = new Pessoa();
-                jogador.setNome(rs.getString("jogador"));
-                jogador.setNumExpulsoes(rs.getInt("Expulsoes"));
-                listaJogadores.add(jogador);
-
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return listaJogadores;
-
-    }
+  
+  
 }

@@ -22,7 +22,6 @@ public class Evento {
     private String evento;
     private int idParte;
     private String parte;
-
     public Evento() {
 
     }
