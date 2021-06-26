@@ -26,6 +26,11 @@ public class Equipa {
         this.nome = nome;
         this.estadio = estadio;
     }
+    
+    public Equipa(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
 
     public int getId() {
         return id;

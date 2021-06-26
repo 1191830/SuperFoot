@@ -81,6 +81,27 @@ public class DbPessoa {
             }
             return pessoa;
         }
+    
+    public static String getNomebyId(int id) throws SQLException {
+        String nome = "";
+        
+        try {
+            Connection conn = Dbconn.getConn();
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT nome from Pessoa where id = " + id);
+
+            while (rs.next()) {
+                nome = rs.getString("nome");
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return nome;
+    }
 
     /**
      * Método retorna arraylist com os melhores marcadores por liga

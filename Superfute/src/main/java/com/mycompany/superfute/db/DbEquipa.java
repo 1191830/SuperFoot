@@ -6,6 +6,7 @@
 package com.mycompany.superfute.db;
 
 import com.mycompany.superfute.models.Equipa;
+import com.mycompany.superfute.models.Jogo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,6 +78,53 @@ public class DbEquipa {
                     DbEstadio.getEstadiosByID(rs.getInt("estadio")));
                 }
                                       
+                st.close();
+                conn.close();
+            } catch (Exception ex) {
+                System.err.println("Erro: " + ex.getMessage());
+            }
+            return equipa;
+        }
+     
+     public static String getNomebyId(int id) throws SQLException {
+        String nome = "";
+        
+        try {
+            Connection conn = Dbconn.getConn();
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT nome from equipa where id = " + id);
+
+            while (rs.next()) {
+                nome = rs.getString("nome");
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return nome;
+    }
+     
+     public static Equipa getEquipaJogo(Jogo jogo, int casaFora) throws SQLException{
+        Equipa equipa = new Equipa();
+        
+        Connection conn = Dbconn.getConn();
+
+            try {
+
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery("SELECT * from jogoEquipa where idJogo = " + jogo.getJogo()
+                + " and casaFora = " + casaFora);
+
+                while (rs.next()) {
+ 
+                   equipa = new Equipa(
+                    rs.getInt("idEquipa"),
+                    DbEquipa.getNomebyId(rs.getInt("idEquipa")));
+                }
+                                           
                 st.close();
                 conn.close();
             } catch (Exception ex) {

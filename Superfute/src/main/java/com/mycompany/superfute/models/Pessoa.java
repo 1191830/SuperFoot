@@ -5,6 +5,9 @@
  */
 package com.mycompany.superfute.models;
 
+import com.mycompany.superfute.db.DbPessoa;
+import java.sql.SQLException;
+
 /**
  *
  * @author bruno

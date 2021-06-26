@@ -9,6 +9,7 @@ import com.mycompany.superfute.db.DbEvento;
 import com.mycompany.superfute.db.DbJogo;
 import com.mycompany.superfute.models.Evento;
 import com.mycompany.superfute.models.Jogo;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,11 +19,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -90,7 +95,20 @@ public class DetalheJogoController implements Initializable {
     }
 
     @FXML
-    private void btnVerFormacoesEquipas(ActionEvent event) {
+    private void btnVerFormacoesEquipas(ActionEvent event) throws IOException, SQLException {
+        
+        if(resultado != null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("fxml/jogoEquipas.fxml"));
+            Parent root = loader.load();
+            JogoEquipasController controller = loader.getController();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            controller.initJogo(resultado);
+            }
     }
     
     private Jogo jogo;
