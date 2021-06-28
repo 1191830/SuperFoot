@@ -5,9 +5,9 @@
  */
 package com.mycompany.superfute.db;
 
-import com.mycompany.superfute.models.Jogador;
+import com.mycompany.superfute.models.Equipa;
+import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Pais;
-import com.mycompany.superfute.models.Liga;
 import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,6 +51,33 @@ public class DbPessoa {
             return null;
         }
 
+    }
+    
+     public static ArrayList<Pessoa> getPessoasJogoEquipa(Jogo jogo, Equipa equipa) throws SQLException {
+
+        ArrayList<Pessoa> lista = new ArrayList();
+        try {
+            Connection conn = Dbconn.getConn();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from pessoaJogo where idJogo = " + jogo.getJogo()
+                + " idEquipa = " + equipa.getId());
+            
+            while (rs.next()) {
+                Pessoa pessoa = new Pessoa();
+                pessoa.setId(rs.getInt("idPessoa"));
+                pessoa.setNome(DbPessoa.getNomebyId(rs.getInt("idPessoa")));
+
+                lista.add(pessoa);
+            }
+            
+        } catch (Exception ex) {
+
+            System.out.println(ex.getMessage());
+
+            System.err.println("Erro: " + ex.getMessage());
+            return null;
+        }
+        return lista;
     }
     
     public static Pessoa getPessoaById(int id) throws SQLException{

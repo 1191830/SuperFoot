@@ -5,14 +5,17 @@
  */
 package com.mycompany.superfute.db;
 
+import static com.mycompany.superfute.db.DbCidade.ShowMessage;
 import com.mycompany.superfute.models.Evento;
 import com.mycompany.superfute.models.Jogo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -73,6 +76,30 @@ public class DbEvento {
         return evento;
     }
     
+    public static ArrayList<ArrayList<String>> getPartes() throws SQLException {
+        ArrayList<ArrayList<String>> lista = new ArrayList<>();
+        int count = 0;
+        
+        try {
+            Connection conn = Dbconn.getConn();
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("select * from parteJogo");
+
+            while (rs.next()) {
+                lista.get(count).add(String.valueOf(rs.getInt("id")));
+                lista.get(count).add(rs.getString("parte"));
+                count ++;
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return lista;
+    }
+    
     public static String getParteByIdParte(int id) throws SQLException {
         String parte = "";
         
@@ -94,6 +121,69 @@ public class DbEvento {
         return parte;
     }
     
+    public static void insertEvento(Evento evento) throws SQLException {
+        
+        String cmd = "";
+
+        try {
+            Connection conn = Dbconn.getConn();
+            //Novo Evento
+            cmd = "INSERT INTO evento(idEquipa, idPessoa, idTipoEvento, minuto,"
+                    + " parte) VALUES (?, ?, ?, ?, ?)";
+
+            PreparedStatement statement = conn.prepareStatement(cmd);
+            statement.setInt(1, evento.getEquipa().getId());
+            statement.setInt(2, evento.getJogador().getId());
+            statement.setInt(3, evento.gettipoEvento());
+            statement.setInt(4, evento.getminuto());
+            statement.setInt(5, evento.getIdParte());
+
+            //Execute the update
+            statement.executeUpdate();
+
+            //commit in case you have turned autocommit to false
+            conn.commit();
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+        } catch (SQLException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+        }
+    }
+    
+    public static void updateEvento(Evento evento) throws SQLException {
+        
+        try {
+            Connection conn = Dbconn.getConn();
+
+            String cmd = ("update evento set idEquipa = ?, idPessoa = ?, idTipoEvento = ?,"
+                    + " minuto = ?, parte = ?"
+                    
+                    + " where id = " + evento.getId());
+            PreparedStatement statement = conn.prepareStatement(cmd);
+            statement.setInt(1, evento.getEquipa().getId());
+            statement.setInt(2, evento.getJogador().getId());
+            statement.setInt(3, evento.gettipoEvento());
+            statement.setInt(4, evento.getminuto());
+            statement.setInt(5, evento.getIdParte());
+            ;
+
+            //Execute the update
+            statement.executeUpdate();
+
+            //commit in case you have turned autocommit to false
+            conn.commit();
+        } catch (SQLException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            if (ex.getErrorCode() == 547) {
+                ShowMessage(Alert.AlertType.ERROR, "Registo não pode ser actualização pois é usado noutra tabela", "Falhou a eliminação do registo!");
+            } else {
+                ShowMessage(Alert.AlertType.ERROR, ex.getMessage(), "Falhou a actualização do registo!");
+            }
+        }
+    }
+    
     public static void deleteEvento(int id) throws SQLException {
         
         try {
@@ -109,6 +199,5 @@ public class DbEvento {
         } catch (Exception ex) {
             System.err.println("Erro: " + ex.getMessage());
         }
-
     }
 }

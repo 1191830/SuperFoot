@@ -149,7 +149,6 @@ public class DbArbitro {
     public static void deleteArbitro( int id) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAa");
 
         try {
 

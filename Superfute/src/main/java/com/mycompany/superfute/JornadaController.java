@@ -73,7 +73,7 @@ public class JornadaController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (row.isEmpty()) {
                     listaJornadas.getSelectionModel().clearSelection();
-                } else if (event.getClickCount() == 2) {
+                } else if (event.getClickCount() == 1) {
                     //jornada selecionada passa a ser a jornada selecionada na table
                     jornadaSelecionada = row.getItem();                                     
                 }

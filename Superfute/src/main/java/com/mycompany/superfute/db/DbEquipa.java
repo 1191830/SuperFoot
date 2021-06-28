@@ -127,6 +127,33 @@ public class DbEquipa {
             }
             return equipa;
         }
+     
+     public static ArrayList<Equipa> getEquipasJogo(Jogo jogo) throws SQLException{
+        Equipa equipa = new Equipa();
+        ArrayList<Equipa> lista = new ArrayList<>();
+        
+        
+
+            try {
+                Connection conn = Dbconn.getConn();
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery("SELECT * from jogoEquipa where idJogo = " + jogo.getJogo());
+
+                while (rs.next()) {
+ 
+                   equipa = new Equipa(
+                    rs.getInt("idEquipa"),
+                    DbEquipa.getNomebyId(rs.getInt("idEquipa")));
+                   lista.add(equipa);
+                }
+                                           
+                st.close();
+                conn.close();
+            } catch (Exception ex) {
+                System.err.println("Erro: " + ex.getMessage());
+            }
+            return lista;
+        }
 
     public static ArrayList<Equipa> obterEquipasEstadio() throws SQLException {
         ArrayList<Equipa> lista = new ArrayList<>();
