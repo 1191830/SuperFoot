@@ -11,6 +11,7 @@ import com.mycompany.superfute.models.Jornada;
 import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -161,5 +162,35 @@ public class DbJogo {
             System.err.println("Erro: " + ex.getMessage());
         }
         return resultado;
+    }
+     
+    public static ArrayList<Jogo> getResultadosJogosEquipa(int idEquipa) throws SQLException {
+        ArrayList<Jogo> jogos =  new ArrayList<>();
+        try {
+            Connection conn = Dbconn.getConn();
+             PreparedStatement statement = conn.
+                     prepareStatement("select Distinct * from func_resultadoTodos(-1) "
+                             + "where idEquipa1 = ? or idEquipa2 = ?");
+              statement.setInt(1, idEquipa);
+              statement.setInt(2, idEquipa);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Jogo jogo = new Jogo();
+                jogo.setEquipaCasa(new Equipa());
+                jogo.getEquipaCasa().setNome(rs.getString("equipaCasa"));
+                jogo.setEquipaFora(new Equipa());
+                jogo.getEquipaFora().setNome(rs.getString("equipaFora"));
+                jogo.setGolosCasa(rs.getInt("golosCasa"));
+                jogo.setGolosFora(rs.getInt("golosFora"));
+                jogo.setJornada(new Jornada());
+                jogo.getJornada().setIdJornada(rs.getInt("jornada"));
+                jogo.getJornada().setIdLiga(rs.getInt("liga"));
+                jogos.add(jogo);
+            }
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return jogos;
     }
 }

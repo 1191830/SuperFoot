@@ -28,12 +28,14 @@ public class DbClassificacao {
         int id;
 
         try {
+            
+            if(liga == null)
             cmd = "SELECT * from view_DadosEquipas order by pontuacao desc, golos desc";
-
+            else  {
+            cmd = "SELECT * from view_DadosEquipas where idliga = " + liga.getAno() + " order by pontuacao desc, golos desc";
+            }
             Statement st = conn.createStatement();
-
             ResultSet rs = st.executeQuery(cmd);
-
             while (rs.next()) {
                 Classificacao equipa = new Classificacao(
                         rs.getNString("equipa"),
@@ -42,9 +44,6 @@ public class DbClassificacao {
                         rs.getInt("golos Sofridos"));
                 
             id = rs.getInt("idEquipa");
-            
-          
-            
             equipa.setJogos(getJogos(id));
             equipa.setVitorias(getResultado(id,'V'));
             equipa.setEmpates(getResultado(id,'E'));

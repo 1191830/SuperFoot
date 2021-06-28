@@ -8,6 +8,7 @@ package com.mycompany.superfute.db;
 import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Estadio;
+import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -265,22 +266,21 @@ public class DbEquipa {
     }
 
     
-     public static ArrayList<String[]> obterPlantelEquipa(int idEquipa) throws SQLException {
-        ArrayList<String[]> listaPlantelFuncoes = new ArrayList<>();
+     public static ArrayList<Pessoa> obterPlantelEquipa(int idEquipa, int funcao) throws SQLException {
+        ArrayList<Pessoa> listaPlantelFuncoes = new ArrayList<>();
         try {
             Connection conn = Dbconn.getConn();
              PreparedStatement statement = conn.
-                     prepareStatement("select p.nome,f.funcao from pessoaEquipa pe "
-                     + "inner join pessoa p on p.id = pe.idPessoa "
-                        + "inner join funcaoPessoa f on f.id = pe.funcao "
-                            + "where idEquipa = ?");
+                     prepareStatement("select p.nome from pessoaEquipa pe "
+                             + "inner join pessoa p on p.id = pe.idPessoa "
+                             + "where idEquipa = ? and funcao = ?");
               statement.setInt(1, idEquipa);
+              statement.setInt(2, funcao);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                String[] plantelFuncao = new String[2];
-                plantelFuncao[0] = rs.getString("nome");
-                plantelFuncao[1] = rs.getString("funcao");
-                listaPlantelFuncoes.add(plantelFuncao);
+               Pessoa pessoa = new Pessoa();
+               pessoa.setNome(rs.getString("nome"));
+                listaPlantelFuncoes.add(pessoa);
             }
              conn.commit();
         } catch (Exception ex) {

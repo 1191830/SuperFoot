@@ -163,4 +163,14 @@ public class Jogo {
     public Object getLiga() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public String retornaStringJogoVersusFormatada(){
+    
+        return String.format("%s x %s", this.getEquipaCasa().getNome(),this.getEquipaFora().getNome());
+    }
+    
+    public String retornaStringJogoResultadoFormatada(){
+    
+        return String.format("%d - %d", this.getGolosCasa(),this.getGolosFora());
+    }
 }

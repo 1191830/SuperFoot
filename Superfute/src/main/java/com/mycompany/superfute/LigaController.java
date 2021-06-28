@@ -215,6 +215,8 @@ public class LigaController implements Initializable {
 
     @FXML
     private void btnVoltar(ActionEvent event) {
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        stage.close();
     }
 
     public void changeWindows(String path, ActionEvent event) throws IOException, SQLException {
