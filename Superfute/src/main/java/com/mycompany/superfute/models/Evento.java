@@ -13,7 +13,8 @@ import java.sql.SQLException;
  * @author bruno
  */
 public class Evento {
-
+    
+    private int id;
     private int minuto;
     private int idJogo;
     private Equipa equipa;
@@ -26,7 +27,8 @@ public class Evento {
 
     }
 
-    public Evento(int minuto, int idJogo, Equipa equipa, Pessoa jogador, int tipoEvento, int idParte) throws SQLException {
+    public Evento(int id, int minuto, int idJogo, Equipa equipa, Pessoa jogador, int tipoEvento, int idParte) throws SQLException {
+        this.id = id;
         this.minuto = minuto;
         this.idJogo = idJogo;
         this.equipa = equipa;
@@ -37,6 +39,14 @@ public class Evento {
         this.parte = DbEvento.getParteByIdParte(idParte);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public int getminuto() {
         return minuto;
     }

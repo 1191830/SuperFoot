@@ -135,4 +135,31 @@ public class DbJogo {
         }
         return arrJogos;
     }
+     
+     public static String getResultadoIntervalo(Jogo jogo) throws SQLException {
+        
+        
+        String resultado = "";
+        int id;
+
+        try {
+            Connection conn = Dbconn.getConn();
+            String cmd = "select * from func_golosIntervalo(" + jogo.getJogo() + ")";
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery(cmd);
+
+            while (rs.next()) {
+                resultado = rs.getString("resultado1");
+                resultado = resultado + " x ";
+                resultado = resultado + rs.getString("resultado2");              
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return resultado;
+    }
 }

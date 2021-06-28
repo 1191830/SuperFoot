@@ -66,9 +66,7 @@ public class DetalheJogoController implements Initializable {
     private Label labelEquipaCasa;
     @FXML
     private Label labelEquipaVisitante;
-    @FXML
     private Label labelResultadoCasa;
-    @FXML
     private Label labelResultadoVisitante;
     @FXML
     private Button btnVerFormacoesEquipas;
@@ -78,6 +76,11 @@ public class DetalheJogoController implements Initializable {
     private Label labelJornada;
     @FXML
     private Label labelArbitro;
+    private Label labelResultadoIntervalo;
+    @FXML
+    private Button btnIntervali;
+    @FXML
+    private Label labelResultado;
     @FXML
     private void btnCriarEvento(ActionEvent event) {
     }
@@ -115,6 +118,7 @@ public class DetalheJogoController implements Initializable {
     private Jogo resultado;
     private ArrayList<Evento> listaEvento;
     private ObservableList<Evento> observableList;
+    private boolean resultadoIntervalo = false;
     
     /**
      * Initializes the controller class.
@@ -133,10 +137,7 @@ public class DetalheJogoController implements Initializable {
         //procura pelo jogo selecionado atraves do id
         jogo = DbJogo.getJogoById(jogoSelecionado.getJogo());
         resultado = jogoSelecionado;
-        initTable();
-        
-        
-              
+        initTable();            
     }
     
     public void initTable() throws SQLException{
@@ -144,11 +145,9 @@ public class DetalheJogoController implements Initializable {
         labelLiga.setText(String.valueOf(jogo.getJornada().getIdLiga()));
         labelJornada.setText(String.valueOf(jogo.getJornada().getIdJornada()));
         
-        labelEquipaCasa.setText(resultado.getNomeCasa());
-        labelResultadoCasa.setText(String.valueOf(resultado.getGolosCasa()));
-        
+        labelEquipaCasa.setText(resultado.getNomeCasa());       
         labelEquipaVisitante.setText(resultado.getNomeFora());
-        labelResultadoVisitante.setText(String.valueOf(resultado.getGolosFora()));
+        labelResultado.setText(resultado.getGolosCasa() + " x " + resultado.getGolosFora());
         
         labelEstadio.setText(jogo.getEstadio().getNome());
         labelLocal.setText(jogo.getEstadio().getCidade().getNome());
@@ -163,6 +162,23 @@ public class DetalheJogoController implements Initializable {
         listaEvento = DbEvento.getEventoByJogo(jogo);
         observableList = FXCollections.observableArrayList(listaEvento);
         listaEventos.setItems(observableList);
+        
+        
+    }
+
+    @FXML
+    private void onActionIntervalo(ActionEvent event) throws SQLException {
+        if (resultadoIntervalo == false){
+            labelResultado.setText(DbJogo.getResultadoIntervalo(jogo));
+            btnIntervali.setText("Final");
+            btnIntervali.setLayoutX(265);
+            resultadoIntervalo = true;
+        } else{
+            labelResultado.setText(resultado.getGolosCasa() + " x " + resultado.getGolosFora());
+            btnIntervali.setText("Intervalo");
+            btnIntervali.setLayoutX(254);
+            resultadoIntervalo = false;
+        }
         
     }
     

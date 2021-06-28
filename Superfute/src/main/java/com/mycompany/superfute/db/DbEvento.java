@@ -5,17 +5,14 @@
  */
 package com.mycompany.superfute.db;
 
-import com.mycompany.superfute.models.Cidade;
-import com.mycompany.superfute.models.Estadio;
 import com.mycompany.superfute.models.Evento;
 import com.mycompany.superfute.models.Jogo;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  *
@@ -37,14 +34,15 @@ public class DbEvento {
 
             while (rs.next()) {
                 Evento obj = new Evento(
-                rs.getInt("minuto"),
-                rs.getInt("idJogo"),
-                DbEquipa.getEquipaById(rs.getInt("idEquipa")),
-                DbPessoa.getPessoaById(rs.getInt("idPessoa")),
-                rs.getInt("idTipoEvento"),
-                rs.getInt("parte"));
-                
-                lista.add(obj);
+                    rs.getInt("id"),
+                    rs.getInt("minuto"),
+                    rs.getInt("idJogo"),
+                    DbEquipa.getEquipaById(rs.getInt("idEquipa")),
+                    DbPessoa.getPessoaById(rs.getInt("idPessoa")),
+                    rs.getInt("idTipoEvento"),
+                    rs.getInt("parte"));
+
+                    lista.add(obj);
             }
 
             st.close();
@@ -94,5 +92,23 @@ public class DbEvento {
             System.err.println("Erro: " + ex.getMessage());
         }
         return parte;
+    }
+    
+    public static void deleteEvento(int id) throws SQLException {
+        
+        try {
+            Connection conn = Dbconn.getConn();
+
+            PreparedStatement stm = conn.prepareStatement("delete from evento where id = " + id);
+            stm.executeUpdate();          
+
+            //commit in case you have turned autocommit to false
+            conn.commit();
+            
+            stm.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+
     }
 }
