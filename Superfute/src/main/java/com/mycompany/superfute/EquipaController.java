@@ -84,8 +84,6 @@ public class EquipaController implements Initializable {
         }
     }
     
-    
-
     @FXML
     private void btnEditarEquipa(ActionEvent event) throws IOException, SQLException {
          boolean verificaEquipaNull = false;
@@ -107,13 +105,17 @@ public class EquipaController implements Initializable {
      @FXML
     private void btnVerEquipa(ActionEvent event) throws IOException {
         Equipa equipa = listaEquipas.getSelectionModel().getSelectedItem();
+       System.out.println("EQUIPA" + equipa);
         if (equipa != null) {
+           
             controllerVerEquipa(equipa);
         }
     }
 
     @FXML
     private void btnVoltar(ActionEvent event) {
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        stage.close();
     }
     
     
