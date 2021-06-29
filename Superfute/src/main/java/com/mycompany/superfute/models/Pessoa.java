@@ -18,20 +18,22 @@ public class Pessoa {
     private int golosMarcados;
     private String funcao;
     private int numExpulsoes;
+    private String nomeEquipa;
+    private Equipa equipa;
 
     public Pessoa() {
 
     }
 
     public Pessoa(int id, String nome, String nacionalidade, String funcao,
-            int numExpulsoes) {
+            int numExpulsoes, String nomeEquipa) {
         this.id = id;
         this.nome = nome;
         this.pais = pais;
         this.funcao = funcao;
         this.numExpulsoes = numExpulsoes;
-
         this.nacionalidade = nacionalidade;
+        this.nomeEquipa = nomeEquipa;
     }
 
     public String getNacionalidade() {
@@ -103,13 +105,23 @@ public class Pessoa {
         this.numExpulsoes = numExpulsoes;
     }
 
+    public String getNomeEquipa() {
+        return nomeEquipa;
+    }
+
+    public void setNomeEquipa(String nomeEquipa) {
+        this.nomeEquipa = nomeEquipa;
+    }
+
     @Override
     public String toString() {
         return "Pessoa{" + "id=" + id + ", nome=" + nome + ", pais=" + pais +
-                ", nacionalidade=" + nacionalidade + ", golosMarcados=" 
-                + golosMarcados + ", funcao=" + funcao + ", numExpulsoes=" 
-                + numExpulsoes + '}';
+                ", nacionalidade=" + nacionalidade + ", golosMarcados=" + 
+                golosMarcados + ", funcao=" + funcao + ", numExpulsoes=" + 
+                numExpulsoes + ", nomeEquipa=" + nomeEquipa + '}';
     }
+
+   
 
     
 }
