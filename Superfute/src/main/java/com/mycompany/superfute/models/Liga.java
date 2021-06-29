@@ -15,9 +15,17 @@ public class Liga {
     private String nome; // Nome da liga
     private int ano; // ano da liga
 
+    /**
+     * Construtor vazio de Liga
+     */
     public Liga() {
     }
 
+    /**
+     * Construtor de Liga com nome e Ano
+     * @param nome
+     * @param ano 
+     */
     public Liga(String nome, int ano) {
         this.nome = nome;
         this.ano = ano;
@@ -42,14 +50,5 @@ public class Liga {
     @Override
     public String toString() {
         return "Liga{" + "nome=" + nome + ", ano=" + ano + '}';
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    }   
 }

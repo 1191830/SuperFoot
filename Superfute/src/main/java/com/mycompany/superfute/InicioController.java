@@ -56,11 +56,20 @@ public class InicioController implements Initializable {
     }
 
     @FXML
-    private void btnLigas(ActionEvent event) {
+    private void btnLigas(ActionEvent event) throws IOException {
+         Parent root = FXMLLoader.load(getClass().getResource("fxml/liga.fxml"));
+        Scene scene = new Scene(root);
+         Stage window = new Stage();
+        window.setTitle("Pessoa");
+        window.setResizable(false);
+        window.setScene(scene);
+        window.showAndWait();
     }
 
     @FXML
     private void btnSair(ActionEvent event) {
+          Stage stage = (Stage) btnSair.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

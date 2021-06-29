@@ -51,6 +51,32 @@ public class DbJornada {
             return lista;
         }
     
+    public static Jornada getJornadaByID(Integer jornada) throws SQLException{
+        Jornada newJornada = new Jornada();
+
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+
+            try {
+                cmd = "SELECT * from Jornada where jornada = " + jornada;
+
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(cmd);
+
+                while (rs.next()) {
+                    newJornada = new Jornada(
+                            rs.getInt("jornada"),
+                            rs.getInt("liga"));
+                    
+                }
+
+                st.close();
+                conn.close();
+            } catch (Exception ex) {
+                System.err.println("Erroooo: " + ex.getMessage());
+            }
+            return newJornada;
+        }
     public static ObservableList<Jornada> getJornadaByLiga(Integer liga) throws SQLException{
         Jornada jornada = new Jornada();
         ObservableList<Jornada> lista = FXCollections.observableArrayList();
@@ -77,6 +103,33 @@ public class DbJornada {
                 System.err.println("Erroooo: " + ex.getMessage());
             }
             return lista;
+        }
+    
+    public static Jornada getJornadaByJogo(Integer jogo) throws SQLException{
+        Jornada jornada = new Jornada();
+        
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+
+            try {
+                cmd = "select * from jornada as jor  join jogo as jog on jor.jornada = jog.jornada "
+                        + "where jog.id = " + jogo;
+
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(cmd);
+
+                while (rs.next()) {
+                    Jornada obj = new Jornada(
+                            rs.getInt("jornada"),
+                            rs.getInt("liga"));                    
+                }
+
+                st.close();
+                conn.close();
+            } catch (Exception ex) {
+                System.err.println("Erroooo: " + ex.getMessage());
+            }
+            return jornada;
         }
     
     public static boolean existsJornada(Integer jornada, Integer liga) throws SQLException{

@@ -91,7 +91,35 @@ public class DbCidade {
             System.err.println("Erro: " + ex.getMessage());
         }
         return cidade;
-    }      
+    }
+
+
+      public static Cidade getCidadebyID(int id) throws SQLException {
+        Cidade cidade = new Cidade();
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+        
+        try {
+            cmd = "SELECT * from Cidade where id = " + id ;
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery(cmd);
+
+            while (rs.next()) {
+                cidade = new Cidade(
+                DbPais.getPaisByID(rs.getInt("pais")),
+                rs.getInt("id"),
+                rs.getString("nome")
+                );  
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return cidade;
+    }       
             
     
     

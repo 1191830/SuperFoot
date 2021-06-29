@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute.db;
 
+import Utils.MessageBoxes;
 import com.mycompany.superfute.models.Pais;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,8 +34,8 @@ public class DbPais {
             while (rs.next()) {
                 paises.add(
                         new Pais(
-                        rs.getInt("id"),
-                        rs.getString("nome")
+                                rs.getInt("id"),
+                                rs.getString("nome")
                         )
                 );
             }
@@ -70,6 +71,38 @@ public class DbPais {
         }
         return lista;
     }
+    
+    /**
+     * Procura o Pais pelo id
+     * @param id
+     * @return Pais
+     * @throws SQLException 
+     */  
+      public static Pais getPaisByID(int id) throws SQLException {
+        Pais pais = new Pais();
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+        
+        try {
+            cmd = "SELECT * from Pais where id = " + id;
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery(cmd);
+
+            while (rs.next()) {                   
+                pais = new Pais(
+                rs.getInt("id"),
+                rs.getString("nome")); 
+                
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return pais;
+    } 
 
     public static void savePais( String nome) throws SQLException {
         Connection conn = Dbconn.getConn();
@@ -90,10 +123,10 @@ public class DbPais {
             conn.commit();
         } catch (SQLIntegrityConstraintViolationException ex) {
             System.err.println("Erro: " + ex.getMessage());
-            ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex.getMessage());
-            ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
         }
     }
 
@@ -119,9 +152,9 @@ public class DbPais {
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex.getMessage());
             if (ex.getErrorCode() == 547) {
-                ShowMessage(Alert.AlertType.ERROR, "Registo não pode ser actualização pois é usado noutra tabela", "Falhou a eliminação do registo!");
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR, "Registo não pode ser actualização pois é usado noutra tabela", "Falhou a eliminação do registo!");
             } else {
-                ShowMessage(Alert.AlertType.ERROR, ex.getMessage(), "Falhou a actualização do registo!");
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR, ex.getMessage(), "Falhou a actualização do registo!");
             }
         }
 
@@ -147,9 +180,9 @@ public class DbPais {
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex.getMessage());
             if (ex.getErrorCode() == 547) {
-                ShowMessage(Alert.AlertType.ERROR, "Registo não pode ser eliminado pois é usado noutra tabela", "Falhou a eliminação do registo!");
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR, "Registo não pode ser eliminado pois é usado noutra tabela", "Falhou a eliminação do registo!");
             } else {
-                ShowMessage(Alert.AlertType.ERROR, ex.getMessage(), "Falhou a eliminação do registo!");
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR, ex.getMessage(), "Falhou a eliminação do registo!");
             }
         }
 
@@ -183,11 +216,20 @@ public class DbPais {
         return pais;
     }
 
-    public static void ShowMessage(Alert.AlertType type, String msg, String header) {
-        Alert alert = new Alert(type);
-        alert.setHeaderText(header);
-        alert.setContentText(msg);
-        alert.showAndWait();
+    public static int getIdPaisPorNome(String nome) {
+            int id=0 ;
+        try {
+            Connection conn = Dbconn.getConn();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT id from Pais where nome = " + nome);
+            if(rs.next()) {
+               id = rs.getInt("id");
+            }
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return id;
     }
 
 }

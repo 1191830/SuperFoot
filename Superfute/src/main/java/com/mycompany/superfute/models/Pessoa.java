@@ -13,26 +13,36 @@ public class Pessoa {
 
     private int id;
     private String nome;
+    private Pais pais;
     private String nacionalidade;
-    private int golosMarcados;
-    private String funcao;
 
+    
+    /**
+     * Construtor vazio de pessoa
+     */
     public Pessoa() {
 
     }
-
-    public Pessoa(int id, String nome, String nacionalidade, String funcao) {
+    /**
+     * Construtor de Pessoa com id nome e nacionalidade
+     * @param id
+     * @param nome
+     * @param nacionalidade 
+     */
+    public Pessoa(int id, String nome, String nacionalidade){
         this.id = id;
         this.nome = nome;
         this.nacionalidade = nacionalidade;
-        this.funcao = funcao;
+        
     }
     
-    //classe para apresentar golos do jogador
-    public Pessoa(String nome, int golos){
-        this.nome = nome;
-        this.golosMarcados = golos;
+    public String getNacionalidade() {
+        return nacionalidade;
     }
+
+    public void setNacionalidade(String nacionalidade) {
+        this.nacionalidade = nacionalidade;
+    } 
 
     public int getId() {
         return id;
@@ -42,43 +52,25 @@ public class Pessoa {
         this.id = id;
     }
 
-    public String getnome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setnome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public String getnacionalidade() {
-        return nacionalidade;
+    public Pais getPais() {
+        return pais;
     }
 
-    public void setnacionalidade(String nacionalidade) {
-        this.nacionalidade = nacionalidade;
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 
-    public String getfuncao() {
-        return funcao;
-    }
-
-    public void setfuncao(String funcao) {
-        this.funcao = funcao;
-    }
-
-    public int getGolosMarcados() {
-        return golosMarcados;
-    }
-
-    public void setGolosMarcados(int golosMarcados) {
-        this.golosMarcados = golosMarcados;
-    }
-    
-    
-
-     @Override
+    @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", nacionalidade=" 
-                + nacionalidade + ",funçao" + funcao + '}';
+        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", pais=" + pais +
+                ", nacionalidade=" + nacionalidade + "}";
     }
 }

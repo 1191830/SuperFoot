@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.JogoEquipasController">
+   <children>
+      <Label fx:id="labelCasa" layoutX="101.0" layoutY="26.0" text="Label">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelFora" layoutX="399.0" layoutY="26.0" text="Label">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableTitularesCasa" layoutX="14.0" layoutY="68.0" prefHeight="294.0" prefWidth="145.0">
+        <columns>
+          <TableColumn fx:id="columnTitularesCasa" prefWidth="99.20001220703125" text="Titulares" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tableTitularesFora" layoutX="312.0" layoutY="68.0" prefHeight="294.0" prefWidth="145.0">
+         <columns>
+            <TableColumn fx:id="columnTitularesFora" prefWidth="149.60001220703126" text="Titulares" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tableSuplentesFora" layoutX="481.0" layoutY="68.0" prefHeight="158.0" prefWidth="100.0">
+         <columns>
+            <TableColumn fx:id="columnSuplentesFora" prefWidth="99.20001220703125" text="Suplentes" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tableTecnicosCasa" layoutX="170.0" layoutY="243.0" prefHeight="118.0" prefWidth="100.0">
+         <columns>
+            <TableColumn fx:id="columnTecnicosCasa" prefWidth="99.20001220703125" text="Tecnicos" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tableSuplentesCasa" layoutX="170.0" layoutY="68.0" prefHeight="158.0" prefWidth="100.0">
+         <columns>
+            <TableColumn fx:id="columnSuplentesCasa" prefWidth="99.20001220703125" text="Suplentes" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tableTecnicosFora" layoutX="481.0" layoutY="243.0" prefHeight="118.0" prefWidth="100.0">
+         <columns>
+            <TableColumn fx:id="columnTecnicosFora" prefWidth="99.20001220703125" text="Tecnicos" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

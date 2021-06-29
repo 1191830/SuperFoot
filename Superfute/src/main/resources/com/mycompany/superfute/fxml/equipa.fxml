@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="570.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.mycompany.superfute.EquipaController">
+<AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.EquipaController">
    <children>
       <TableView fx:id="listaEquipas" layoutX="14.0" layoutY="72.0" prefHeight="438.0" prefWidth="315.0">
          <columns>
@@ -20,7 +19,6 @@
       </TableView>
       <Button fx:id="btnCriarEquipa" layoutX="14.0" layoutY="536.0" mnemonicParsing="false" onAction="#btnCriarEquipa" prefHeight="34.0" prefWidth="101.0" text="Criar Equipa" />
       <Button fx:id="btnEditarEquipa" layoutX="120.0" layoutY="536.0" mnemonicParsing="false" onAction="#btnEditarEquipa" prefHeight="34.0" prefWidth="101.0" text="Editar Equipa" />
-      <Button fx:id="btnApagarEquipa" layoutX="229.0" layoutY="536.0" mnemonicParsing="false" onAction="#btnApagarEquipa" prefHeight="34.0" prefWidth="101.0" text="Apagar Equipa" />
       <Label fx:id="labelNomeEquipa" layoutX="12.0" layoutY="30.0" text="NOME EQUIPA SELECIONADA">
          <font>
             <Font size="24.0" />

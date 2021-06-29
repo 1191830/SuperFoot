@@ -15,8 +15,8 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnInserirPessoa" layoutX="26.0" layoutY="443.0" mnemonicParsing="false" onAction="#btnInserirPessoa" prefHeight="34.0" prefWidth="93.0" text="Inserir " />
-      <Button fx:id="btnEditarPessoa" layoutX="132.0" layoutY="443.0" mnemonicParsing="false" onAction="#btnEditarPessoa" prefHeight="34.0" prefWidth="93.0" text="Editar " />
+      <Button fx:id="btnInserirPessoa" layoutX="82.0" layoutY="443.0" mnemonicParsing="false" onAction="#btnInserirPessoa" prefHeight="34.0" prefWidth="93.0" text="Inserir " />
+      <Button fx:id="btnEditarPessoa" layoutX="188.0" layoutY="443.0" mnemonicParsing="false" onAction="#btnEditarPessoa" prefHeight="34.0" prefWidth="93.0" text="Editar " />
       <Button fx:id="btnVoltar" layoutX="258.0" layoutY="494.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="34.0" prefWidth="80.0" text="Voltar" />
       <ScrollPane layoutX="23.0" layoutY="62.0" prefHeight="374.0" prefWidth="302.0">
          <content>
@@ -31,6 +31,5 @@
             </TableView>
          </content>
       </ScrollPane>
-      <Button fx:id="btnRemoverPessoa" layoutX="233.0" layoutY="443.0" mnemonicParsing="false" onAction="#btnRemoverPessoa" prefHeight="34.0" prefWidth="93.0" text="Remover " />
    </children>
 </AnchorPane>

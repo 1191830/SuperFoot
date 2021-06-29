@@ -11,11 +11,8 @@ import com.mycompany.superfute.models.Pais;
 import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -47,6 +44,7 @@ public class PessoaFormController implements Initializable {
     private Stage stageDialog;
     private Pessoa pessoa;
     boolean btnReturn;
+    private ArrayList<Pais> paises;
 
     /**
      * Getters e Setters
@@ -84,6 +82,7 @@ public class PessoaFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            paises = DbPais.getTodosPaises();
             inserirNacionalidade();
         } catch (SQLException ex) {
             MessageBoxes.ShowMessage(Alert.AlertType.WARNING,
@@ -94,10 +93,9 @@ public class PessoaFormController implements Initializable {
     @FXML
     private void btnAplicar(ActionEvent event) {
         setDadosPessoa();
-        System.out.println(pessoa);
         setBtnReturn(true);
         stageDialog.close();
-        
+
     }
 
     @FXML
@@ -107,22 +105,25 @@ public class PessoaFormController implements Initializable {
 
     public void preencherCampos() {
         if (pessoa != null) {
-            nomePessoa.setText(pessoa.getnome());
+            nomePessoa.setText(pessoa.getNome());
+        }
+        if (pessoa.getPais() != null) {
+            selecionarNacionalidade.setValue(pessoa.getPais().getNome());
         }
     }
 
     public void inserirNacionalidade() throws SQLException {
-        for (Pais p : DbPais.getTodosPaises()) {
+        for (Pais p : paises) {
             selecionarNacionalidade.getItems().addAll(p.getNome());
         }
     }
 
     public void setDadosPessoa() {
         if (validarCampos()) {
-            pessoa.setnome(nomePessoa.getText());
+            pessoa.setNome(nomePessoa.getText());
             System.out.println(pessoa);
-            pessoa.setnacionalidade(selecionarNacionalidade.
-                    getValue());
+            pessoa.setPais(paises.get(selecionarNacionalidade
+                    .getSelectionModel().getSelectedIndex()));
         }
     }
 

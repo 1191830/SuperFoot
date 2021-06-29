@@ -5,20 +5,18 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.DetalheJogoController">
    <children>
-      <Label fx:id="labelLigaAno" layoutX="224.0" layoutY="14.0" text="LIGA - ANO">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <GridPane layoutX="110.0" layoutY="116.0" prefHeight="82.0" prefWidth="352.0">
+      <GridPane layoutX="110.0" layoutY="130.0" prefHeight="82.0" prefWidth="352.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -65,7 +63,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="labelLocal1" prefHeight="27.0" prefWidth="167.0" text="Nome árbitro" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label fx:id="labelArbitro" prefHeight="27.0" prefWidth="167.0" text="Nome árbitro" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="16.0" />
                </font>
@@ -97,35 +95,66 @@
       <Button fx:id="btnEditarEvento" layoutX="143.0" layoutY="538.0" mnemonicParsing="false" onAction="#btnEditarEvento" prefHeight="34.0" prefWidth="98.0" text="Editar Evento" />
       <Button fx:id="btnApagarEvento" layoutX="260.0" layoutY="538.0" mnemonicParsing="false" onAction="#btnApagarEvento" prefHeight="34.0" prefWidth="98.0" text="Apagar Evento" />
       <Button fx:id="btnVoltar" layoutX="475.0" layoutY="538.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="34.0" prefWidth="80.0" text="Voltar" />
-      <Label fx:id="labelEquipaCasa" alignment="CENTER" layoutX="74.0" layoutY="66.0" prefHeight="27.0" prefWidth="167.0" text="EQUIPA CASA" textAlignment="CENTER">
+      <Label fx:id="labelEquipaCasa" alignment="CENTER" layoutX="55.0" layoutY="62.0" prefHeight="27.0" prefWidth="167.0" text="EQUIPA CASA" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="labelEquipaVisitante" alignment="CENTER" layoutX="359.0" layoutY="66.0" prefHeight="27.0" prefWidth="167.0" text="EQUIPA VISITANTE" textAlignment="CENTER">
+      <Label fx:id="labelEquipaVisitante" alignment="CENTER" layoutX="354.0" layoutY="62.0" prefHeight="27.0" prefWidth="167.0" text="EQUIPA VISITANTE" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="265.0" layoutY="66.0" prefHeight="27.0" prefWidth="40.0" text="x" textAlignment="CENTER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="labelResultadoCasa" alignment="CENTER" layoutX="233.0" layoutY="53.0" prefHeight="27.0" prefWidth="40.0" text="0" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="36.0" />
-         </font>
-      </Label>
-      <Label fx:id="labelResultadoVisitante" alignment="CENTER" layoutX="296.0" layoutY="53.0" prefHeight="27.0" prefWidth="40.0" text="0" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="36.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnVerFormacoesEquipas" layoutX="158.0" layoutY="223.0" mnemonicParsing="false" onAction="#btnVerFormacoesEquipas" prefHeight="35.0" prefWidth="263.0" text="VER FORMAÇÕES EQUIPAS">
+      <Button fx:id="btnVerFormacoesEquipas" layoutX="153.0" layoutY="231.0" mnemonicParsing="false" onAction="#btnVerFormacoesEquipas" prefHeight="35.0" prefWidth="263.0" text="VER FORMAÇÕES EQUIPAS">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
+      <Label fx:id="labelLiga" layoutX="153.0" layoutY="22.0" text="Label">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelJornada" layoutX="378.0" layoutY="22.0" text="Label">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Text layoutX="104.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LIGA">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="278.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="JORNADA">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="107.0" fitWidth="98.0" layoutX="447.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../assets/pitch.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="34.0" fitWidth="35.0" layoutX="105.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../assets/tactics.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="72.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../assets/stadium.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="77.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../assets/referee.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnIntervali" layoutX="254.0" layoutY="98.0" mnemonicParsing="false" onAction="#onActionIntervalo" text="Intervalo" />
+      <Label fx:id="labelResultado" layoutX="255.0" layoutY="61.0" text="0 X 0">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -5,12 +5,7 @@
  */
 package com.mycompany.superfute.models;
 
-import com.mycompany.superfute.models.Equipa;
-import com.mycompany.superfute.models.Estadio;
-import com.mycompany.superfute.models.Jornada;
-import com.mycompany.superfute.models.Liga;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -19,22 +14,41 @@ import java.util.ArrayList;
  */
 public class Jogo {
 
-    private Jogo Jogo; // id do jogo
+    private int jogo; // id do jogo
+    private Jornada jornada;
     private Equipa EquipaCasa; //id da equipa da casa
     private String nomeCasa; //nome Equipa casa
     private Equipa EquipaFora; //id da equipa de Fora
     private String nomeFora; //nome Equipa fora
-    private int golosCasa;
-    private int golosFora;
+    private int golosCasa; //golos da equipa da casa
+    private int golosFora; //golos da equipa visitante
     private LocalDate data; // data do jogo
+    private Pessoa arbitro; //arbitro do Jogo
     private Estadio Estadio; // id do Estadio
     private ArrayList<Evento> listEvento = new ArrayList();
 
+    /**
+     * Construtor vazio de jogo
+     */
     public Jogo() {
     }
+    
+    /**
+     * Construtor de Jogo com Jogo, Jornada, Estadio e Arbitro
+     * @param jogo
+     * @param jornada
+     * @param Estadio
+     * @param arbitro 
+     */
+    public Jogo(Integer jogo, Jornada jornada, Estadio Estadio, Pessoa arbitro) {
+        this.jogo = jogo;
+        this.jornada = jornada;
+        this.Estadio = Estadio;
+        this.arbitro = arbitro;
+    }
 
-    public Jogo(Jogo Jogo, Equipa EquipaCasa, Equipa EquipaFora, LocalDate data, Estadio Estadio) {
-        this.Jogo = Jogo;
+    public Jogo(Integer jogo, Equipa EquipaCasa, Equipa EquipaFora, LocalDate data, Estadio Estadio) {
+        this.jogo = jogo;
         this.EquipaCasa = EquipaCasa;
         this.EquipaFora = EquipaFora;
         this.data = data;
@@ -42,7 +56,8 @@ public class Jogo {
     }
     
     //Construtor para apresentar os jogos da jornada
-    public Jogo(String casa, int golosCasa, String fora, int golosFora){
+    public Jogo(int jogo, String casa, int golosCasa, String fora, int golosFora){
+        this.jogo = jogo;
         this.nomeCasa = casa;
         this.golosCasa = golosCasa;
         this.nomeFora = fora;
@@ -50,12 +65,12 @@ public class Jogo {
         
     }
 
-    public Jogo getJogo() {
-        return Jogo;
+    public int getJogo() {
+        return jogo;
     }
 
-    public void setJogo(Jogo Jogo) {
-        this.Jogo = Jogo;
+    public void setJogo(int Jogo) {
+        this.jogo = Jogo;
     }
 
     public Equipa getEquipaCasa() {
@@ -121,17 +136,41 @@ public class Jogo {
     public void setNomeFora(String nomeFora) {
         this.nomeFora = nomeFora;
     }
-    
-    
 
+    public Jornada getJornada() {
+        return jornada;
+    }
+
+    public Pessoa getArbitro() {
+        return arbitro;
+    }
+
+    public void setJornada(Jornada jornada) {
+        this.jornada = jornada;
+    }
+
+    public void setArbitro(Pessoa arbitro) {
+        this.arbitro = arbitro;
+    }
+  
     @Override
     public String toString() {
-        return "Jogo{" + "Jogo=" + Jogo + ", EquipaCasa=" + EquipaCasa +
+        return "Jogo{" + "Jogo=" + jogo + ", EquipaCasa=" + EquipaCasa +
                 ", EquipaFora=" + EquipaFora + ", data=" + data + ", Estadio="
                 + Estadio + ", listEvento=" + listEvento + '}';
     }
 
     public Object getLiga() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public String retornaStringJogoVersusFormatada(){
+    
+        return String.format("%s x %s", this.getEquipaCasa().getNome(),this.getEquipaFora().getNome());
+    }
+    
+    public String retornaStringJogoResultadoFormatada(){
+    
+        return String.format("%d - %d", this.getGolosCasa(),this.getGolosFora());
     }
 }

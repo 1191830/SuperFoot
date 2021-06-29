@@ -6,8 +6,6 @@
 package com.mycompany.superfute.db;
 
 import static Utils.MessageBoxes.ShowMessage;
-import com.mycompany.superfute.models.Cidade;
-import com.mycompany.superfute.models.Estadio;
 import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,7 +41,7 @@ public class DbArbitro {
             while (rs.next()) {
                 Pessoa p = new Pessoa();
                 p.setId(rs.getInt("idPessoa"));
-                p.setnome(rs.getString("nome"));
+                p.setNome(rs.getString("nome"));
                 lista.add(p);
             }
 
@@ -72,7 +70,7 @@ public class DbArbitro {
             while (rs.next()) {
                 Pessoa p = new Pessoa();
                 p.setId(rs.getInt("id"));
-                p.setnome(rs.getString("nome"));
+                p.setNome(rs.getString("nome"));
                 arrArbitros.add(p);
             }
 
@@ -85,6 +83,39 @@ public class DbArbitro {
         return arrArbitros;
      
      }
+     /**
+      * Recebe um id e procura o respetivo arbitro
+      * @param id
+      * @return Pessoa
+      * @throws SQLException 
+      */
+     public static Pessoa getArbitroByID(int id) throws SQLException{
+        Pessoa arbitro = new Pessoa();
+        
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+
+            try {
+                cmd = "SELECT * from Pessoa as p inner join Arbitro as a on p.id = a.idPessoa"
+                        + " where a.id = " + id;
+
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(cmd);
+                
+                while (rs.next()) {
+                    arbitro = new Pessoa(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("nacionalidade"));                 
+                }
+
+                st.close();
+                conn.close();
+            } catch (Exception ex) {
+                System.err.println("Erroooo: " + ex.getMessage());
+            }
+            return arbitro;
+        }
      
     public static void saveArbitro( int idPessoa) throws SQLException {
         Connection conn = Dbconn.getConn();
@@ -118,7 +149,6 @@ public class DbArbitro {
     public static void deleteArbitro( int id) throws SQLException {
         Connection conn = Dbconn.getConn();
         String cmd = "";
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAa");
 
         try {
 

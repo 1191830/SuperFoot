@@ -115,10 +115,6 @@ public class ArbitrosController implements Initializable {
             preencherArbitros();
             preencherPessoasSemFuncao();
         }
-        
-        
-        
-
     }
 
     @FXML
@@ -141,11 +137,7 @@ public class ArbitrosController implements Initializable {
                   DbArbitro.deleteArbitro(p.getId());
                    
                      System.out.println(p);
-                     System.out.println("AQUI");
-                    
-                    
-                    
-    
+                     System.out.println("AQUI");    
         }
         }
         
@@ -177,7 +169,7 @@ public class ArbitrosController implements Initializable {
     public void preencherArbitros() throws SQLException {
 
         colunaNomeArbitro.setCellValueFactory(cellData
-                -> new SimpleObjectProperty<String>(cellData.getValue().getnome()));
+                -> new SimpleObjectProperty<String>(cellData.getValue().getNome()));
 
         if (flag == false) {
             arrArbitros = DbArbitro.obterArbitros();
@@ -195,7 +187,7 @@ public class ArbitrosController implements Initializable {
     public void preencherPessoasSemFuncao() throws SQLException {
 
         colunaNome.setCellValueFactory(cellData
-                -> new SimpleObjectProperty<String>(cellData.getValue().getnome()));
+                -> new SimpleObjectProperty<String>(cellData.getValue().getNome()));
 
         if (flag == false) {
             arrPessoasSemFuncao = DbPessoa.obterPessoasSemFuncao();
