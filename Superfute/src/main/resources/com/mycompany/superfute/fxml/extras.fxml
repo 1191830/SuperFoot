@@ -12,7 +12,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnPais" layoutX="188.0" layoutY="77.0" mnemonicParsing="false" onAction="#btnPais" prefHeight="78.0" prefWidth="126.0" text="PaÍs">
+      <Button fx:id="btnPais" layoutX="188.0" layoutY="77.0" mnemonicParsing="false" onAction="#btnPais" prefHeight="78.0" prefWidth="126.0" text="País">
          <font>
             <Font size="18.0" />
          </font></Button>

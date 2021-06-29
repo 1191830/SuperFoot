@@ -45,8 +45,6 @@ public class PaisController implements Initializable {
     @FXML
     private Button btnEditar;
     @FXML
-    private Button btnApagar;
-    @FXML
     private Button btnVoltar;
     @FXML
     private TableColumn<Pais, String> colNomePaises;
@@ -100,9 +98,6 @@ public class PaisController implements Initializable {
         
     }
 
-    @FXML
-    private void btnApagar(ActionEvent event) {
-    }
 
     @FXML
     private void btnVoltar(ActionEvent event) {

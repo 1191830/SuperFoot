@@ -21,8 +21,7 @@
         </columns>
       </TableView>
       <Button fx:id="btnInserir" layoutX="49.0" layoutY="406.0" mnemonicParsing="false" onAction="#btnInserir" prefHeight="44.0" prefWidth="88.0" text="Inserir" />
-      <Button fx:id="btnEditar" layoutX="163.0" layoutY="406.0" mnemonicParsing="false" onAction="#btnEditar" prefHeight="44.0" prefWidth="78.0" text="Editar" />
-      <Button fx:id="btnApagar" layoutX="253.0" layoutY="406.0" mnemonicParsing="false" onAction="#btnApagar" prefHeight="44.0" prefWidth="78.0" text="Apagar" />
+      <Button fx:id="btnEditar" layoutX="227.0" layoutY="406.0" mnemonicParsing="false" onAction="#btnEditar" prefHeight="44.0" prefWidth="78.0" text="Editar" />
       <Button fx:id="btnVoltar" layoutX="253.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="44.0" prefWidth="78.0" text="Voltar" />
    </children>
 </AnchorPane>

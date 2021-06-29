@@ -49,8 +49,6 @@ public class LigaController implements Initializable {
     @FXML
     private Button btnEditarLiga;
     @FXML
-    private Button btnApagarLiga;
-    @FXML
     private Button btnJornadas;
     @FXML
     private Button btnEquipas;
@@ -139,9 +137,6 @@ public class LigaController implements Initializable {
 
     }
 
-    @FXML
-    private void btnApagarLiga(ActionEvent event) {
-    }
 
     @FXML
     private void btnJornadas(ActionEvent event) throws IOException, SQLException {
