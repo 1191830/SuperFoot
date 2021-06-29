@@ -34,6 +34,8 @@ public class ExtrasController implements Initializable {
     private Button btnVoltar;
     
      private Stage stageDialog;
+    @FXML
+    private Button btnPessoas;
     
     
      public Stage getStageDialog() {
@@ -96,6 +98,17 @@ public class ExtrasController implements Initializable {
         
         Stage stage = (Stage) btnVoltar.getScene().getWindow();
           stage.close();
+    }
+
+    @FXML
+    private void btnPessoas(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/pessoa.fxml"));
+        Scene scene = new Scene(root);
+         Stage window = new Stage();
+        window.setTitle("Pessoa");
+        window.setResizable(false);
+        window.setScene(scene);
+        window.showAndWait();
     }
     
 }

@@ -19,7 +19,7 @@
       </TableView>
       <Button fx:id="btnCriarEquipa" layoutX="14.0" layoutY="536.0" mnemonicParsing="false" onAction="#btnCriarEquipa" prefHeight="34.0" prefWidth="101.0" text="Criar Equipa" />
       <Button fx:id="btnEditarEquipa" layoutX="120.0" layoutY="536.0" mnemonicParsing="false" onAction="#btnEditarEquipa" prefHeight="34.0" prefWidth="101.0" text="Editar Equipa" />
-      <Label fx:id="labelNomeEquipa" layoutX="12.0" layoutY="30.0" text="NOME EQUIPA SELECIONADA">
+      <Label fx:id="labelNomeEquipa" layoutX="73.0" layoutY="36.0" text="LISTA DE EQUIPAS">
          <font>
             <Font size="24.0" />
          </font>
