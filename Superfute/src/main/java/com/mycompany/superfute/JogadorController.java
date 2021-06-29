@@ -77,7 +77,7 @@ public class JogadorController implements Initializable {
 
     private void tabelaJogadores() throws SQLException {
         colunaJogador.setCellValueFactory(cellData
-                -> new SimpleObjectProperty<String>(cellData.getValue().getnome()));
+                -> new SimpleObjectProperty<String>(cellData.getValue().getNome()));
         colunaEquipa.setCellValueFactory(cellData
                 -> new SimpleObjectProperty<String>(cellData.getValue().getNomeEquipa()));
 

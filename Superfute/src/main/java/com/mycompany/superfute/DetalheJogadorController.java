@@ -66,7 +66,7 @@ public class DetalheJogadorController implements Initializable {
     }
 
     private void detalhes(){
-        labelNomeJogador.setText(jogador.getnome());
+        labelNomeJogador.setText(jogador.getNome());
         labelNomeEquipa.setText(jogador.getNomeEquipa());
     }
 }
