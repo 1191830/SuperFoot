@@ -5,6 +5,8 @@
  */
 package com.mycompany.superfute.models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author bruno
@@ -20,7 +22,8 @@ public class Pessoa {
     private int numExpulsoes;
     private String nomeEquipa;
     private Equipa equipa;
-
+    public ArrayList<Pessoa> listaJogadores;
+    
     /**
      * Construtor vazio de pessoa
      */
@@ -54,6 +57,15 @@ public class Pessoa {
 
     }
 
+    public ArrayList<Pessoa> getListaJogadores() {
+        return listaJogadores;
+    }
+
+    public void setListaJogadores(ArrayList<Pessoa> listaJogadores) {
+        this.listaJogadores = listaJogadores;
+    }
+
+    
     public String getNacionalidade() {
         return nacionalidade;
     }

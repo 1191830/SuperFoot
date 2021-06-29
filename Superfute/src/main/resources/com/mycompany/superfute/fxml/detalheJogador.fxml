@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="570.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.mycompany.superfute.DetalheJogadorController">
+<AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.DetalheJogadorController">
    <children>
       <GridPane layoutX="26.0" layoutY="14.0" prefHeight="102.0" prefWidth="259.0">
         <columnConstraints>
@@ -23,11 +22,6 @@
             <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="labelNomeJogador" contentDisplay="CENTER" prefHeight="35.0" prefWidth="261.0" text="NOME JOGADOR">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
             <GridPane prefHeight="41.0" prefWidth="178.0" GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -43,23 +37,28 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelNacionalidade" text="Brasil" GridPane.columnIndex="1">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
                   <Label prefHeight="27.0" prefWidth="131.0" text="Equipa:" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelNomeEquipa" text="Nome Equipa" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="labelNacionalidade" prefHeight="17.0" prefWidth="128.0" text="Nacionalidade" GridPane.columnIndex="1">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelEquipa" prefHeight="17.0" prefWidth="123.0" text="Equipa" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                </children>
             </GridPane>
+            <Label fx:id="labelNomeJog" prefHeight="17.0" prefWidth="257.0" text="Nome Jogador">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
       <ScrollPane layoutX="4.0" layoutY="193.0" prefHeight="243.0" prefWidth="563.0">

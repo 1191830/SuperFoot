@@ -22,6 +22,7 @@ public class Jogador extends Pessoa {
     private String funcao;
     private LocalDate dataInicio;
     private LocalDate dataFim;
+    
 
      public Jogador() {
     }

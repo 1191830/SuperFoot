@@ -263,32 +263,5 @@ public class DbPessoa {
 
     }
 
-    public static ArrayList<Pessoa> obterJogadorEstatisticas(Pessoa pessoa) throws SQLException {
-        ArrayList<Pessoa> listaJogadores = new ArrayList();
-        Connection conn = Dbconn.getConn();
-        String query = "select liga as liga, count (idJogo) as jogos, "
-                + "sum (golos) as golos, sum (amarelo) as amarelos, "
-                + "sum (amareloduplos) as amarelosduplos,"
-                + " sum (vermelho) as vermelho,"
-                + " jogador from dbo.func_dadosJogadorTodos(-1,-1)"
-                + " where idJogador = '" + pessoa.getNome() + "' group by liga, jogador";
-        Statement st;
-        ResultSet rs;
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            while (rs.next()) {
-                Pessoa jogador = new Pessoa();
-                jogador.setNome(rs.getString("jogador"));
-                jogador.setNomeEquipa(rs.getString("equipa"));
-                listaJogadores.add(jogador);
 
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return listaJogadores;
-    }
 }

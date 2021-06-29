@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute;
 
+import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbPessoa;
 import com.mycompany.superfute.models.Pessoa;
 import java.io.IOException;
@@ -23,10 +24,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -51,6 +54,15 @@ public class JogadorController implements Initializable {
 
     private ArrayList<Pessoa> listaJogador;
     private ObservableList<Pessoa> observableList;
+    private Stage stageDialog;
+
+    public Stage getStageDialog() {
+        return stageDialog;
+    }
+
+    public void setStageDialog(Stage StageDialog) {
+        this.stageDialog = StageDialog;
+    }
 
     /**
      * Initializes the controller class.
@@ -72,7 +84,13 @@ public class JogadorController implements Initializable {
 
     @FXML
     private void btnVerJogador(ActionEvent event) throws IOException {
-        verInfoJogadores();
+        Pessoa pessoa = listaJogadores.getSelectionModel().getSelectedItem();
+        if (pessoa != null) {
+            verInfoJogadores(pessoa);
+        } else {
+            MessageBoxes.ShowMessage(Alert.AlertType.WARNING, "Selecione um jogador", "Aviso");
+        }
+
     }
 
     private void tabelaJogadores() throws SQLException {
@@ -86,16 +104,69 @@ public class JogadorController implements Initializable {
         listaJogadores.setItems(observableList);
     }
 
-    public void verInfoJogadores() throws IOException {
-        Pessoa pessoa = listaJogadores.getSelectionModel().getSelectedItem();
-        System.out.println(pessoa + "aqui");
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/detalheJogador.fxml"));
+    public void verInfoJogadores(Pessoa pessoa) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader
+                .setLocation(PessoaFormController.class
+                        .getResource("fxml/detalheJogador.fxml"));
+        AnchorPane page = loader.load();
+        // Criando um Estágio de Diálogo (Stage Dialog)
+        Stage dialogStage = new Stage();
+
+        dialogStage.setTitle(
+                "Detalhe jogador");
+        Scene scene = new Scene(page);
+
+        dialogStage.setScene(scene);
+
+        // Setando o cliente no Controller.
+        DetalheJogadorController controller = loader.getController();
+
+        controller.setStageDialog(dialogStage);
+
+        controller.setPessoa(pessoa);
+
+        // Mostra o Dialog e espera até que o usuário o feche
+        dialogStage.showAndWait();
+
+        /*
+        Parent root = FXMLLoader.load(DetalheJogadorController.class.getResource("fxml/detalheJogador.fxml"));
         Scene scene = new Scene(root);
         Stage window = new Stage();
+        DetalheJogadorController controller = root.get
         window.setTitle("Detalhe jogador");
         window.setResizable(false);
         window.setScene(scene);
         window.showAndWait();
+         */
     }
 
+    public static boolean controllerPessoaForm(Pessoa pessoa) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader
+                .setLocation(PessoaFormController.class
+                        .getResource("fxml/pessoaForm.fxml"));
+        AnchorPane page = loader.load();
+
+        // Criando um Estágio de Diálogo (Stage Dialog)
+        Stage dialogStage = new Stage();
+
+        dialogStage.setTitle(
+                "Pessoa");
+        Scene scene = new Scene(page);
+
+        dialogStage.setScene(scene);
+
+        // Setando o cliente no Controller.
+        PessoaFormController controller = loader.getController();
+
+        controller.setStageDialog(dialogStage);
+
+        controller.setPessoa(pessoa);
+
+        // Mostra o Dialog e espera até que o usuário o feche
+        dialogStage.showAndWait();
+
+        return controller.isBtnReturn();
+    }
 }

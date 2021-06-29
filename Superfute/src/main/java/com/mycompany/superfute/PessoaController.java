@@ -77,7 +77,7 @@ public class PessoaController implements Initializable {
     private void btnInserirPessoa(ActionEvent event) throws IOException, SQLException {
         Pessoa pessoa = new Pessoa();
         pessoa.setPais(new Pais());
-       
+
         boolean flag = false;
         if (controllerPessoaForm(pessoa)) {
             flag = DbPessoa.inserirPessoa(pessoa);
@@ -97,15 +97,15 @@ public class PessoaController implements Initializable {
         boolean flag = false;
         Pessoa pessoa = listaPessoas.getSelectionModel().getSelectedItem();
         if (verificaPessoaEAbriView(pessoa)) {
-          flag = updatePessoa(pessoa);
-          if(flag){
+            flag = updatePessoa(pessoa);
+            if (flag) {
                 preencherTabelaPessoas();
-               MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
+                MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
                         "Pessoa inserida com sucesso!", "Inserir Pessoa");
-          }else{
-              MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+            } else {
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
                         "Não foi possível inserir uma pessoa.", "Erro ao inserir");
-          }
+            }
         }
 
     }

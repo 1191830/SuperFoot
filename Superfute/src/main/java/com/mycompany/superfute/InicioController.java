@@ -48,7 +48,7 @@ public class InicioController implements Initializable {
     private void btnPessoas(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/pessoa.fxml"));
         Scene scene = new Scene(root);
-         Stage window = new Stage();
+        Stage window = new Stage();
         window.setTitle("Pessoa");
         window.setResizable(false);
         window.setScene(scene);
@@ -58,8 +58,8 @@ public class InicioController implements Initializable {
     @FXML
     private void btnLigas(ActionEvent event) throws IOException {
         
-        
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/liga.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/jogador.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("fxml/liga.fxml"));
         Scene scene = new Scene(root);
         Stage window = new Stage();
         window.setTitle("Pessoa");
@@ -78,7 +78,7 @@ public class InicioController implements Initializable {
     private void btnExtras(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/extras.fxml"));
         Scene scene = new Scene(root);
-         Stage window = new Stage();
+        Stage window = new Stage();
         window.setTitle("Extras");
         window.setResizable(false);
         window.setScene(scene);

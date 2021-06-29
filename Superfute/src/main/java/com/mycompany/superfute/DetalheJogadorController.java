@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute;
 
+import com.mycompany.superfute.models.Jogador;
 import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -23,40 +25,52 @@ import javafx.stage.Stage;
  *
  * @author nelso
  */
-public class DetalheJogadorController implements Initializable {
+public class DetalheJogadorController {
 
-    @FXML
-    private Label labelNomeJogador;
     @FXML
     private Label labelNacionalidade;
     @FXML
-    private Label labelNomeEquipa;
+    private Label labelEquipa;
+    @FXML
+    private Label labelNomeJog;
     @FXML
     private TableView<?> listaEstatisticaJogador;
     @FXML
-    private TableColumn<?, ?> colunaLiga;
+    private TableColumn<Pessoa, String> colunaLiga;
     @FXML
-    private TableColumn<?, ?> colunaJogos;
+    private TableColumn<Pessoa, String> colunaJogos;
     @FXML
-    private TableColumn<?, ?> colunaGolos;
+    private TableColumn<Pessoa, String> colunaGolos;
     @FXML
-    private TableColumn<?, ?> colunaAmerelo;
+    private TableColumn<Pessoa, String> colunaAmerelo;
     @FXML
-    private TableColumn<?, ?> colunaDuplosAmarelos;
+    private TableColumn<Pessoa, String> colunaDuplosAmarelos;
     @FXML
-    private TableColumn<?, ?> colunaVermelhos;
+    private TableColumn<Pessoa, String> colunaVermelhos;
     @FXML
     private Button btnVoltar;
-    Pessoa jogador = new Pessoa ();
 
     public ArrayList<Pessoa> listaJogador;
+    Pessoa pessoa = new Pessoa();
+    
+    private Stage stageDialog;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public Stage getStageDialog() {
+        return stageDialog;
+    }
+
+    public void setStageDialog(Stage StageDialog) {
+        this.stageDialog = StageDialog;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
         detalhes();
+
     }
 
     @FXML
@@ -65,8 +79,11 @@ public class DetalheJogadorController implements Initializable {
         stage.close();
     }
 
-    private void detalhes(){
-        labelNomeJogador.setText(jogador.getNome());
-        labelNomeEquipa.setText(jogador.getNomeEquipa());
+    private void detalhes() {
+        System.out.println(listaJogador + "view" + pessoa);
+        labelNomeJog.setText(pessoa.getNome());
+        labelEquipa.setText(pessoa.getNomeEquipa());
+        labelNacionalidade.setText(pessoa.getNacionalidade());
     }
+
 }
