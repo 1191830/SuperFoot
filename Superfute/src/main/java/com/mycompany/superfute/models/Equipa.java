@@ -81,6 +81,6 @@ public class Equipa {
     
  @Override
     public String toString() {
-        return "Tean{" + "id=" + id + ", nome=" + nome + ", estádio=" + estadio + '}';
+        return this.getNome();
     }
 }

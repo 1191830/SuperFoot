@@ -60,7 +60,7 @@ public class DbPessoa {
             Connection conn = Dbconn.getConn();
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select * from pessoaJogo where idJogo = " + jogo.getJogo()
-                + " idEquipa = " + equipa.getId());
+                + " and idEquipa = " + equipa.getId());
             
             while (rs.next()) {
                 Pessoa pessoa = new Pessoa();

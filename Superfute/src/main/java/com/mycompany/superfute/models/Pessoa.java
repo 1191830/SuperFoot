@@ -70,7 +70,6 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", pais=" + pais +
-                ", nacionalidade=" + nacionalidade + "}";
+        return this.getNome();
     }
 }

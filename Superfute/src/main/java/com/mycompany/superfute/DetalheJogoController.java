@@ -27,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 /**
  * FXML Controller class
@@ -82,7 +83,20 @@ public class DetalheJogoController implements Initializable {
     @FXML
     private Label labelResultado;
     @FXML
-    private void btnCriarEvento(ActionEvent event) {
+    private void btnCriarEvento(ActionEvent event) throws IOException {
+        
+        if(jogo != null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("fxml/JogoEventoForm.fxml"));
+            Parent root = loader.load();
+            JogoEventoFormController controller = loader.getController();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            controller.initCampos(jogo);
+            }
     }
 
     @FXML

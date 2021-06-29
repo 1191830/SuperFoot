@@ -76,8 +76,8 @@ public class DbEvento {
         return evento;
     }
     
-    public static ArrayList<ArrayList<String>> getPartes() throws SQLException {
-        ArrayList<ArrayList<String>> lista = new ArrayList<>();
+    public static String[][] getPartes() throws SQLException {
+        String[][] lista = new String[5][2];
         int count = 0;
         
         try {
@@ -85,11 +85,11 @@ public class DbEvento {
 
             Statement st = conn.createStatement();
 
-            ResultSet rs = st.executeQuery("select * from parteJogo");
+            ResultSet rs = st.executeQuery("select * from parteJogo order by id");
 
             while (rs.next()) {
-                lista.get(count).add(String.valueOf(rs.getInt("id")));
-                lista.get(count).add(rs.getString("parte"));
+                lista[count][0] = String.valueOf(rs.getInt("id"));
+                lista[count][1] = rs.getString("parte");
                 count ++;
             }
 

@@ -6,7 +6,6 @@
 package com.mycompany.superfute;
 
 import Utils.MessageBoxes;
-import static com.mycompany.superfute.PessoaController.controllerPessoaForm;
 import com.mycompany.superfute.db.DbEquipa;
 import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Estadio;
@@ -19,9 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
