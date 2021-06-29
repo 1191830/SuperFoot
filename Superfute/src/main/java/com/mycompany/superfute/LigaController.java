@@ -144,11 +144,21 @@ public class LigaController implements Initializable {
     }
 
     @FXML
-    private void btnEquipas(ActionEvent event) {
+    private void btnEquipas(ActionEvent event) throws IOException, SQLException {
+        
+         FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/equipa.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show(); 
+   
+        
     }
 
     @FXML
-    private void btnJogadores(ActionEvent event) {
+    private void btnJogadores(ActionEvent event) throws IOException, SQLException {
+             changeWindows("fxml/jogador.fxml", event);
     }
 
     @FXML

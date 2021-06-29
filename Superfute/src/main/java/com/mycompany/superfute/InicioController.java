@@ -33,6 +33,8 @@ public class InicioController implements Initializable {
     private Button btnLigas;
     @FXML
     private Button btnSair;
+    @FXML
+    private Button btnExtras;
 
     /**
      * Initializes the controller class.
@@ -59,6 +61,19 @@ public class InicioController implements Initializable {
 
     @FXML
     private void btnSair(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnExtras(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/extras.fxml"));
+        Scene scene = new Scene(root);
+         Stage window = new Stage();
+        window.setTitle("Extras");
+        window.setResizable(false);
+        window.setScene(scene);
+        window.showAndWait();
+        
+        
     }
     
 }
