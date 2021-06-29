@@ -96,7 +96,7 @@ public class LigaController implements Initializable {
                 row.setOnMouseClicked(event -> {
                     if (row.isEmpty()) {
                         listaLigas.getSelectionModel().clearSelection();
-                    } else if (event.getClickCount() == 2) {
+                    } else if (event.getClickCount() == 1) {
                         //jornada selecionada passa a ser a jornada selecionada na table
                         liga = row.getItem();
                     }
@@ -150,11 +150,23 @@ public class LigaController implements Initializable {
     }
 
     @FXML
-    private void btnEquipas(ActionEvent event) {
+
+    private void btnEquipas(ActionEvent event) throws IOException {
+
+         FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/equipa.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+
+        stage.show(); 
+   
+   
     }
 
     @FXML
-    private void btnJogadores(ActionEvent event) {
+    private void btnJogadores(ActionEvent event) throws IOException, SQLException {
+             changeWindows("fxml/jogador.fxml", event);
     }
 
     @FXML
@@ -209,6 +221,8 @@ public class LigaController implements Initializable {
 
     @FXML
     private void btnVoltar(ActionEvent event) {
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        stage.close();
     }
 
     public void changeWindows(String path, ActionEvent event) throws IOException, SQLException {

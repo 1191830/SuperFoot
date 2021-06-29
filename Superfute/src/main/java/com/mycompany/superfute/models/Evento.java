@@ -5,30 +5,48 @@
  */
 package com.mycompany.superfute.models;
 
+import com.mycompany.superfute.db.DbEvento;
+import java.sql.SQLException;
+
 /**
  *
  * @author bruno
  */
 public class Evento {
-
+    
+    private int id;
     private int minuto;
     private int idJogo;
-    private int idEquipa;
-    private int idJogador;
+    private Equipa equipa;
+    private Pessoa jogador;
     private int tipoEvento;
-
+    private String evento;
+    private int idParte;
+    private String parte;
     public Evento() {
 
     }
 
-    public Evento(int minuto, int idJogo, int idEquipa, int idJogador, int tipoEvento) {
+    public Evento(int id, int minuto, int idJogo, Equipa equipa, Pessoa jogador, int tipoEvento, int idParte) throws SQLException {
+        this.id = id;
         this.minuto = minuto;
         this.idJogo = idJogo;
-        this.idEquipa = idEquipa;
-        this.idJogador = idJogador;
+        this.equipa = equipa;
+        this.jogador = jogador;
         this.tipoEvento = tipoEvento;
+        this.evento = DbEvento.getEventoByTipo(tipoEvento);
+        this.idParte = idParte;
+        this.parte = DbEvento.getParteByIdParte(idParte);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public int getminuto() {
         return minuto;
     }
@@ -45,20 +63,20 @@ public class Evento {
         this.idJogo = idJogo;
     }
 
-    public int getIdEquipa() {
-        return idEquipa;
+    public Equipa getEquipa() {
+        return equipa;
     }
 
-    public void setIdEquipa(int idEquipa) {
-        this.idEquipa = idEquipa;
+    public void setEquipa(Equipa equipa) {
+        this.equipa = equipa;
     }
 
-    public int getIdJogador() {
-        return idJogador;
+    public Pessoa getJogador() {
+        return jogador;
     }
 
-    public void setIdJogador(int idJogador) {
-        this.idJogador = idJogador;
+    public void setJogador(Pessoa jogador) {
+        this.jogador = jogador;
     }
 
     public int gettipoEvento() {
@@ -68,8 +86,25 @@ public class Evento {
     public void settipoEvento(int tipoEvento) {
         this.tipoEvento = tipoEvento;
     }
+
+    public int getIdParte() {
+        return idParte;
+    }
+
+    public void setIdParte(int idParte) {
+        this.idParte = idParte;
+    }
+
+    public String getEvento() {
+        return evento;
+    }
+
+    public String getParte() {
+        return parte;
+    }
+       
  @Override
     public String toString() {
-        return "Evento{" + "minuto=" + minuto + ", id jogo=" + idJogo + ", id equipa=" + idEquipa + ", id jogador =" + idJogador + ",tipo de evento"  + tipoEvento + '}';
+        return "Evento{" + "minuto=" + minuto + ", id jogo=" + idJogo + ", id equipa=" + equipa + ", id jogador =" + jogador + ",tipo de evento"  + tipoEvento + '}';
     }
 }

@@ -96,8 +96,10 @@ public class DbEstadio {
         String cmd = "";
 
         try {
-            cmd = "select estadio.id as 'idEstadio', estadio.nome as 'nomeEstadio' , cidade as 'idCidade', cidade.nome as 'nomeCidade' from estadio " +
-                  "INNER JOIN cidade ON estadio.cidade = cidade.id";
+            cmd = "select estadio.id as 'idEstadio', estadio.nome as 'nomeEstadio' "
+                    + ", cidade as 'idCidade', cidade.nome as 'nomeCidade' "
+                    + "from estadio INNER JOIN cidade "
+                    + "ON estadio.cidade = cidade.id";
 
             Statement st = conn.createStatement();
 

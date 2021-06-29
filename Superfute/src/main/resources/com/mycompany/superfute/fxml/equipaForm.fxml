@@ -10,9 +10,6 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="201.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.EquipaFormController">
-    <stylesheets>
-        <URL value="@/styles/equipaform.css" />
-    </stylesheets>
    <children>
       <Label fx:id="labelLigaAno" alignment="CENTER" layoutX="107.0" layoutY="14.0" prefHeight="35.0" prefWidth="386.0" text="EQUIPA">
          <font>

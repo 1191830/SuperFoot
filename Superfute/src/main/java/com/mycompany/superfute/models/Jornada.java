@@ -14,9 +14,17 @@ public class Jornada {
     private Integer idJornada; // id da jornada
     private Integer idLiga; // id da liga
 
+    /**
+     * Construtor vazio de Jornada
+     */
     public Jornada() {
     }
 
+    /**
+     * Construtor de Jornada com numero da jornada e ano da Liga
+     * @param idJornada
+     * @param idLiga 
+     */
     public Jornada(Integer idJornada, Integer idLiga) {
         this.idJornada = idJornada;
         this.idLiga = idLiga;
@@ -41,12 +49,5 @@ public class Jornada {
     @Override
     public String toString() {
         return "Jornada{" + "idJornada=" + idJornada + ", idLiga=" + idLiga + '}';
-    }
-    
-    
-    
-    
-    
-    
-    
+    }   
 }

@@ -13,10 +13,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -109,7 +105,7 @@ public class PessoaFormController implements Initializable {
 
     public void preencherCampos() {
         if (pessoa != null) {
-            nomePessoa.setText(pessoa.getnome());
+            nomePessoa.setText(pessoa.getNome());
         }
         if (pessoa.getPais() != null) {
             selecionarNacionalidade.setValue(pessoa.getPais().getNome());
@@ -124,7 +120,7 @@ public class PessoaFormController implements Initializable {
 
     public void setDadosPessoa() {
         if (validarCampos()) {
-            pessoa.setnome(nomePessoa.getText());
+            pessoa.setNome(nomePessoa.getText());
             System.out.println(pessoa);
             pessoa.setPais(paises.get(selecionarNacionalidade
                     .getSelectionModel().getSelectedIndex()));

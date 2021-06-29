@@ -5,7 +5,10 @@
  */
 package com.mycompany.superfute.models;
 
+import com.mycompany.superfute.models.EquipaTecnica;
 import com.mycompany.superfute.models.Estadio;
+import com.mycompany.superfute.models.Jogador;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,6 +19,9 @@ public class Equipa {
     private int id;
     private String nome;
     private Estadio estadio;
+    private ArrayList<Jogador> jogadores;
+    private ArrayList<EquipaTecnica> funcionarios;
+    
 
     public Equipa() {
 
@@ -26,6 +32,11 @@ public class Equipa {
         this.nome = nome;
         this.estadio = estadio;
     }
+    
+    public Equipa(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
 
     public int getId() {
         return id;
@@ -35,23 +46,41 @@ public class Equipa {
         this.id = id;
     }
 
-    public String getnome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setnome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public Estadio getestadio() {
+    public Estadio getEstadio() {
         return estadio;
     }
 
-    public void setestadio(Estadio estadio) {
+    public void setEstadio(Estadio estadio) {
         this.estadio = estadio;
     }
+
+    public ArrayList<Jogador> getJogadores() {
+        return jogadores;
+    }
+
+    public void setJogadores(ArrayList<Jogador> jogadores) {
+        this.jogadores = jogadores;
+    }
+
+    public ArrayList<EquipaTecnica> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(ArrayList<EquipaTecnica> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+    
+    
  @Override
     public String toString() {
-        return "Tean{" + "id=" + id + ", nome=" + nome + ", estádio=" + estadio + '}';
+        return this.getNome();
     }
 }

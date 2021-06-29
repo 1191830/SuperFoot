@@ -12,29 +12,37 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author nelso
+ * @author pcoelho
  */
-public class InicioController implements Initializable {
+public class ExtrasController implements Initializable {
 
     @FXML
-    private Button btnPessoas;
+    private Button btnPais;
     @FXML
-    private Button btnLigas;
+    private Button btnCidade;
     @FXML
-    private Button btnSair;
+    private Button btnEstadio;
     @FXML
-    private Button btnExtras;
+    private Button btnVoltar;
+    
+     private Stage stageDialog;
+    
+    
+     public Stage getStageDialog() {
+        return stageDialog;
+    }
+
+    public void setStageDialog(Stage StageDialog) {
+        this.stageDialog = StageDialog;
+    }
 
     /**
      * Initializes the controller class.
@@ -45,47 +53,49 @@ public class InicioController implements Initializable {
     }    
 
     @FXML
-    private void btnPessoas(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/pessoa.fxml"));
+    private void btnPais(ActionEvent event) throws IOException {
+        
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/pais.fxml"));
         Scene scene = new Scene(root);
          Stage window = new Stage();
-        window.setTitle("Pessoa");
+        window.setTitle("Paises");
         window.setResizable(false);
         window.setScene(scene);
         window.showAndWait();
     }
 
     @FXML
-    private void btnLigas(ActionEvent event) throws IOException {
-        
-        
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/Jogador.fxml"));
-        //Parent root = FXMLLoader.load(getClass().getResource("fxml/liga.fxml"));
+    private void btnCidade(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/cidade.fxml"));
         Scene scene = new Scene(root);
          Stage window = new Stage();
-        window.setTitle("Pessoa");
+        window.setTitle("Cidades");
         window.setResizable(false);
         window.setScene(scene);
         window.showAndWait();
     }
+        
+        
+    
 
     @FXML
-    private void btnSair(ActionEvent event) {
-          Stage stage = (Stage) btnSair.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-    private void btnExtras(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/extras.fxml"));
+    private void btnEstadio(ActionEvent event) throws IOException {
+        
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/estadio.fxml"));
         Scene scene = new Scene(root);
          Stage window = new Stage();
-        window.setTitle("Extras");
+        window.setTitle("Estadio");
         window.setResizable(false);
         window.setScene(scene);
         window.showAndWait();
+    }
+    
+
+    @FXML
+    private void btnVoltar(ActionEvent event) {
         
-        
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+          stage.close();
     }
     
 }

@@ -5,11 +5,14 @@
  */
 package com.mycompany.superfute;
 
+import com.mycompany.superfute.db.DbJogador;
 import com.mycompany.superfute.db.DbJogo;
 import com.mycompany.superfute.db.DbPessoa;
+import com.mycompany.superfute.models.Jogador;
 import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Jornada;
 import com.mycompany.superfute.models.Liga;
+import com.mycompany.superfute.db.DbPessoa;
 import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
 import java.sql.SQLException;
@@ -34,29 +37,29 @@ import javafx.scene.control.TableView;
 public class MelhorMarcadorController implements Initializable {
     
     @FXML
-    private TableView<Pessoa> tableMarcadores;
+    private TableView<Jogador> tableMarcadores;
     @FXML
-    private TableColumn<Pessoa, String> columnJogador;
+    private TableColumn<Jogador, String> columnJogador;
     @FXML
-    private TableColumn<Pessoa, String> columnGolos;
+    private TableColumn<Jogador, String> columnGolos;
     @FXML
     private Label labelLiga;
     
     
     
-    private ArrayList<Pessoa> listaJogador;
-    private ObservableList<Pessoa> observableList; 
+    private ArrayList<Jogador> listaJogador;
+    private ObservableList<Jogador> observableList; 
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        columnJogador.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getnome())));
+        columnJogador.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getNome())));
         columnGolos.setCellValueFactory(date -> new SimpleStringProperty(String.valueOf(date.getValue().getGolosMarcados())));
         
         try {
-            listaJogador = DbPessoa.obterMelhorMarcadorGeral();
+            listaJogador = DbJogador.obterMelhorMarcadorGeral();
         } catch (SQLException ex) {
             Logger.getLogger(MelhorMarcadorController.class.getName()).log(Level.SEVERE, null, ex);
         }

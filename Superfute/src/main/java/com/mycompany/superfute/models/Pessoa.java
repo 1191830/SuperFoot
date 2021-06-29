@@ -21,12 +21,16 @@ public class Pessoa {
     private String nomeEquipa;
     private Equipa equipa;
 
+    /**
+     * Construtor vazio de pessoa
+     */
     public Pessoa() {
 
     }
 
     public Pessoa(int id, String nome, String nacionalidade, String funcao,
             int numExpulsoes, String nomeEquipa) {
+
         this.id = id;
         this.nome = nome;
         this.pais = pais;
@@ -36,25 +40,26 @@ public class Pessoa {
         this.nomeEquipa = nomeEquipa;
     }
 
+    /**
+     * Construtor de Pessoa com id nome e nacionalidade
+     *
+     * @param id
+     * @param nome
+     * @param nacionalidade
+     */
+    public Pessoa(int id, String nome, String nacionalidade) {
+        this.id = id;
+        this.nome = nome;
+        this.nacionalidade = nacionalidade;
+
+    }
+
     public String getNacionalidade() {
         return nacionalidade;
     }
 
     public void setNacionalidade(String nacionalidade) {
         this.nacionalidade = nacionalidade;
-    }
-    
-    //classe para apresentar dados principais
-    public Pessoa(int id, String nome, String nacionalidade){
-        this.id = id;
-        this.nome = nome;
-        this.nacionalidade = nacionalidade;
-    }
-    
-    //classe para apresentar golos do jogador
-    public Pessoa(String nome, int golos){
-        this.nome = nome;
-        this.golosMarcados = golos;
     }
 
     public int getId() {
@@ -65,11 +70,11 @@ public class Pessoa {
         this.id = id;
     }
 
-    public String getnome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setnome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
@@ -80,6 +85,7 @@ public class Pessoa {
     public void setPais(Pais pais) {
         this.pais = pais;
     }
+
 
     public String getfuncao() {
         return funcao;
@@ -115,13 +121,7 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", pais=" + pais +
-                ", nacionalidade=" + nacionalidade + ", golosMarcados=" + 
-                golosMarcados + ", funcao=" + funcao + ", numExpulsoes=" + 
-                numExpulsoes + ", nomeEquipa=" + nomeEquipa + '}';
+        return this.getNome();
     }
 
-   
-
-    
 }

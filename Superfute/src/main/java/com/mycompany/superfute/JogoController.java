@@ -85,7 +85,7 @@ public class JogoController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (row.isEmpty()) {
                     tableCasa.getSelectionModel().clearSelection();
-                } else if (event.getClickCount() == 2) {
+                } else if (event.getClickCount() == 1) {
                     //jornada selecionada passa a ser a jornada selecionada na table
                     jogoSelecionado = row.getItem();                                     
                 }

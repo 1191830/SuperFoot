@@ -30,7 +30,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -81,7 +80,6 @@ public class PessoaController implements Initializable {
        
         boolean flag = false;
         if (controllerPessoaForm(pessoa)) {
-             System.out.println("INSERIR----"+pessoa);
             flag = DbPessoa.inserirPessoa(pessoa);
             if (flag) {
                 preencherTabelaPessoas();
@@ -168,7 +166,7 @@ public class PessoaController implements Initializable {
 
         colunaNome.setCellValueFactory(cellData
                 -> new SimpleObjectProperty<String>(cellData.getValue()
-                        .getnome()));
+                        .getNome()));
         colunaNacionalidade.setCellValueFactory(cellData
                 -> new SimpleObjectProperty<String>(cellData.getValue()
                         .getPais().getNome()));

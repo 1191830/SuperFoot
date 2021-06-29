@@ -6,8 +6,8 @@
 package com.mycompany.superfute.db;
 
 import com.mycompany.superfute.models.Equipa;
+import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Pais;
-import com.mycompany.superfute.models.Liga;
 import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,8 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  *
@@ -39,7 +37,7 @@ public class DbPessoa {
             while (rs.next()) {
                 Pessoa pessoa = new Pessoa();
                 pessoa.setId(rs.getInt("idP"));
-                pessoa.setnome(rs.getString("nome"));
+                pessoa.setNome(rs.getString("nome"));
                 pessoa.setPais(new Pais(rs.getInt("id"), rs.getString("pais")));
                 pessoa.setNacionalidade(rs.getString("pais"));
                 listaPessoa.add(pessoa);
@@ -54,66 +52,86 @@ public class DbPessoa {
         }
 
     }
+    
+     public static ArrayList<Pessoa> getPessoasJogoEquipa(Jogo jogo, Equipa equipa) throws SQLException {
 
-    /**
-     * Método retorna arraylist com os melhores marcadores por liga
-     *
-     * @param liga
-     * @return
-     * @throws SQLException
-     */
-    public static ArrayList<Pessoa> obterMelhorMarcadorLiga(Liga liga) throws SQLException {
-        Pessoa jogador;
-        ArrayList<Pessoa> listaJogadores = new ArrayList();
-        Connection conn = Dbconn.getConn();
-        String query = "select jogador, golos from view_melhorMarcador  where Liga = "
-                + liga.getAno() + " order by golos desc ";
-        Statement st;
-        ResultSet rs;
-
+        ArrayList<Pessoa> lista = new ArrayList();
         try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
+            Connection conn = Dbconn.getConn();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from pessoaJogo where idJogo = " + jogo.getJogo()
+                + " and idEquipa = " + equipa.getId());
+            
             while (rs.next()) {
-                jogador = new Pessoa(rs.getString("jogador"), rs.getInt("golos"));
+                Pessoa pessoa = new Pessoa();
+                pessoa.setId(rs.getInt("idPessoa"));
+                pessoa.setNome(DbPessoa.getNomebyId(rs.getInt("idPessoa")));
 
-                listaJogadores.add(jogador);
+                lista.add(pessoa);
+            }
+            
+        } catch (Exception ex) {
+
+            System.out.println(ex.getMessage());
+
+            System.err.println("Erro: " + ex.getMessage());
+            return null;
+        }
+        return lista;
+    }
+    
+    public static Pessoa getPessoaById(int id) throws SQLException{
+        Pessoa pessoa = new Pessoa();
+        
+        Connection conn = Dbconn.getConn();
+        String cmd = "";
+
+            try {
+                cmd = "select * from pessoa where id = " + id;
+
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(cmd);
+
+                while (rs.next()) {
+ 
+                   pessoa = new Pessoa(
+                    id,
+                    rs.getString("nome"),
+                    rs.getString("nacionalidade"));
+                }
+                
+                
+                            
+                st.close();
+                conn.close();
+            } catch (Exception ex) {
+                System.err.println("Erro: " + ex.getMessage());
+            }
+            return pessoa;
+        }
+    
+    public static String getNomebyId(int id) throws SQLException {
+        String nome = "";
+        
+        try {
+            Connection conn = Dbconn.getConn();
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT nome from Pessoa where id = " + id);
+
+            while (rs.next()) {
+                nome = rs.getString("nome");
             }
 
+            st.close();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println("Erro: " + ex.getMessage());
         }
-        return listaJogadores;
+        return nome;
     }
 
-    /**
-     * Método retorna arraylist com os melhores marcadores por liga
-     *
-     * @return
-     * @throws SQLException
-     */
-    public static ArrayList<Pessoa> obterMelhorMarcadorGeral() throws SQLException {
-        Pessoa jogador;
-        ArrayList<Pessoa> listaJogadores = new ArrayList();
-        Connection conn = Dbconn.getConn();
-        String query = "select jogador, golos from view_melhorMarcador order by golos desc ";
-        Statement st;
-        ResultSet rs;
-
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            while (rs.next()) {
-                jogador = new Pessoa(rs.getString("jogador"), rs.getInt("golos"));
-                listaJogadores.add(jogador);
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return listaJogadores;
-    }
+   
 
     /**
      * Metódo para fazer atulização na tabela pessoa
@@ -127,7 +145,7 @@ public class DbPessoa {
         try {
             Connection conn = Dbconn.getConn();
             PreparedStatement stmt = conn.prepareStatement("Update Pessoa set nome = ? , nacionalidade = ? where id = ?");
-            stmt.setString(1, p.getnome());
+            stmt.setString(1, p.getNome());
             stmt.setInt(2, p.getPais().getId());
             stmt.setInt(3, p.getId());
             stmt.executeUpdate();
@@ -148,7 +166,7 @@ public class DbPessoa {
         try {
             Connection conn = Dbconn.getConn();
             PreparedStatement stmt = conn.prepareStatement("Insert into Pessoa Values (?,?)");
-            stmt.setString(1, p.getnome());
+            stmt.setString(1, p.getNome());
             stmt.setInt(2, p.getPais().getId());
             stmt.execute();
             return true;
@@ -177,7 +195,7 @@ public class DbPessoa {
             while (rs.next()) {
                 Pessoa pessoa = new Pessoa();
                 pessoa.setId(rs.getInt("idPessoa"));
-                pessoa.setnome(rs.getString("nomePessoa"));
+                pessoa.setNome(rs.getString("nomePessoa"));
                 listaPessoa.add(pessoa);
             }
 
@@ -205,7 +223,7 @@ public class DbPessoa {
 
             while (rs.next()) {
                 Pessoa jogador = new Pessoa();
-                jogador.setnome(rs.getString("jogador"));
+                jogador.setNome(rs.getString("jogador"));
                 jogador.setNumExpulsoes(rs.getInt("Expulsoes"));
                 listaJogadores.add(jogador);
 
@@ -231,7 +249,7 @@ public class DbPessoa {
             rs = st.executeQuery(query);
             while (rs.next()) {
                 Pessoa jogador = new Pessoa();
-                jogador.setnome(rs.getString("jogador"));
+                jogador.setNome(rs.getString("jogador"));
                 jogador.setNomeEquipa(rs.getString("equipa"));
                 listaJogadores.add(jogador);
 
@@ -253,7 +271,7 @@ public class DbPessoa {
                 + "sum (amareloduplos) as amarelosduplos,"
                 + " sum (vermelho) as vermelho,"
                 + " jogador from dbo.func_dadosJogadorTodos(-1,-1)"
-                + " where idJogador = '" + pessoa.getnome() + "' group by liga, jogador";
+                + " where idJogador = '" + pessoa.getNome() + "' group by liga, jogador";
         Statement st;
         ResultSet rs;
         try {
@@ -261,7 +279,7 @@ public class DbPessoa {
             rs = st.executeQuery(query);
             while (rs.next()) {
                 Pessoa jogador = new Pessoa();
-                jogador.setnome(rs.getString("jogador"));
+                jogador.setNome(rs.getString("jogador"));
                 jogador.setNomeEquipa(rs.getString("equipa"));
                 listaJogadores.add(jogador);
 
@@ -272,7 +290,5 @@ public class DbPessoa {
         }
 
         return listaJogadores;
-
-
     }
 }
