@@ -105,6 +105,7 @@ public class JogoEventoFormController implements Initializable {
             inserirEquipas();
             inserirPartes();
             inserirTiposEvento();
+            preencherCampos();
 
         } catch (SQLException ex) {
             MessageBoxes.ShowMessage(Alert.AlertType.WARNING,
@@ -162,7 +163,10 @@ public class JogoEventoFormController implements Initializable {
 
     @FXML
     private void onActionEquipaSelected(ActionEvent event) throws SQLException {
-        
+        selectEquipa();      
+    }
+    
+    public void selectEquipa() throws SQLException{
         equipaSelecionada = DbEquipa.getEquipaById(selecionarEquipa.getValue().getId());
         pessoas = DbPessoa.getPessoasJogoEquipa(jogo, equipaSelecionada);
         observableListPessoas = FXCollections.observableArrayList(pessoas);
@@ -172,8 +176,6 @@ public class JogoEventoFormController implements Initializable {
     
     public void setDadosEvento() throws SQLException {
         if (validarCampos()) {
-            System.out.println(DbEvento.getIdTipoEventoByNome(selecionarTipoEvento.getValue()));
-            System.out.println(DbEvento.getIdParteByNome(selecionarParte.getValue()));
             
             evento.setidJogo(jogo.getJogo());
             evento.setEquipa(DbEquipa.getEquipaById(selecionarEquipa.getValue().getId()));
@@ -181,6 +183,21 @@ public class JogoEventoFormController implements Initializable {
             evento.setminuto(Integer.parseInt(txtMinuto.getText()));
             evento.setIdParte(DbEvento.getIdParteByNome(selecionarParte.getValue()));
             evento.settipoEvento(DbEvento.getIdTipoEventoByNome(selecionarTipoEvento.getValue()));
+        }
+    }
+    
+    public void preencherCampos() throws SQLException {
+        if (evento != null) {
+
+            selecionarEquipa.setValue(evento.getEquipa());
+            if(evento.getEquipa() != null){
+                selectEquipa();
+                selecionarPessoa.setValue(evento.getJogador());
+                selecionarParte.setValue(evento.getParte());               
+                selecionarTipoEvento.setValue(evento.getEvento());
+                txtMinuto.setText(String.valueOf(evento.getminuto()));
+            }
+            
         }
     }
     

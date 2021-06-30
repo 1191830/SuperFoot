@@ -136,12 +136,15 @@ public class JogoController implements Initializable {
             loader.setLocation(getClass().getResource("fxml/detalheJogo.fxml"));
             Parent root = loader.load();
             DetalheJogoController controller = loader.getController();
-
+            
+            controller.initJogo(jogoSelecionado);
+            
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+            stage.setScene(new Scene(root));           
+            stage.showAndWait();
+            initTable();
 
-                controller.initJogo(jogoSelecionado);
+            
             }
             
     }

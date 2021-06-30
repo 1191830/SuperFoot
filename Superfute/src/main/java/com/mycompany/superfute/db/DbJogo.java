@@ -137,7 +137,35 @@ public class DbJogo {
         return arrJogos;
     }
      
-     public static String getResultadoIntervalo(Jogo jogo) throws SQLException {
+     public static Jogo getResultado(Jogo jogo) throws SQLException {      
+        
+        String cmd = "";
+
+        try {
+            Connection conn = Dbconn.getConn();
+            cmd = "Select Distinct * from func_resultadoTodos(" + jogo.getJogo()+ ")";
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery(cmd);
+
+            while (rs.next()) {
+                jogo = new Jogo(
+                        rs.getInt("jogo"),
+                        rs.getNString("equipaCasa"),                       
+                        rs.getInt("golosCasa"),
+                        rs.getNString("equipaFora"),                       
+                        rs.getInt("golosFora"));
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return jogo;
+    }
+     
+    public static String getResultadoIntervalo(Jogo jogo) throws SQLException {
         
         
         String resultado = "";

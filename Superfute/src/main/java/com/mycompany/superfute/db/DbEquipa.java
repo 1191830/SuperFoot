@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute.db;
 
+import static Utils.MessageBoxes.ShowMessage;
 import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Estadio;
@@ -257,13 +258,6 @@ public class DbEquipa {
             }
         }
 
-    }
-
-    public static void ShowMessage(Alert.AlertType type, String msg, String header) {
-        Alert alert = new Alert(type);
-        alert.setHeaderText(header);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 
     
