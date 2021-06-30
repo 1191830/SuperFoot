@@ -8,8 +8,10 @@ package com.mycompany.superfute;
 import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbEquipa;
 import com.mycompany.superfute.db.DbEvento;
+import com.mycompany.superfute.db.DbJogador;
 import com.mycompany.superfute.db.DbPessoa;
 import com.mycompany.superfute.models.Equipa;
+import com.mycompany.superfute.models.Evento;
 import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
@@ -50,26 +52,59 @@ public class JogoEventoFormController implements Initializable {
     @FXML
     private Button btnCancelar;
     
-    private ArrayList<ArrayList<String>> tiposEvento;
     private String[][] partes;
+    private String[][] tiposEvento;
     private ArrayList<Equipa> equipas;
     private ArrayList<Pessoa> pessoas;
     private Equipa equipaSelecionada;
+    private Pessoa pessoaSelecionada;
     private ObservableList<Equipa> observableListEquipas;
     private ObservableList<Pessoa> observableListPessoas;
     
     private Jogo jogo;
     private Equipa equipa;
+    private Stage stageDialog;
+    private Evento evento;
+    boolean btnReturn;
     @FXML
     private TextField txtMinuto;
+    
+    public Stage getStageDialog() {
+        return stageDialog;
+    }
 
-    public void initCampos(Jogo jogo) {
+    public void setStageDialog(Stage stageDialog) {
+        this.stageDialog = stageDialog;
+    }
+
+    public Evento getEvento() {
+        return evento;
+        
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
+    public boolean isBtnReturn() {
+        return btnReturn;
+    }
+
+    public void setBtnReturn(boolean btnReturn) {
+        this.btnReturn = btnReturn;
+    }
+
+    public void initCampos(Jogo jogo, Evento evento) {
         try {
             this.jogo = jogo;
+            this.evento = evento;
             equipas = DbEquipa.getEquipasJogo(jogo);
-            partes = DbEvento.getPartes();           
-            inserirPartes();
+            partes = DbEvento.getPartes();
+            tiposEvento = DbEvento.getTipoEvento();
+            
             inserirEquipas();
+            inserirPartes();
+            inserirTiposEvento();
 
         } catch (SQLException ex) {
             MessageBoxes.ShowMessage(Alert.AlertType.WARNING,
@@ -96,17 +131,33 @@ public class JogoEventoFormController implements Initializable {
             selecionarParte.getItems().addAll(partes[i][1]);
         }
     }
+    
+    public void inserirTiposEvento(){
+        for (int i = 0; i < partes.length ; i++){
+            selecionarTipoEvento.getItems().addAll(tiposEvento[i][1]);
+        }
+    }
+    
+    
 
     @FXML
-    private void btnAplicar(ActionEvent event) {
+    private void btnAplicar(ActionEvent event) throws SQLException {
+        setDadosEvento();
+        setBtnReturn(true);
+        stageDialog.close();
+        
     }
 
     @FXML
     private void btnCancelar(ActionEvent event) {
+        Stage stage = (Stage) btnCancelar.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
-    private void onActionPessoaSelected(ActionEvent event) {
+    private void onActionPessoaSelected(ActionEvent event) throws SQLException {
+        
+        pessoaSelecionada = DbPessoa.getPessoaById(selecionarPessoa.getValue().getId());
     }
 
     @FXML
@@ -115,9 +166,32 @@ public class JogoEventoFormController implements Initializable {
         equipaSelecionada = DbEquipa.getEquipaById(selecionarEquipa.getValue().getId());
         pessoas = DbPessoa.getPessoasJogoEquipa(jogo, equipaSelecionada);
         observableListPessoas = FXCollections.observableArrayList(pessoas);
-        System.out.println(pessoas.get(0).getId());
         selecionarPessoa.setItems(observableListPessoas);
         selecionarPessoa.setDisable(false);
+    }
+    
+    public void setDadosEvento() throws SQLException {
+        if (validarCampos()) {
+            System.out.println(DbEvento.getIdTipoEventoByNome(selecionarTipoEvento.getValue()));
+            System.out.println(DbEvento.getIdParteByNome(selecionarParte.getValue()));
+            
+            evento.setidJogo(jogo.getJogo());
+            evento.setEquipa(DbEquipa.getEquipaById(selecionarEquipa.getValue().getId()));
+            evento.setJogador(DbPessoa.getPessoaById(selecionarPessoa.getValue().getId()));
+            evento.setminuto(Integer.parseInt(txtMinuto.getText()));
+            evento.setIdParte(DbEvento.getIdParteByNome(selecionarParte.getValue()));
+            evento.settipoEvento(DbEvento.getIdTipoEventoByNome(selecionarTipoEvento.getValue()));
+        }
+    }
+    
+    public boolean validarCampos() {
+
+        if (selecionarEquipa.getValue()== null || selecionarParte.getValue() == null
+                 || selecionarPessoa.getValue() == null || selecionarTipoEvento.getValue() == null
+                || txtMinuto.getText() == null){
+            return false;
+        }
+        return true;
     }
     
 }

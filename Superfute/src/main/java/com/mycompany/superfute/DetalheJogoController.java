@@ -5,8 +5,10 @@
  */
 package com.mycompany.superfute;
 
+import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbEvento;
 import com.mycompany.superfute.db.DbJogo;
+import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Evento;
 import com.mycompany.superfute.models.Jogo;
 import java.io.IOException;
@@ -23,6 +25,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -82,21 +85,25 @@ public class DetalheJogoController implements Initializable {
     private Button btnIntervali;
     @FXML
     private Label labelResultado;
+    
     @FXML
-    private void btnCriarEvento(ActionEvent event) throws IOException {
+    private void btnCriarEvento(ActionEvent event) throws IOException, SQLException {
         
-        if(jogo != null){
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("fxml/JogoEventoForm.fxml"));
-            Parent root = loader.load();
-            JogoEventoFormController controller = loader.getController();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-            controller.initCampos(jogo);
+        Evento evento = new Evento();
+       
+        boolean flag = false;
+        if (controllerJogoEventoForm(jogo, evento)) {
+            flag = DbEvento.insertEvento(evento);
+            if (flag) {
+                initTable();
+                MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
+                        "Evento inserido com sucesso!", "Inserir Evento");
+            } else {
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                        "Não foi possível inserir o evento.", "Erro ao inserir");
             }
+        }
+
     }
 
     @FXML
@@ -104,11 +111,25 @@ public class DetalheJogoController implements Initializable {
     }
 
     @FXML
-    private void btnApagarEvento(ActionEvent event) {
+    private void btnApagarEvento(ActionEvent event) throws SQLException {
+               
+        boolean flag = false;
+        Evento evento = listaEventos.getSelectionModel().getSelectedItem();
+          flag = DbEvento.deleteEvento(evento.getId());
+          if(flag){
+                
+               MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
+                        "Evento apagado com sucesso!", "Apagar Evento");
+          }else{
+              MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                        "Não foi possível apagar evento.", "Erro ao apagar");
+          }
     }
 
     @FXML
     private void btnVoltar(ActionEvent event) {
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -194,6 +215,36 @@ public class DetalheJogoController implements Initializable {
             resultadoIntervalo = false;
         }
         
+    }
+    
+    public static boolean controllerJogoEventoForm(Jogo jogo, Evento evento) throws IOException{
+       
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(EquipaFormController.class
+                        .getResource("fxml/JogoEventoForm.fxml"));
+        AnchorPane page = loader.load();
+
+        // Criando um Estágio de Diálogo (Stage Dialog)
+        Stage dialogStage = new Stage();
+
+        dialogStage.setTitle(
+                "Evento");
+        Scene scene = new Scene(page);
+
+        dialogStage.setScene(scene);
+
+        // Setando o cliente no Controller.
+        JogoEventoFormController controller = loader.getController();
+
+        controller.setStageDialog(dialogStage);
+
+        controller.initCampos(jogo, evento);
+
+        // Mostra o Dialog e espera até que o usuário o feche
+        dialogStage.showAndWait();
+            
+        
+        return controller.isBtnReturn();
     }
     
     

@@ -23,6 +23,9 @@ import javafx.scene.control.Alert;
  */
 public class DbEvento {
     
+    private static final int PARTES = 5;
+    private static final int TIPOSEVENTO = 7;
+    
     public static ArrayList<Evento> getEventoByJogo(Jogo jogo) throws SQLException {
         ArrayList<Evento> lista = new ArrayList();
         Connection conn = Dbconn.getConn();
@@ -77,7 +80,7 @@ public class DbEvento {
     }
     
     public static String[][] getPartes() throws SQLException {
-        String[][] lista = new String[5][2];
+        String[][] lista = new String[PARTES][2];
         int count = 0;
         
         try {
@@ -90,6 +93,30 @@ public class DbEvento {
             while (rs.next()) {
                 lista[count][0] = String.valueOf(rs.getInt("id"));
                 lista[count][1] = rs.getString("parte");
+                count ++;
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return lista;
+    }
+    
+    public static String[][] getTipoEvento() throws SQLException {
+        String[][] lista = new String[TIPOSEVENTO][2];
+        int count = 0;
+        
+        try {
+            Connection conn = Dbconn.getConn();
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("select * from tipoEvento order by id");
+
+            while (rs.next()) {
+                lista[count][0] = String.valueOf(rs.getInt("id"));
+                lista[count][1] = rs.getString("tipo");
                 count ++;
             }
 
@@ -121,34 +148,80 @@ public class DbEvento {
         return parte;
     }
     
-    public static void insertEvento(Evento evento) throws SQLException {
+    public static int getIdParteByNome(String nome) throws SQLException {
+        int id = 0;
+        
+        try {
+            Connection conn = Dbconn.getConn();
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT id from parteJogo where parte like " + "'" + nome + "'");
+
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return id;
+    }
+    
+    public static int getIdTipoEventoByNome(String nome) throws SQLException {
+        int id = 0;
+        
+        try {
+            Connection conn = Dbconn.getConn();
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT id from tipoEvento where tipo like " + "'" + nome + "'");
+
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return id;
+    }
+    
+    public static boolean insertEvento(Evento evento) throws SQLException {
         
         String cmd = "";
 
         try {
             Connection conn = Dbconn.getConn();
             //Novo Evento
-            cmd = "INSERT INTO evento(idEquipa, idPessoa, idTipoEvento, minuto,"
-                    + " parte) VALUES (?, ?, ?, ?, ?)";
+            cmd = "INSERT INTO evento(idJogo, idEquipa, idPessoa, idTipoEvento, minuto, parte) VALUES (?, ?, ?, ?, ?, ?)";                   
 
             PreparedStatement statement = conn.prepareStatement(cmd);
-            statement.setInt(1, evento.getEquipa().getId());
-            statement.setInt(2, evento.getJogador().getId());
-            statement.setInt(3, evento.gettipoEvento());
-            statement.setInt(4, evento.getminuto());
-            statement.setInt(5, evento.getIdParte());
+            statement.setInt(1, evento.getidJogo());          
+            statement.setInt(2, evento.getEquipa().getId());
+            statement.setInt(3, evento.getJogador().getId());
+            statement.setInt(4, evento.gettipoEvento());
+            statement.setInt(5, evento.getminuto());
+            statement.setInt(6, evento.getIdParte());
+            
 
             //Execute the update
             statement.executeUpdate();
 
             //commit in case you have turned autocommit to false
             conn.commit();
+            return true;
         } catch (SQLIntegrityConstraintViolationException ex) {
             System.err.println("Erro: " + ex.getMessage());
             ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+            return false;
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex.getMessage());
             ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+            return false;
         }
     }
     
@@ -184,7 +257,7 @@ public class DbEvento {
         }
     }
     
-    public static void deleteEvento(int id) throws SQLException {
+    public static boolean deleteEvento(int id) throws SQLException {
         
         try {
             Connection conn = Dbconn.getConn();
@@ -196,8 +269,10 @@ public class DbEvento {
             conn.commit();
             
             stm.close();
+            return true;
         } catch (Exception ex) {
             System.err.println("Erro: " + ex.getMessage());
+            return false;
         }
     }
 }
