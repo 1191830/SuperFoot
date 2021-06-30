@@ -5,11 +5,13 @@
  */
 package com.mycompany.superfute.db;
 
+import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Estatistica;
 import com.mycompany.superfute.models.Jogador;
 import com.mycompany.superfute.models.Liga;
 import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -242,5 +244,29 @@ public class DbJogador {
         }
 
         return listaJogadoresEst;
+    }
+
+    public static ArrayList<Jogador> obterJogadorNomePorEquipa(Equipa equipa) throws SQLException {
+        ArrayList<Jogador> jogadores = new ArrayList<>();
+
+        try {
+            Connection conn = Dbconn.getConn();
+            PreparedStatement statement = conn.
+                    prepareStatement("  select equipa,jogador,idPessoa "
+                            + "from jogadoresEquipas where equipa in (?)");
+            statement.setString(1, equipa.getNome());
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Jogador jogador = new Jogador();
+                jogador.setNome(rs.getString("jogador"));
+                jogador.setId(rs.getInt("idPessoa"));
+                jogadores.add(jogador);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return jogadores;
     }
 }

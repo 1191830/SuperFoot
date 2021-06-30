@@ -6,6 +6,7 @@
 package com.mycompany.superfute.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +23,7 @@ public class Jogo {
     private String nomeFora; //nome Equipa fora
     private int golosCasa; //golos da equipa da casa
     private int golosFora; //golos da equipa visitante
-    private LocalDate data; // data do jogo
+    private LocalDateTime data; // data do jogo
     private Pessoa arbitro; //arbitro do Jogo
     private Estadio Estadio; // id do Estadio
     private ArrayList<Evento> listEvento = new ArrayList();
@@ -47,7 +48,7 @@ public class Jogo {
         this.arbitro = arbitro;
     }
 
-    public Jogo(Integer jogo, Equipa EquipaCasa, Equipa EquipaFora, LocalDate data, Estadio Estadio) {
+    public Jogo(Integer jogo, Equipa EquipaCasa, Equipa EquipaFora, LocalDateTime data, Estadio Estadio) {
         this.jogo = jogo;
         this.EquipaCasa = EquipaCasa;
         this.EquipaFora = EquipaFora;
@@ -89,11 +90,11 @@ public class Jogo {
         this.EquipaFora = EquipaFora;
     }
 
-    public LocalDate getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

@@ -55,6 +55,25 @@ public class DbEquipa {
         }
         return lista;
     }
+    public static ArrayList<Equipa> getEquipasObject() throws SQLException {
+        ArrayList<Equipa> equipas = new ArrayList<>();
+        try {
+            Connection conn = Dbconn.getConn();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from equipa");
+            while (rs.next()) {
+                Equipa equipa = new Equipa();
+                equipa.setId(rs.getInt("id"));
+                equipa.setNome(rs.getString("nome"));
+                equipas.add(equipa);
+            }
+
+            st.close();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return equipas;
+    }
      
      public static Equipa getEquipaById(int id) throws SQLException{
         Equipa equipa = new Equipa();
