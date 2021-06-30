@@ -33,7 +33,7 @@ public class DbJogador {
         ArrayList<Jogador> listaJogadores = new ArrayList();
         try {
             Connection conn = Dbconn.getConn();
-            String query = "select jogador, golos from view_melhorMarcador  where Liga = "
+            String query = "select TOP 10 jogador, golos from view_melhorMarcador  where Liga = "
                     + liga.getAno() + " order by golos desc ";
             Statement st;
             ResultSet rs;
@@ -60,7 +60,7 @@ public class DbJogador {
     public static ArrayList<Jogador> obterMelhorMarcadorGeral() throws SQLException {
         ArrayList<Jogador> listaJogadores = new ArrayList();
         Connection conn = Dbconn.getConn();
-        String query = "select jogador, golos from view_melhorMarcador order by golos desc ";
+        String query = "select TOP 10 jogador, golos from view_melhorMarcador order by golos desc ";
         Statement st;
         ResultSet rs;
 

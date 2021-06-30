@@ -8,7 +8,6 @@ package com.mycompany.superfute;
 import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbEquipa;
 import com.mycompany.superfute.db.DbEvento;
-import com.mycompany.superfute.db.DbJogador;
 import com.mycompany.superfute.db.DbPessoa;
 import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Evento;
