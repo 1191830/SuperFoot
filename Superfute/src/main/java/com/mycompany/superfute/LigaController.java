@@ -152,6 +152,7 @@ public class LigaController implements Initializable {
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setTitle("Equipas");
 
         stage.show();
 
@@ -164,6 +165,7 @@ public class LigaController implements Initializable {
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setTitle("Jogadores");
         stage.show();
         
     }
@@ -181,6 +183,7 @@ public class LigaController implements Initializable {
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setTitle("Estatisticas Jogadores");
         stage.show();
 
     }
@@ -214,6 +217,7 @@ public class LigaController implements Initializable {
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setTitle("Arbitros");
         stage.show();
 
     }
@@ -233,6 +237,7 @@ public class LigaController implements Initializable {
                 JornadaController controller = loader.getController();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                stage.setTitle("Jornadas " + liga.getAno());
                 stage.show();
 
                 controller.initLiga(liga);

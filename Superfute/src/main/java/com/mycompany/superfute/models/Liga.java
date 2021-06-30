@@ -49,6 +49,6 @@ public class Liga {
 
     @Override
     public String toString() {
-        return "Liga{" + "nome=" + nome + ", ano=" + ano + '}';
+        return  ano + " " + nome  ;
     }   
 }

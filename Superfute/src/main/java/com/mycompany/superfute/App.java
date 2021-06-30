@@ -23,6 +23,7 @@ public class App extends Application {
 
 
         stage.setScene(scene);
+        stage.setTitle("Inicio");
         stage.show();
     }
 

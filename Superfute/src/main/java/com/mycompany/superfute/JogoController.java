@@ -118,7 +118,7 @@ public class JogoController implements Initializable {
     }
 
     @FXML
-    private void btnCriarJogo(ActionEvent event) throws IOException {
+    private void btnCriarJogo(ActionEvent event) throws IOException, SQLException {
         Jogo jogo =  new Jogo();
         boolean btnClicked = controllerJogoForm(jogo);
         if(btnClicked){
@@ -128,7 +128,7 @@ public class JogoController implements Initializable {
     }
 
     @FXML
-    private void btnEditarJogo(ActionEvent event) throws IOException {
+    private void btnEditarJogo(ActionEvent event) throws IOException, SQLException {
         boolean btnClicked = controllerJogoForm(jogoSelecionado);
         if(btnClicked){
             System.out.println("AQUI Editar");
@@ -179,7 +179,7 @@ public class JogoController implements Initializable {
         stage2.close();
         
     }
-    public static boolean controllerJogoForm(Jogo jogo) throws IOException {
+    public static boolean controllerJogoForm(Jogo jogo) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader();
         loader
                 .setLocation(JogoFormController.class

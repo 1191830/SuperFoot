@@ -147,6 +147,7 @@ public class JornadaController implements Initializable {
             
              Stage stage = new Stage();
              stage.setScene(new Scene(root));
+             stage.setTitle("Jornada " + jornadaSelecionada.getIdJornada() + " " + jornadaSelecionada.getIdLiga());
              stage.show();
 
             controller.initJornada(jornadaSelecionada);

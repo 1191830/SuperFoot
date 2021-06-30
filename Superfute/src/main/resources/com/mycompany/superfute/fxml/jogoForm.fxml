@@ -81,9 +81,9 @@
             </TableView>
          </content>
       </ScrollPane>
-      <ScrollPane fx:id="tabelaEventos" layoutX="37.0" layoutY="319.0" prefHeight="200.0" prefWidth="575.0">
+      <ScrollPane layoutX="37.0" layoutY="319.0" prefHeight="200.0" prefWidth="575.0">
          <content>
-            <TableView prefHeight="198.0" prefWidth="573.0">
+            <TableView fx:id="tabelaEventos" prefHeight="198.0" prefWidth="573.0">
               <columns>
                 <TableColumn fx:id="colunaEvento" prefWidth="64.0" text="Evento" />
                 <TableColumn fx:id="colunaPessoa" prefWidth="208.0" text="Pessoa" />

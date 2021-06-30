@@ -8,7 +8,6 @@ package com.mycompany.superfute;
 import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbEquipa;
 import com.mycompany.superfute.db.DbEvento;
-import com.mycompany.superfute.db.DbJogador;
 import com.mycompany.superfute.db.DbPessoa;
 import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Evento;
@@ -166,14 +165,22 @@ public class JogoEventoFormController implements Initializable {
         selectEquipa();      
     }
     
+    /**
+     * Seleciona a equipa escolhida e vai buscar os jogadores dessa equipa à base de dados
+     * @throws SQLException 
+     */
     public void selectEquipa() throws SQLException{
-        equipaSelecionada = DbEquipa.getEquipaById(selecionarEquipa.getValue().getId());
-        pessoas = DbPessoa.getPessoasJogoEquipa(jogo, equipaSelecionada);
-        observableListPessoas = FXCollections.observableArrayList(pessoas);
-        selecionarPessoa.setItems(observableListPessoas);
-        selecionarPessoa.setDisable(false);
+        equipaSelecionada = DbEquipa.getEquipaById(selecionarEquipa.getValue().getId()); 
+        pessoas = DbPessoa.getPessoasJogoEquipa(jogo, equipaSelecionada); // procura os jogadores da equipa escolhida
+        observableListPessoas = FXCollections.observableArrayList(pessoas); 
+        selecionarPessoa.setItems(observableListPessoas); // preenche a combobox de jogadores
+        selecionarPessoa.setDisable(false); // habilita o botao para selecionar pessoa
     }
     
+    /**
+     * Se o evento tiver completo, atribui ao evento os atributos escolhidos
+     * @throws SQLException 
+     */
     public void setDadosEvento() throws SQLException {
         if (validarCampos()) {
             
@@ -186,6 +193,10 @@ public class JogoEventoFormController implements Initializable {
         }
     }
     
+    /**
+     * Quando o evento não e null pré preenche os campos para edicao
+     * @throws SQLException 
+     */
     public void preencherCampos() throws SQLException {
         if (evento != null) {
 
@@ -201,6 +212,10 @@ public class JogoEventoFormController implements Initializable {
         }
     }
     
+    /**
+     * Valida se todos os campos foram preenchidos
+     * @return 
+     */
     public boolean validarCampos() {
 
         if (selecionarEquipa.getValue()== null || selecionarParte.getValue() == null
