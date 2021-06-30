@@ -22,9 +22,18 @@ public class Jogador extends Pessoa {
     private String funcao;
     private LocalDate dataInicio;
     private LocalDate dataFim;
+    private int qtdJogos;
     
 
      public Jogador() {
+    }
+
+    public int getQtdJogos() {
+        return qtdJogos;
+    }
+
+    public void setQtdJogos(int qtdJogos) {
+        this.qtdJogos = qtdJogos;
     }
 
   
@@ -99,20 +108,20 @@ public class Jogador extends Pessoa {
     public void setFuncao(String funcao) {
         this.funcao = funcao;
     }
-    
-    
 
     @Override
     public String toString() {
-        return "Jogador{" + 
-                "golosMarcados=" + golosMarcados + 
-                "golosAnulados=" + golosAnulados + 
-                ", amarelos=" + amarelos + ", "
-                + "duploAmarelo=" + duploAmarelo + ","
-                + " vemelho=" + vemelho + 
-                ", dataInicio=" + dataInicio + ","
-                + " dataFim=" + dataFim + '}';
+        return "Jogador{" + "golosMarcados=" + golosMarcados 
+                + ", golosAnulados=" + golosAnulados + ", amarelos="
+                + amarelos + ", duploAmarelo=" + duploAmarelo
+                + ", vemelho=" + vemelho + ", idFuncao=" + idFuncao
+                + ", funcao=" + funcao + ", dataInicio=" + dataInicio 
+                + ", dataFim=" + dataFim + ", qtdJogos=" + qtdJogos + '}';
     }
+    
+    
+
+
     
     
     

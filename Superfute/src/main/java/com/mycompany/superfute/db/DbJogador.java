@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class DbJogador {
 
     Pessoa pessoa = new Pessoa();
+
     /**
      * Método retorna arraylist com os melhores marcadores por liga
      *
@@ -90,8 +92,10 @@ public class DbJogador {
     public static ArrayList<Jogador> obterJogadorExpulsões() throws SQLException {
         ArrayList<Jogador> listaJogadores = new ArrayList();
         Connection conn = Dbconn.getConn();
-        String query = "select jogador, sum (amareloduplos + vermelho) "
-                + "as expulsoes from dbo.func_dadosJogadorTodos(-1,-1)"
+        String query = "select jogador, sum (amareloduplos + vermelho)"
+                + " as expulsoes, count (idJogo) as jogos, sum (amarelo)"
+                + " as amarelos, sum (golosanulados)"
+                + " as anulados from dbo.func_dadosJogadorTodos(-1,-1) "
                 + "group by jogador order by expulsoes desc";
         Statement st;
         ResultSet rs;
@@ -102,7 +106,10 @@ public class DbJogador {
             while (rs.next()) {
                 Jogador jogador = new Jogador();
                 jogador.setNome(rs.getString("jogador"));
-                jogador.setVemelho(rs.getInt("Expulsoes"));
+                jogador.setVemelho(rs.getInt("expulsoes"));
+                jogador.setQtdJogos(rs.getInt("jogos"));
+                jogador.setAmarelos(rs.getInt("amarelos"));
+                jogador.setGolosAnulados(rs.getInt("anulados"));
                 listaJogadores.add(jogador);
             }
 
@@ -173,6 +180,7 @@ public class DbJogador {
         }
         return listaJogadores;
     }
+
     public static ArrayList<Estatistica> obterJogadorEstatisticas(Pessoa pessoa) throws SQLException {
         ArrayList<Estatistica> listaJogadoresEst = new ArrayList();
         Connection conn = Dbconn.getConn();
@@ -181,7 +189,7 @@ public class DbJogador {
                 + "sum (amareloduplos) as amarelosduplos,"
                 + " sum (vermelho) as vermelho,"
                 + " jogador from dbo.func_dadosJogadorTodos(-1,-1)"
-                + " where idJogador = '" + pessoa.getId()+ "' group by liga, jogador";
+                + " where idJogador = '" + pessoa.getId() + "' group by liga, jogador";
         Statement st;
         ResultSet rs;
         try {
