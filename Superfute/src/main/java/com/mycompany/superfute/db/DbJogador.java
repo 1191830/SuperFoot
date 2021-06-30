@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -93,8 +94,10 @@ public class DbJogador {
     public static ArrayList<Jogador> obterJogadorExpulsões() throws SQLException {
         ArrayList<Jogador> listaJogadores = new ArrayList();
         Connection conn = Dbconn.getConn();
-        String query = "select jogador, sum (amareloduplos + vermelho) "
-                + "as expulsoes from dbo.func_dadosJogadorTodos(-1,-1)"
+        String query = "select jogador, sum (amareloduplos + vermelho)"
+                + " as expulsoes, count (idJogo) as jogos, sum (amarelo)"
+                + " as amarelos, sum (golosanulados)"
+                + " as anulados from dbo.func_dadosJogadorTodos(-1,-1) "
                 + "group by jogador order by expulsoes desc";
         Statement st;
         ResultSet rs;
@@ -105,7 +108,10 @@ public class DbJogador {
             while (rs.next()) {
                 Jogador jogador = new Jogador();
                 jogador.setNome(rs.getString("jogador"));
-                jogador.setVemelho(rs.getInt("Expulsoes"));
+                jogador.setVemelho(rs.getInt("expulsoes"));
+                jogador.setQtdJogos(rs.getInt("jogos"));
+                jogador.setAmarelos(rs.getInt("amarelos"));
+                jogador.setGolosAnulados(rs.getInt("anulados"));
                 listaJogadores.add(jogador);
             }
 

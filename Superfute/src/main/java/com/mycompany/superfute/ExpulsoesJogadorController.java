@@ -34,6 +34,12 @@ import javafx.beans.property.SimpleObjectProperty;
 public class ExpulsoesJogadorController implements Initializable {
 
     private Stage stageDialog;
+    @FXML
+    private TableColumn<Jogador, Integer> qtdJogos;
+    @FXML
+    private TableColumn<Jogador, Integer> autogolos;
+    @FXML
+    private TableColumn<Jogador, Integer> qtdAmarelos;
 
     public Stage getStageDialog() {
         return stageDialog;
@@ -49,9 +55,9 @@ public class ExpulsoesJogadorController implements Initializable {
     @FXML
     private TableView<Jogador> tableviewExpul;
     @FXML
-    private TableColumn <Jogador, String> jogador;
+    private TableColumn<Jogador, String> jogador;
     @FXML
-    private TableColumn <Jogador, Integer >expulsao;
+    private TableColumn<Jogador, Integer> expulsao;
 
     /**
      * Initializes the controller class.
@@ -66,12 +72,16 @@ public class ExpulsoesJogadorController implements Initializable {
     }
 
     public void tableViewExpulsoes() throws SQLException {
-        jogador.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<String>(cellData.getValue().getNome()));
-        expulsao.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<Integer>(cellData.getValue().getVemelho()));
-
-
+        jogador.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<String>(cellData.getValue().getNome()));
+        qtdJogos.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Integer>(cellData.getValue().getQtdJogos()));
+        qtdAmarelos.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Integer>(cellData.getValue().getAmarelos()));
+        expulsao.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Integer>(cellData.getValue().getVemelho()));
+        autogolos.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Integer>(cellData.getValue().getGolosAnulados()));
         listaJogador = DbJogador.obterJogadorExpulsões();
         observableList = FXCollections.observableArrayList(listaJogador);
         tableviewExpul.setItems(observableList);

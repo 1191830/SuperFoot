@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.TrocaEquipasTabelaController">
+   <children>
+      <TableView fx:id="tabelaInicio" layoutX="24.0" layoutY="100.0" prefHeight="200.0" prefWidth="197.0">
+        <columns>
+          <TableColumn fx:id="nomeInicio" prefWidth="199.0" text="Nome" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tabelaFim" layoutX="376.0" layoutY="101.0" prefHeight="200.0" prefWidth="197.0">
+        <columns>
+          <TableColumn fx:id="nomeFim" prefWidth="199.0" text="Nome" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnAdicionar" layoutX="267.0" layoutY="165.0" mnemonicParsing="false" onAction="#btnAdicionarJogador" text="Adicionar" />
+      <Button fx:id="btnRemover" layoutX="267.0" layoutY="242.0" mnemonicParsing="false" onAction="#btnRemoverJogador" prefHeight="25.0" prefWidth="67.0" text="Remover" />
+      <Button fx:id="btnConcluido" layoutX="475.0" layoutY="339.0" mnemonicParsing="false" onAction="#btnConcluidoJogador" prefHeight="35.0" prefWidth="95.0" text="Concluido" />
+      <ImageView fitHeight="129.0" fitWidth="132.0" layoutX="236.0" layoutY="-14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../assets/26547.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
