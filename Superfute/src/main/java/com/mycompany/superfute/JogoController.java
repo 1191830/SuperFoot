@@ -29,6 +29,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -113,16 +114,26 @@ public class JogoController implements Initializable {
 
     public void initJornada(Jornada jornadaSelecionada) throws SQLException{
         jornada = jornadaSelecionada;
-        System.out.println(jornada.getIdLiga());
         initTable();
     }
 
     @FXML
-    private void btnCriarJogo(ActionEvent event) {
+    private void btnCriarJogo(ActionEvent event) throws IOException {
+        Jogo jogo =  new Jogo();
+        boolean btnClicked = controllerJogoForm(jogo);
+        if(btnClicked){
+            System.out.println("AQUI Criar");
+        
+        }
     }
 
     @FXML
-    private void btnEditarJogo(ActionEvent event) {
+    private void btnEditarJogo(ActionEvent event) throws IOException {
+        boolean btnClicked = controllerJogoForm(jogoSelecionado);
+        if(btnClicked){
+            System.out.println("AQUI Editar");
+        
+        }
     }
 
     @FXML
@@ -143,8 +154,6 @@ public class JogoController implements Initializable {
             stage.setScene(new Scene(root));           
             stage.showAndWait();
             initTable();
-
-            
             }
             
     }
@@ -169,6 +178,34 @@ public class JogoController implements Initializable {
         // close the scene
         stage2.close();
         
+    }
+    public static boolean controllerJogoForm(Jogo jogo) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader
+                .setLocation(JogoFormController.class
+                        .getResource("fxml/jogoForm.fxml"));
+        AnchorPane page = loader.load();
+
+        // Criando um Estágio de Diálogo (Stage Dialog)
+        Stage dialogStage = new Stage();
+
+        dialogStage.setTitle(
+                "Jogo");
+        Scene scene = new Scene(page);
+
+        dialogStage.setScene(scene);
+
+        // Setando o cliente no Controller.
+        JogoFormController controller = loader.getController();
+
+        controller.setStageDialog(dialogStage);
+
+        controller.setJogo(jogo);
+
+        // Mostra o Dialog e espera até que o usuário o feche
+        dialogStage.showAndWait();
+
+        return controller.isBtnClicked();
     }
     
 }

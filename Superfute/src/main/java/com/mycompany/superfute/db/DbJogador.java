@@ -5,11 +5,13 @@
  */
 package com.mycompany.superfute.db;
 
+import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Estatistica;
 import com.mycompany.superfute.models.Jogador;
 import com.mycompany.superfute.models.Liga;
 import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 public class DbJogador {
 
     Pessoa pessoa = new Pessoa();
+
     /**
      * Método retorna arraylist com os melhores marcadores por liga
      *
@@ -173,6 +176,7 @@ public class DbJogador {
         }
         return listaJogadores;
     }
+
     public static ArrayList<Estatistica> obterJogadorEstatisticas(Pessoa pessoa) throws SQLException {
         ArrayList<Estatistica> listaJogadoresEst = new ArrayList();
         Connection conn = Dbconn.getConn();
@@ -181,7 +185,7 @@ public class DbJogador {
                 + "sum (amareloduplos) as amarelosduplos,"
                 + " sum (vermelho) as vermelho,"
                 + " jogador from dbo.func_dadosJogadorTodos(-1,-1)"
-                + " where idJogador = '" + pessoa.getId()+ "' group by liga, jogador";
+                + " where idJogador = '" + pessoa.getId() + "' group by liga, jogador";
         Statement st;
         ResultSet rs;
         try {
@@ -204,5 +208,29 @@ public class DbJogador {
         }
 
         return listaJogadoresEst;
+    }
+
+    public static ArrayList<Jogador> obterJogadorNomePorEquipa(Equipa equipa) throws SQLException {
+        ArrayList<Jogador> jogadores = new ArrayList<>();
+
+        try {
+            Connection conn = Dbconn.getConn();
+            PreparedStatement statement = conn.
+                    prepareStatement("  select equipa,jogador,idPessoa "
+                            + "from jogadoresEquipas where equipa in (?)");
+            statement.setString(1, equipa.getNome());
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Jogador jogador = new Jogador();
+                jogador.setNome(rs.getString("jogador"));
+                jogador.setId(rs.getInt("idPessoa"));
+                jogadores.add(jogador);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return jogadores;
     }
 }
