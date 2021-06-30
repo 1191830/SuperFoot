@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1022.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.mycompany.superfute.JogoFormController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.JogoFormController">
    <children>
       <Label fx:id="labelLigaAno" alignment="CENTER" layoutX="1.0" layoutY="14.0" prefHeight="35.0" prefWidth="1022.0" text="JOGO">
          <font>
@@ -27,13 +26,13 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="selecionarEquipaCasa" layoutX="39.0" layoutY="83.0" prefWidth="150.0" />
+      <ComboBox fx:id="selecionarEquipaCasa" layoutX="39.0" layoutY="83.0" onAction="#actionEquipaCasa" prefWidth="150.0" />
       <Label layoutX="271.0" layoutY="50.0" text="Equipa Visitante">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="SelecionarEquipaVisitante" layoutX="269.0" layoutY="83.0" prefWidth="150.0" />
+      <ComboBox fx:id="SelecionarEquipaVisitante" layoutX="269.0" layoutY="83.0" onAction="#actionEquipaVisitante" prefWidth="150.0" />
       <Label layoutX="39.0" layoutY="123.0" prefHeight="25.0" prefWidth="80.0" text="Data Jogo">
          <font>
             <Font size="16.0" />

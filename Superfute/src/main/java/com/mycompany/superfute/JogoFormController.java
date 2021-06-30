@@ -155,47 +155,14 @@ public class JogoFormController implements Initializable {
 
             preencherArrayList();
             inserirCampos();
-            validaArrayListEquipa(selecionarEquipaCasa, true);
-            validaArrayListEquipa(SelecionarEquipaVisitante, false);
+            
         } catch (SQLException ex) {
             Logger.getLogger(JogoFormController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public void validaArrayListEquipa(ComboBox equipa, boolean casaFora) {
-        equipa.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    
-                    if (newValue != null) {
-                        System.out.println("AQUIdentro");
-                        if (casaFora) {
-                            if (newValue.equals(SelecionarEquipaVisitante.getSelectionModel().getSelectedItem())) {
-                                try {
-                                    selecionarEquipaCasa.getSelectionModel().clearSelection();
-                                } catch (Exception e) {
-                                    MessageBoxes.ShowMessage(Alert.AlertType.WARNING, "Não podes escolher equipas iguais", "Inválido");
-                                }
-
-                            }
-                        } else {
-                            if (newValue.equals(selecionarEquipaCasa.getSelectionModel().getSelectedItem())) {
-                                try {
-                                    SelecionarEquipaVisitante.getSelectionModel().clearSelection();
-                                } catch (Exception e) {
-                                    MessageBoxes.ShowMessage(Alert.AlertType.WARNING, "Não podes escolher equipas iguais", "Inválido");
-
-                                }
-
-                            }
-                        }
-
-                    }
-                    System.out.println(newValue);
-                }
-        );
-    }
-
+   
     public void horasMinutos() {
         horas = new ArrayList<>();
         minutos = new ArrayList<>();
@@ -310,6 +277,24 @@ public class JogoFormController implements Initializable {
     public void inserirNacionalidade() throws SQLException {
         for (Estadio e : estadios) {
             //  selecionarNacionalidade.getItems().addAll(p.getNome());
+        }
+    }
+
+    @FXML
+    private void actionEquipaCasa(ActionEvent event) {
+        Equipa eq = new Equipa();
+        eq = selecionarEquipaCasa.getSelectionModel().getSelectedItem();
+        if(eq == SelecionarEquipaVisitante.getSelectionModel().getSelectedItem()){
+            selecionarEquipaCasa.setValue(null);
+        }
+    }
+
+    @FXML
+    private void actionEquipaVisitante(ActionEvent event) {
+         Equipa eq = new Equipa();
+        eq = SelecionarEquipaVisitante.getSelectionModel().getSelectedItem();
+        if(eq == selecionarEquipaCasa.getSelectionModel().getSelectedItem()){
+            SelecionarEquipaVisitante.setValue(null);
         }
     }
 
