@@ -5,7 +5,9 @@
  */
 package com.mycompany.superfute;
 
+import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -44,17 +47,26 @@ public class DetalheJogadorController implements Initializable {
     private TableColumn<?, ?> colunaVermelhos;
     @FXML
     private Button btnVoltar;
+    Pessoa jogador = new Pessoa ();
+
+    public ArrayList<Pessoa> listaJogador;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        detalhes();
+    }
 
     @FXML
     private void btnVoltar(ActionEvent event) {
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        stage.close();
     }
-    
+
+    private void detalhes(){
+        labelNomeJogador.setText(jogador.getNome());
+        labelNomeEquipa.setText(jogador.getNomeEquipa());
+    }
 }

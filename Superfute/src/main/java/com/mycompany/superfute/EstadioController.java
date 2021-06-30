@@ -48,8 +48,6 @@ public class EstadioController implements Initializable {
     @FXML
     private Button btnEditar;
     @FXML
-    private Button btnApagar;
-    @FXML
     private Button btnVoltar;
     
     private ObservableList<Estadio> observableList;
@@ -97,9 +95,6 @@ public class EstadioController implements Initializable {
         }
     }
 
-    @FXML
-    private void btnApagar(ActionEvent event) {
-    }
 
     @FXML
     private void btnVoltar(ActionEvent event) {

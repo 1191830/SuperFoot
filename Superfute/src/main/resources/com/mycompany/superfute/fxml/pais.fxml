@@ -25,8 +25,7 @@
          </content>
       </ScrollPane>
       <Button fx:id="btnInserir" layoutX="69.0" layoutY="384.0" mnemonicParsing="false" onAction="#btnInserir" prefHeight="46.0" prefWidth="70.0" text="Inserir" />
-      <Button fx:id="btnEditar" layoutX="152.0" layoutY="384.0" mnemonicParsing="false" onAction="#btnEditar" prefHeight="46.0" prefWidth="62.0" text="Editar" />
-      <Button fx:id="btnApagar" layoutX="233.0" layoutY="384.0" mnemonicParsing="false" onAction="#btnApagar" prefHeight="46.0" prefWidth="62.0" text="Apagar" />
+      <Button fx:id="btnEditar" layoutX="229.0" layoutY="384.0" mnemonicParsing="false" onAction="#btnEditar" prefHeight="46.0" prefWidth="62.0" text="Editar" />
       <Button fx:id="btnVoltar" layoutX="239.0" layoutY="468.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="35.0" prefWidth="62.0" text="Voltar" />
    </children>
 </AnchorPane>

@@ -14,7 +14,6 @@
    <children>
       <Button fx:id="btnCriarLiga" layoutX="16.0" layoutY="513.0" mnemonicParsing="false" onAction="#btnCriarLiga" prefHeight="34.0" prefWidth="80.0" text="Criar Liga" />
       <Button fx:id="btnEditarLiga" layoutX="121.0" layoutY="513.0" mnemonicParsing="false" onAction="#btnEditarLiga" prefHeight="34.0" prefWidth="80.0" text="Editar Liga" />
-      <Button fx:id="btnApagarLiga" layoutX="226.0" layoutY="513.0" mnemonicParsing="false" onAction="#btnApagarLiga" prefHeight="34.0" prefWidth="80.0" text="Apagar Liga" />
       <Button fx:id="btnJornadas" layoutX="326.0" layoutY="158.0" mnemonicParsing="false" onAction="#btnJornadas" prefHeight="51.0" prefWidth="104.0" text="JORNADAS" />
       <Button fx:id="btnEquipas" layoutX="441.0" layoutY="158.0" mnemonicParsing="false" onAction="#btnEquipas" prefHeight="51.0" prefWidth="104.0" text="EQUIPAS" />
       <Button fx:id="btnJogadores" layoutX="327.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnJogadores" prefHeight="51.0" prefWidth="104.0" text="JOGADORES" />

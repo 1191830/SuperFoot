@@ -28,8 +28,6 @@ import javafx.stage.Stage;
 public class InicioController implements Initializable {
 
     @FXML
-    private Button btnPessoas;
-    @FXML
     private Button btnLigas;
     @FXML
     private Button btnSair;
@@ -44,22 +42,14 @@ public class InicioController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void btnPessoas(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/pessoa.fxml"));
-        Scene scene = new Scene(root);
-         Stage window = new Stage();
-        window.setTitle("Pessoa");
-        window.setResizable(false);
-        window.setScene(scene);
-        window.showAndWait();
-    }
 
     @FXML
     private void btnLigas(ActionEvent event) throws IOException {
-         Parent root = FXMLLoader.load(getClass().getResource("fxml/liga.fxml"));
+        
+        
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/liga.fxml"));
         Scene scene = new Scene(root);
-         Stage window = new Stage();
+        Stage window = new Stage();
         window.setTitle("Pessoa");
         window.setResizable(false);
         window.setScene(scene);

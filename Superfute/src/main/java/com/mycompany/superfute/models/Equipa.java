@@ -21,7 +21,7 @@ public class Equipa {
     private Estadio estadio;
     private ArrayList<Jogador> jogadores;
     private ArrayList<EquipaTecnica> funcionarios;
-    
+  
 
     public Equipa() {
 

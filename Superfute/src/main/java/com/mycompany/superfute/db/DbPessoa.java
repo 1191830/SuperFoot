@@ -208,6 +208,87 @@ public class DbPessoa {
         return listaPessoa;
     }
 
-  
-  
+    public static ArrayList<Pessoa> obterJogadorExpulsões() throws SQLException {
+        ArrayList<Pessoa> listaJogadores = new ArrayList();
+        Connection conn = Dbconn.getConn();
+        String query = "select jogador, sum (amareloduplos + vermelho) "
+                + "as expulsoes from dbo.func_dadosJogadorTodos(-1,-1)"
+                + "group by jogador order by expulsoes desc";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                Pessoa jogador = new Pessoa();
+                jogador.setNome(rs.getString("jogador"));
+                jogador.setNumExpulsoes(rs.getInt("Expulsoes"));
+                listaJogadores.add(jogador);
+
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return listaJogadores;
+
+    }
+
+    public static ArrayList<Pessoa> obterJogadorEquipa() throws SQLException {
+        ArrayList<Pessoa> listaJogadores = new ArrayList();
+        Connection conn = Dbconn.getConn();
+        String query = "select * from jogadoresEquipas";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                Pessoa jogador = new Pessoa();
+                jogador.setNome(rs.getString("jogador"));
+                jogador.setNomeEquipa(rs.getString("equipa"));
+                listaJogadores.add(jogador);
+
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return listaJogadores;
+
+    }
+
+    public static ArrayList<Pessoa> obterJogadorEstatisticas(Pessoa pessoa) throws SQLException {
+        ArrayList<Pessoa> listaJogadores = new ArrayList();
+        Connection conn = Dbconn.getConn();
+        String query = "select liga as liga, count (idJogo) as jogos, "
+                + "sum (golos) as golos, sum (amarelo) as amarelos, "
+                + "sum (amareloduplos) as amarelosduplos,"
+                + " sum (vermelho) as vermelho,"
+                + " jogador from dbo.func_dadosJogadorTodos(-1,-1)"
+                + " where idJogador = '" + pessoa.getNome() + "' group by liga, jogador";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                Pessoa jogador = new Pessoa();
+                jogador.setNome(rs.getString("jogador"));
+                jogador.setNomeEquipa(rs.getString("equipa"));
+                listaJogadores.add(jogador);
+
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return listaJogadores;
+    }
 }
