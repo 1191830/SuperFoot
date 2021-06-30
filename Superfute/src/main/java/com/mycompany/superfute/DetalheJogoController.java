@@ -93,9 +93,10 @@ public class DetalheJogoController implements Initializable {
        
         boolean flag = false;
         if (controllerJogoEventoForm(jogo, evento)) {
-            flag = DbEvento.insertEvento(evento);
+            flag = DbEvento.insertEvento(evento);            
             if (flag) {
-                initTable();
+                updateResultado();
+                fillEventos();
                 MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
                         "Evento inserido com sucesso!", "Inserir Evento");
             } else {
@@ -107,17 +108,33 @@ public class DetalheJogoController implements Initializable {
     }
 
     @FXML
-    private void btnEditarEvento(ActionEvent event) {
+    private void btnEditarEvento(ActionEvent event) throws IOException, SQLException {
+        
+        boolean verificaEventoNull = false;
+        Evento evento = listaEventos.getSelectionModel().getSelectedItem();
+        if (verificaEventoAbreView(evento)) {
+          verificaEventoNull = DbEvento.updateEvento(evento);
+          if(verificaEventoNull){
+                updateResultado();
+                fillEventos();
+               MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
+                        "Evento editado com sucesso!", "Editar Evento");
+          }else{
+              MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                        "Não foi possível editar o evento.", "Erro ao editar");
+          }
+        }
     }
 
     @FXML
-    private void btnApagarEvento(ActionEvent event) throws SQLException {
+    private void btnApagarEvento(ActionEvent event) throws SQLException, IOException {
                
         boolean flag = false;
         Evento evento = listaEventos.getSelectionModel().getSelectedItem();
           flag = DbEvento.deleteEvento(evento.getId());
           if(flag){
-                
+               updateResultado();
+               fillEventos();
                MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
                         "Evento apagado com sucesso!", "Apagar Evento");
           }else{
@@ -188,6 +205,13 @@ public class DetalheJogoController implements Initializable {
         labelLocal.setText(jogo.getEstadio().getCidade().getNome());
         labelArbitro.setText(jogo.getArbitro().getNome());
         
+        fillEventos();
+        
+        
+    }
+    
+    public void fillEventos() throws SQLException{
+    
         colunaEvento.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getEvento()));
         colunaPessoa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getJogador().getNome()));       
         colunaEquipa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getEquipa().getNome()));
@@ -197,8 +221,6 @@ public class DetalheJogoController implements Initializable {
         listaEvento = DbEvento.getEventoByJogo(jogo);
         observableList = FXCollections.observableArrayList(listaEvento);
         listaEventos.setItems(observableList);
-        
-        
     }
 
     @FXML
@@ -245,6 +267,26 @@ public class DetalheJogoController implements Initializable {
             
         
         return controller.isBtnReturn();
+    }
+    
+    public void updateResultado() throws IOException, SQLException{
+        
+       resultado = DbJogo.getResultado(resultado);
+       labelResultado.setText(resultado.getGolosCasa() + " x " + resultado.getGolosFora());
+       
+    }
+    
+    private boolean verificaEventoAbreView(Evento e) throws IOException {
+
+        if (e != null) {
+            if (controllerJogoEventoForm(jogo, e)) {
+                return true;
+            }
+        } else {
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                    "Selecionar Evento para editar.", "Erro ao editar");
+        }
+        return false;
     }
     
     

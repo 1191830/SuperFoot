@@ -225,15 +225,13 @@ public class DbEvento {
         }
     }
     
-    public static void updateEvento(Evento evento) throws SQLException {
+    public static boolean updateEvento(Evento evento) throws SQLException {
         
         try {
             Connection conn = Dbconn.getConn();
 
-            String cmd = ("update evento set idEquipa = ?, idPessoa = ?, idTipoEvento = ?,"
-                    + " minuto = ?, parte = ?"
-                    
-                    + " where id = " + evento.getId());
+            String cmd = ("update evento set idEquipa = ?, idPessoa = ?, idTipoEvento = ?, minuto = ?, parte = ? where id = " + evento.getId());
+
             PreparedStatement statement = conn.prepareStatement(cmd);
             statement.setInt(1, evento.getEquipa().getId());
             statement.setInt(2, evento.getJogador().getId());
@@ -247,12 +245,15 @@ public class DbEvento {
 
             //commit in case you have turned autocommit to false
             conn.commit();
+            return true;
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex.getMessage());
             if (ex.getErrorCode() == 547) {
                 ShowMessage(Alert.AlertType.ERROR, "Registo não pode ser actualização pois é usado noutra tabela", "Falhou a eliminação do registo!");
+                return false;
             } else {
                 ShowMessage(Alert.AlertType.ERROR, ex.getMessage(), "Falhou a actualização do registo!");
+                return false;
             }
         }
     }
