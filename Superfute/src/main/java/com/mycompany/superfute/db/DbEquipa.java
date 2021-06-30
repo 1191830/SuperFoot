@@ -8,6 +8,7 @@ package com.mycompany.superfute.db;
 import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Estadio;
+import com.mycompany.superfute.models.Estatistica;
 import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -288,4 +289,40 @@ public class DbEquipa {
         }
         return listaPlantelFuncoes;
     }
+    
+     public static ArrayList<Estatistica> getEstatisticaEquipa(int idEquipa){
+         ArrayList<Estatistica> estatisticas =  new ArrayList<>();
+          try {
+            Connection conn = Dbconn.getConn();
+             PreparedStatement statement = conn.
+                     prepareStatement("select * from func_dadosJogosTodos(-1,?)");
+              statement.setInt(1, idEquipa);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+               Estatistica estatistica = new Estatistica();
+               estatistica.setAnoLiga(rs.getInt("idLiga"));
+               estatistica.setNumJornada(rs.getInt("idJornada"));
+               estatistica.setGol(rs.getInt("golos"));
+               estatistica.setGolSofrido(rs.getInt("golosSofridos"));
+               estatistica.setAmarelo(rs.getInt("amarelos"));
+               estatistica.setAmareloDuplo(rs.getInt("amareloDuplos"));
+               estatistica.setVermelho(rs.getInt("vermelhos"));
+               estatistica.setResultado(rs.getString("resultado"));
+               estatistica.setPonto(rs.getInt("pontos"));
+               estatistica.setCasaFora(rs.getBoolean("casaFora"));
+               estatisticas.add(estatistica);
+            }
+             conn.commit();
+        } catch (Exception ex) {
+            System.err.println("Erro: " + ex.getMessage());
+        }
+        return estatisticas;
+         
+     
+     
+      
+     
+     }
+     
+     
 }

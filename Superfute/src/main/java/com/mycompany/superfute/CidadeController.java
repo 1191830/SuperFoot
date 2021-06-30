@@ -49,8 +49,6 @@ public class CidadeController implements Initializable {
     @FXML
     private Button btnEditar;
     @FXML
-    private Button btnApagar;
-    @FXML
     private Button btnVoltar;
     
     
@@ -109,9 +107,6 @@ public class CidadeController implements Initializable {
         }
     }
 
-    @FXML
-    private void btnApagar(ActionEvent event) {
-    }
 
     private void preencherTabelaCidades() throws SQLException {
          colNome.setCellValueFactory(cellData ->

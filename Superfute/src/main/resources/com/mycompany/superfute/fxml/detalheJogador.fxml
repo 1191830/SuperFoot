@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -84,5 +86,10 @@
          </font>
       </Label>
       <Button fx:id="btnVoltar" layoutX="476.0" layoutY="538.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="34.0" prefWidth="80.0" text="Voltar" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="386.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../assets/228129ab7d089ba0348f581b5c1b8035.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

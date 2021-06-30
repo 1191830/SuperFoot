@@ -23,9 +23,8 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btnInserir" layoutX="39.0" layoutY="396.0" mnemonicParsing="false" onAction="#btnInserir" prefHeight="44.0" prefWidth="88.0" text="Inserir" />
-      <Button fx:id="btnEditar" layoutX="153.0" layoutY="396.0" mnemonicParsing="false" onAction="#btnEditar" prefHeight="44.0" prefWidth="78.0" text="Editar" />
-      <Button fx:id="btnApagar" layoutX="243.0" layoutY="396.0" mnemonicParsing="false" onAction="#btnApagar" prefHeight="44.0" prefWidth="78.0" text="Apagar" />
+      <Button fx:id="btnInserir" layoutX="73.0" layoutY="396.0" mnemonicParsing="false" onAction="#btnInserir" prefHeight="44.0" prefWidth="88.0" text="Inserir" />
+      <Button fx:id="btnEditar" layoutX="204.0" layoutY="396.0" mnemonicParsing="false" onAction="#btnEditar" prefHeight="44.0" prefWidth="78.0" text="Editar" />
       <Button fx:id="btnVoltar" layoutX="243.0" layoutY="479.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="44.0" prefWidth="78.0" text="Voltar" />
    </children>
 </AnchorPane>

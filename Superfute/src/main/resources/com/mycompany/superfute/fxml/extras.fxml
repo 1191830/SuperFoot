@@ -5,17 +5,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="310.0" prefWidth="548.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.mycompany.superfute.ExtrasController">
+<AnchorPane id="AnchorPane" prefHeight="310.0" prefWidth="358.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.ExtrasController">
    <children>
-      <Label layoutX="158.0" layoutY="38.0" text="Configurações Extras">
+      <Label layoutX="61.0" layoutY="25.0" text="Configurações Extras">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnPais" layoutX="47.0" layoutY="124.0" mnemonicParsing="false" onAction="#btnPais" prefHeight="77.0" prefWidth="121.0" text="Pais" />
-      <Button fx:id="btnCidade" layoutX="216.0" layoutY="124.0" mnemonicParsing="false" onAction="#btnCidade" prefHeight="77.0" prefWidth="121.0" text="Cidade" />
-      <Button fx:id="btnEstadio" layoutX="373.0" layoutY="124.0" mnemonicParsing="false" onAction="#btnEstadio" prefHeight="77.0" prefWidth="121.0" text="Estádio" />
-      <Button fx:id="btnVoltar" layoutX="395.0" layoutY="259.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="25.0" prefWidth="88.0" text="Voltar" />
+      <Button fx:id="btnPais" layoutX="188.0" layoutY="77.0" mnemonicParsing="false" onAction="#btnPais" prefHeight="78.0" prefWidth="126.0" text="País">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="btnCidade" layoutX="48.0" layoutY="168.0" mnemonicParsing="false" onAction="#btnCidade" prefHeight="78.0" prefWidth="126.0" text="Cidade">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="btnEstadio" layoutX="188.0" layoutY="168.0" mnemonicParsing="false" onAction="#btnEstadio" prefHeight="78.0" prefWidth="126.0" text="Estádio">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="btnVoltar" layoutX="134.0" layoutY="270.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="25.0" prefWidth="88.0" text="Voltar" />
+      <Button fx:id="btnPessoas" layoutX="48.0" layoutY="77.0" mnemonicParsing="false" onAction="#btnPessoas" prefHeight="78.0" prefWidth="126.0" text="PESSOAS">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

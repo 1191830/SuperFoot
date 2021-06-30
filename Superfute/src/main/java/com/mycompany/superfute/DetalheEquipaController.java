@@ -10,6 +10,7 @@ import com.mycompany.superfute.db.DbJogo;
 import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Pessoa;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,11 +25,14 @@ import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -88,6 +92,7 @@ public class DetalheEquipaController implements Initializable {
     public void setEquipa(Equipa equipa) {
         this.equipa = equipa;
         try {
+            labelNomeEquipa.setText(equipa.getNome());
             preencherTabelaPlantel();
             preencherTabelaEquipaTecnica();
             preencherTabelaJogos();
@@ -107,7 +112,8 @@ public class DetalheEquipaController implements Initializable {
     }    
 
     @FXML
-    private void btnVerEstatistica(ActionEvent event) {
+    private void btnVerEstatistica(ActionEvent event) throws IOException, SQLException {
+    controllerEstatisticaEquipa(getEquipa());
     }
 
     @FXML
@@ -159,5 +165,36 @@ public class DetalheEquipaController implements Initializable {
         jogos = DbJogo.getResultadosJogosEquipa(equipa.getId());
         observableListJogo = FXCollections.observableArrayList(jogos);
         listaJogos.setItems(observableListJogo);
+    }
+    /**
+     * Método que faz o carregamento da scene e passa por controller a equipa
+     * @param equipa
+     * @return retorna verdadeiro ou falso 
+     * @throws IOException 
+     */
+      public static void controllerEstatisticaEquipa(Equipa equipa) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(EquipaEstatisticaController.class
+                        .getResource("fxml/equipaEstatistica.fxml"));
+        AnchorPane page = loader.load();
+
+        // Criando um Estágio de Diálogo (Stage Dialog)
+        Stage dialogStage = new Stage();
+
+        dialogStage.setTitle(
+                "Equipa");
+        Scene scene = new Scene(page);
+
+        dialogStage.setScene(scene);
+
+        // Setando o cliente no Controller.
+        EquipaEstatisticaController controller = loader.getController();
+
+        controller.setStageDialog(dialogStage);
+
+        controller.setEquipa(equipa);
+
+        // Mostra o Dialog e espera até que o usuário o feche
+        dialogStage.showAndWait();
     }
 }

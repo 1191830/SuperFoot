@@ -251,6 +251,8 @@ public class DbPessoa {
                 Pessoa jogador = new Pessoa();
                 jogador.setNome(rs.getString("jogador"));
                 jogador.setNomeEquipa(rs.getString("equipa"));
+                jogador.setId(rs.getInt("idPessoa"));
+                jogador.setNacionalidade(rs.getString("nacionalidade"));                
                 listaJogadores.add(jogador);
 
             }

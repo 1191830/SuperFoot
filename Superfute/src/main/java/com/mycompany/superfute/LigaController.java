@@ -49,8 +49,6 @@ public class LigaController implements Initializable {
     @FXML
     private Button btnEditarLiga;
     @FXML
-    private Button btnApagarLiga;
-    @FXML
     private Button btnJornadas;
     @FXML
     private Button btnEquipas;
@@ -140,10 +138,6 @@ public class LigaController implements Initializable {
     }
 
     @FXML
-    private void btnApagarLiga(ActionEvent event) {
-    }
-
-    @FXML
     private void btnJornadas(ActionEvent event) throws IOException, SQLException {
 
         changeWindows("fxml/jornada.fxml", event);
@@ -153,20 +147,25 @@ public class LigaController implements Initializable {
 
     private void btnEquipas(ActionEvent event) throws IOException {
 
-         FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("fxml/equipa.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
 
-        stage.show(); 
-   
-   
+        stage.show();
+
     }
 
     @FXML
     private void btnJogadores(ActionEvent event) throws IOException, SQLException {
-             changeWindows("fxml/jogador.fxml", event);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/jogador.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+        
     }
 
     @FXML
@@ -176,14 +175,14 @@ public class LigaController implements Initializable {
 
     @FXML
     private void btnEstatisticas(ActionEvent event) throws IOException {
-        
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("fxml/expulsoesJogador.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-         
+
     }
 
     @FXML

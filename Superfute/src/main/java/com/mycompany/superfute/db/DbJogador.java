@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute.db;
 
+import com.mycompany.superfute.models.Estatistica;
 import com.mycompany.superfute.models.Jogador;
 import com.mycompany.superfute.models.Liga;
 import com.mycompany.superfute.models.Pessoa;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
  */
 public class DbJogador {
 
+    Pessoa pessoa = new Pessoa();
     /**
      * Método retorna arraylist com os melhores marcadores por liga
      *
@@ -171,25 +173,29 @@ public class DbJogador {
         }
         return listaJogadores;
     }
-    public static ArrayList<Jogador> obterJogadorEstatisticas(Pessoa pessoa) throws SQLException {
-        ArrayList<Jogador> listaJogadores = new ArrayList();
+    public static ArrayList<Estatistica> obterJogadorEstatisticas(Pessoa pessoa) throws SQLException {
+        ArrayList<Estatistica> listaJogadoresEst = new ArrayList();
         Connection conn = Dbconn.getConn();
         String query = "select liga as liga, count (idJogo) as jogos, "
                 + "sum (golos) as golos, sum (amarelo) as amarelos, "
                 + "sum (amareloduplos) as amarelosduplos,"
                 + " sum (vermelho) as vermelho,"
                 + " jogador from dbo.func_dadosJogadorTodos(-1,-1)"
-                + " where idJogador = '" + pessoa.getNome() + "' group by liga, jogador";
+                + " where idJogador = '" + pessoa.getId()+ "' group by liga, jogador";
         Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
             while (rs.next()) {
-                Jogador jogador = new Jogador();
-                jogador.set(rs.getString("jogador"));
-                jogador.setNomeEquipa(rs.getString("equipa"));
-                listaJogadores.add(jogador);
+                Estatistica jogador = new Estatistica();
+                jogador.setAnoLiga(rs.getInt("liga"));
+                jogador.setQuantJogos(rs.getInt("jogos"));
+                jogador.setGol(rs.getInt("golos"));
+                jogador.setAmarelo(rs.getInt("amarelos"));
+                jogador.setAmareloDuplo(rs.getInt("amarelosduplos"));
+                jogador.setVermelho(rs.getInt("vermelho"));
+                listaJogadoresEst.add(jogador);
 
             }
 
@@ -197,6 +203,6 @@ public class DbJogador {
             ex.printStackTrace();
         }
 
-        return listaJogadores;
+        return listaJogadoresEst;
     }
 }

@@ -5,11 +5,17 @@
  */
 package com.mycompany.superfute;
 
+import com.mycompany.superfute.db.DbJogador;
+import com.mycompany.superfute.models.Estatistica;
 import com.mycompany.superfute.models.Jogador;
 import com.mycompany.superfute.models.Pessoa;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,25 +40,27 @@ public class DetalheJogadorController {
     @FXML
     private Label labelNomeJog;
     @FXML
-    private TableView<?> listaEstatisticaJogador;
+    private TableView<Estatistica> listaEstatisticaJogador;
     @FXML
-    private TableColumn<Pessoa, String> colunaLiga;
+    private TableColumn<Estatistica, Integer> colunaLiga;
     @FXML
-    private TableColumn<Pessoa, String> colunaJogos;
+    private TableColumn<Estatistica, Integer> colunaJogos;
     @FXML
-    private TableColumn<Pessoa, String> colunaGolos;
+    private TableColumn<Estatistica, Integer> colunaGolos;
     @FXML
-    private TableColumn<Pessoa, String> colunaAmerelo;
+    private TableColumn<Estatistica, Integer> colunaAmerelo;
     @FXML
-    private TableColumn<Pessoa, String> colunaDuplosAmarelos;
+    private TableColumn<Estatistica, Integer> colunaDuplosAmarelos;
     @FXML
-    private TableColumn<Pessoa, String> colunaVermelhos;
+    private TableColumn<Estatistica, Integer> colunaVermelhos;
     @FXML
     private Button btnVoltar;
 
-    public ArrayList<Pessoa> listaJogador;
+    private ObservableList<Estatistica> observableList;
+
+    public ArrayList<Estatistica> listaJogadorEst;
     Pessoa pessoa = new Pessoa();
-    
+
     private Stage stageDialog;
 
     public Stage getStageDialog() {
@@ -67,10 +75,10 @@ public class DetalheJogadorController {
         return pessoa;
     }
 
-    public void setPessoa(Pessoa pessoa) {
+    public void setPessoa(Pessoa pessoa) throws SQLException {
         this.pessoa = pessoa;
         detalhes();
-
+        tabela();
     }
 
     @FXML
@@ -79,11 +87,37 @@ public class DetalheJogadorController {
         stage.close();
     }
 
-    private void detalhes() {
-        System.out.println(listaJogador + "view" + pessoa);
+    private void detalhes() throws SQLException {
+
+        System.out.println(pessoa.getId() + "eu");
+        listaJogadorEst = DbJogador.obterJogadorEstatisticas(pessoa);
+        System.out.println(listaJogadorEst.toString() + "view" + pessoa);
         labelNomeJog.setText(pessoa.getNome());
         labelEquipa.setText(pessoa.getNomeEquipa());
         labelNacionalidade.setText(pessoa.getNacionalidade());
+
     }
 
+    private void tabela() {
+        colunaLiga.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Integer>(cellData.getValue().getAnoLiga()));
+        
+        colunaJogos.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Integer>(cellData.getValue().getQuantJogos()));
+        
+        colunaGolos.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Integer>(cellData.getValue().getGol()));
+
+        colunaAmerelo.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Integer>(cellData.getValue().getAmarelo()));
+
+        colunaDuplosAmarelos.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Integer>(cellData.getValue().getAmareloDuplo()));
+
+        colunaVermelhos.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Integer>(cellData.getValue().getVermelho()));
+        
+        observableList = FXCollections.observableArrayList(listaJogadorEst);
+        listaEstatisticaJogador.setItems(observableList);
+    }
 }

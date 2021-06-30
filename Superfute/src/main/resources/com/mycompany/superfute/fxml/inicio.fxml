@@ -5,14 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="376.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.InicioController">
+<AnchorPane id="AnchorPane" prefHeight="326.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.superfute.InicioController">
    <children>
-      <Button fx:id="btnPessoas" layoutX="67.0" layoutY="71.0" mnemonicParsing="false" onAction="#btnPessoas" prefHeight="51.0" prefWidth="126.0" text="PESSOAS">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnLigas" layoutX="67.0" layoutY="140.0" mnemonicParsing="false" onAction="#btnLigas" prefHeight="51.0" prefWidth="126.0" text="LIGAS">
+      <Button fx:id="btnLigas" layoutX="75.0" layoutY="83.0" mnemonicParsing="false" onAction="#btnLigas" prefHeight="80.0" prefWidth="126.0" text="LIGAS">
          <font>
             <Font size="18.0" />
          </font>
@@ -22,8 +17,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btnSair" layoutX="110.0" layoutY="317.0" mnemonicParsing="false" onAction="#btnSair" text="SAIR" />
-      <Button fx:id="btnExtras" layoutX="67.0" layoutY="215.0" mnemonicParsing="false" onAction="#btnExtras" prefHeight="51.0" prefWidth="126.0" text="EXTRAS">
+      <Button fx:id="btnSair" layoutX="117.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnSair" text="SAIR" />
+      <Button fx:id="btnExtras" layoutX="75.0" layoutY="174.0" mnemonicParsing="false" onAction="#btnExtras" prefHeight="80.0" prefWidth="126.0" text="EXTRAS">
          <font>
             <Font size="18.0" />
          </font>

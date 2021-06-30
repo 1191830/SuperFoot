@@ -83,14 +83,14 @@ public class JogadorController implements Initializable {
     }
 
     @FXML
-    private void btnVerJogador(ActionEvent event) throws IOException {
+    private void btnVerJogador(ActionEvent event) throws IOException, SQLException {
         Pessoa pessoa = listaJogadores.getSelectionModel().getSelectedItem();
         if (pessoa != null) {
             verInfoJogadores(pessoa);
         } else {
             MessageBoxes.ShowMessage(Alert.AlertType.WARNING, "Selecione um jogador", "Aviso");
         }
-
+    
     }
 
     private void tabelaJogadores() throws SQLException {
@@ -104,28 +104,23 @@ public class JogadorController implements Initializable {
         listaJogadores.setItems(observableList);
     }
 
-    public void verInfoJogadores(Pessoa pessoa) throws IOException {
+    public void verInfoJogadores(Pessoa pessoa) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader();
         loader
                 .setLocation(PessoaFormController.class
                         .getResource("fxml/detalheJogador.fxml"));
         AnchorPane page = loader.load();
         // Criando um Estágio de Diálogo (Stage Dialog)
+        System.out.println(pessoa + "metodoverinfo");
         Stage dialogStage = new Stage();
-
         dialogStage.setTitle(
                 "Detalhe jogador");
         Scene scene = new Scene(page);
-
         dialogStage.setScene(scene);
-
         // Setando o cliente no Controller.
         DetalheJogadorController controller = loader.getController();
-
         controller.setStageDialog(dialogStage);
-
         controller.setPessoa(pessoa);
-
         // Mostra o Dialog e espera até que o usuário o feche
         dialogStage.showAndWait();
 
