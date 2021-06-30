@@ -8,7 +8,6 @@ package com.mycompany.superfute;
 import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbEvento;
 import com.mycompany.superfute.db.DbJogo;
-import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Evento;
 import com.mycompany.superfute.models.Jogo;
 import java.io.IOException;
@@ -95,8 +94,8 @@ public class DetalheJogoController implements Initializable {
         if (controllerJogoEventoForm(jogo, evento)) {
             flag = DbEvento.insertEvento(evento);            
             if (flag) {
-                updateResultado();
-                fillEventos();
+                updateResultado(); //apos inserir evento faz update ao resultado 
+                fillEventos(); //faz update à tabela de eventos
                 MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
                         "Evento inserido com sucesso!", "Inserir Evento");
             } else {
@@ -113,7 +112,7 @@ public class DetalheJogoController implements Initializable {
         boolean verificaEventoNull = false;
         Evento evento = listaEventos.getSelectionModel().getSelectedItem();
         if (verificaEventoAbreView(evento)) {
-          verificaEventoNull = DbEvento.updateEvento(evento);
+          verificaEventoNull = DbEvento.updateEvento(evento); //retorna true se o evento for editado com sucesso
           if(verificaEventoNull){
                 updateResultado();
                 fillEventos();
@@ -192,6 +191,10 @@ public class DetalheJogoController implements Initializable {
         initTable();            
     }
     
+    /**
+     * Preenche as labels do jogo e chama o metodo que preenche a tabela de eventos
+     * @throws SQLException 
+     */
     public void initTable() throws SQLException{
         
         labelLiga.setText(String.valueOf(jogo.getJornada().getIdLiga()));
@@ -210,6 +213,10 @@ public class DetalheJogoController implements Initializable {
         
     }
     
+    /**
+     * Preenche a tabela com os eventos
+     * @throws SQLException 
+     */
     public void fillEventos() throws SQLException{
     
         colunaEvento.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getEvento()));
@@ -225,12 +232,12 @@ public class DetalheJogoController implements Initializable {
 
     @FXML
     private void onActionIntervalo(ActionEvent event) throws SQLException {
-        if (resultadoIntervalo == false){
+        if (resultadoIntervalo == false){ //resultado final
             labelResultado.setText(DbJogo.getResultadoIntervalo(jogo));
             btnIntervali.setText("Final");
             btnIntervali.setLayoutX(265);
             resultadoIntervalo = true;
-        } else{
+        } else{ //resultado ao intervalo
             labelResultado.setText(resultado.getGolosCasa() + " x " + resultado.getGolosFora());
             btnIntervali.setText("Intervalo");
             btnIntervali.setLayoutX(254);
@@ -239,6 +246,13 @@ public class DetalheJogoController implements Initializable {
         
     }
     
+    /**
+     * Mudar para a janela de criar/editar evento
+     * @param jogo
+     * @param evento
+     * @return
+     * @throws IOException 
+     */
     public static boolean controllerJogoEventoForm(Jogo jogo, Evento evento) throws IOException{
        
         FXMLLoader loader = new FXMLLoader();
@@ -268,11 +282,15 @@ public class DetalheJogoController implements Initializable {
         
         return controller.isBtnReturn();
     }
-    
+    /**
+     * Update ao resultado
+     * @throws IOException
+     * @throws SQLException 
+     */
     public void updateResultado() throws IOException, SQLException{
         
-       resultado = DbJogo.getResultado(resultado);
-       labelResultado.setText(resultado.getGolosCasa() + " x " + resultado.getGolosFora());
+       resultado = DbJogo.getResultado(resultado); 
+       labelResultado.setText(resultado.getGolosCasa() + " x " + resultado.getGolosFora()); // atualiza o header com o resultado
        
     }
     

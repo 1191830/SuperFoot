@@ -28,7 +28,7 @@
             <Image url="@../../../../assets/goal.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="selecionarLiga" layoutX="442.0" layoutY="188.0" onAction="#onActionSelecionarLiga" prefWidth="150.0" />
+      <ComboBox fx:id="selecionarLiga" layoutX="442.0" layoutY="188.0" onAction="#onActionSelecionarLiga" prefWidth="150.0" promptText="Escolher Liga" />
       <Button fx:id="btnVoltar" layoutX="491.0" layoutY="315.0" mnemonicParsing="false" onAction="#onActionBtnVoltar" text="voltar" />
       <Button fx:id="btnLimpar" layoutX="492.0" layoutY="247.0" mnemonicParsing="false" onAction="#btnLimparLiga" text="Geral" />
    </children>

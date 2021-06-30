@@ -96,7 +96,37 @@ public class DbJogador {
                 + " as expulsoes, count (idJogo) as jogos, sum (amarelo)"
                 + " as amarelos, sum (golosanulados)"
                 + " as anulados from dbo.func_dadosJogadorTodos(-1,-1) "
-                + "group by jogador order by expulsoes desc";
+                + "group by jogador order by amarelos desc";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                Jogador jogador = new Jogador();
+                jogador.setNome(rs.getString("jogador"));
+                jogador.setVemelho(rs.getInt("expulsoes"));
+                jogador.setQtdJogos(rs.getInt("jogos"));
+                jogador.setAmarelos(rs.getInt("amarelos"));
+                jogador.setGolosAnulados(rs.getInt("anulados"));
+                listaJogadores.add(jogador);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listaJogadores;
+    }
+    
+    public static ArrayList<Jogador> obterJogadorExpulsõesLiga(Liga liga) throws SQLException {
+        ArrayList<Jogador> listaJogadores = new ArrayList();
+        Connection conn = Dbconn.getConn();
+        String query = "select liga, jogador, sum (amareloduplos + vermelho)"
+                + " as expulsoes, count (idJogo) as jogos, sum (amarelo)"
+                + " as amarelos, sum (golosanulados)"
+                + " as anulados from dbo.func_dadosJogadorTodos(-1,-1) where liga = "
+                + liga.getAno() + " group by jogador, liga order by amarelos desc";
         Statement st;
         ResultSet rs;
         try {
@@ -161,7 +191,7 @@ public class DbJogador {
         try {
             Connection conn = Dbconn.getConn();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from view_DadosJogadores");
+            ResultSet rs = st.executeQuery("select * from view_DadosJogadores order by amarelos desc");
             while (rs.next()) {
                 Jogador jogador = new Jogador();
                 jogador.setId(rs.getInt("idjogador"));
