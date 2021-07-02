@@ -8,6 +8,7 @@ package com.mycompany.superfute.db;
 import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Estatistica;
 import com.mycompany.superfute.models.Jogador;
+import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Liga;
 import com.mycompany.superfute.models.Pessoa;
 import java.sql.Connection;
@@ -269,4 +270,30 @@ public class DbJogador {
 
         return jogadores;
     }
+    
+    public static ArrayList<Jogador> obterJogadorEquipaJogo(Jogo jogo, Equipa equipa, int funcao) throws SQLException {
+        ArrayList<Jogador> jogadores = new ArrayList<>();
+
+        try {
+            Connection conn = Dbconn.getConn();
+            PreparedStatement statement = conn.
+            prepareStatement("select * from pessoaJogo where idJogo = ? and idEquipa = ? and funcaoJogo = ?");
+            statement.setInt(1, jogo.getJogo());
+            statement.setInt(2, equipa.getId());
+            statement.setInt(3, funcao);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Jogador jogador = new Jogador();
+                jogador.setNome(DbPessoa.getNomebyId(rs.getInt("idPessoa")));
+                jogador.setId(rs.getInt("idPessoa"));
+                jogadores.add(jogador);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return jogadores;
+    }
+    
 }

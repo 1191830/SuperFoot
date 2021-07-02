@@ -68,49 +68,91 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="tabFormacao" text="Formacoes">
+          <Tab fx:id="tabFormacao" disable="true" text="Formacoes">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tabelaFormacao" layoutX="123.0" layoutY="65.0" prefHeight="382.0" prefWidth="314.0">
-                          <columns>
-                            <TableColumn fx:id="colunaEquipaCasa" prefWidth="152.7999725341797" text="Equipa Casa">
-                                 <columns>
-                                    <TableColumn fx:id="colunaTitularCasa" prefWidth="75.0" text="Titulares" />
-                                    <TableColumn fx:id="colunaSuplentesCasa" prefWidth="75.0" text="Suplentes" />
-                                 </columns>
-                              </TableColumn>
-                            <TableColumn fx:id="colunaEquipaVisitante" prefWidth="160.79998779296875" text="Equipa Visitante">
-                                 <columns>
-                                    <TableColumn fx:id="colunaTitularVisitante" prefWidth="75.0" text="Titulares" />
-                                    <TableColumn fx:id="colunaSuplentesVisitante" prefWidth="75.0" text="Suplentes" />
-                                 </columns>
-                              </TableColumn>
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <AnchorPane layoutX="14.0" layoutY="101.0">
-                           <children>
-                              <ComboBox fx:id="selecionarTitularCasa" layoutY="13.0" prefHeight="26.0" prefWidth="100.0" promptText="11 Casa" />
-                           </children>
-                        </AnchorPane>
-                        <ComboBox fx:id="selecionarSuplenteCasa" layoutX="14.0" layoutY="228.0" prefHeight="26.0" prefWidth="100.0" promptText="Banco Casa" />
-                        <ComboBox fx:id="selecionarTitularFora" layoutX="445.0" layoutY="114.0" prefHeight="26.0" prefWidth="100.0" promptText="11 Fora" />
-                        <ComboBox fx:id="selecionarSuplenteFora" layoutX="445.0" layoutY="228.0" prefHeight="26.0" prefWidth="100.0" promptText="Banco Fora" />
-                        <Button fx:id="btnAdicionar" layoutX="31.0" layoutY="376.0" mnemonicParsing="false" onAction="#onActionAdicionar" text="Adicionar" />
-                        <Button fx:id="btnRemover" layoutX="463.0" layoutY="376.0" mnemonicParsing="false" onAction="#onActionRemover" text="Remover" />
-                        <Text layoutX="168.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formações Iniciais">
+                        <AnchorPane layoutX="14.0" layoutY="101.0" />
+                        <Text layoutX="168.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formações Iniciais">
                            <font>
                               <Font size="28.0" />
                            </font>
                         </Text>
+                        <TableView fx:id="tablePlantelCasa" layoutX="14.0" layoutY="51.0" prefHeight="350.0" prefWidth="120.0">
+                          <columns>
+                            <TableColumn fx:id="columnPlantelCasa" prefWidth="119.19999980926514" text="Plantel Casa" />
+                          </columns>
+                        </TableView>
+                        <TableView fx:id="tableTitularesCasa" layoutX="141.0" layoutY="51.0" prefHeight="190.0" prefWidth="120.0">
+                          <columns>
+                            <TableColumn fx:id="columnTitularesCasa" prefWidth="119.19999694824219" text="Titulares Casa" />
+                          </columns>
+                        </TableView>
+                        <TableView fx:id="tablePlantelFora" layoutX="280.0" layoutY="51.0" prefHeight="350.0" prefWidth="120.0">
+                          <columns>
+                            <TableColumn fx:id="columnPlantelFora" prefWidth="119.20001220703125" text="Plantel Fora" />
+                          </columns>
+                        </TableView>
+                        <TableView fx:id="tableTitularesFora" layoutX="409.0" layoutY="51.0" prefHeight="190.0" prefWidth="120.0">
+                          <columns>
+                            <TableColumn fx:id="columnTitularesFora" prefWidth="119.20001220703125" text="Titulares Fora" />
+                          </columns>
+                        </TableView>
+                        <TableView fx:id="tableSuplentesCasa" layoutX="141.0" layoutY="251.0" prefHeight="150.0" prefWidth="120.0">
+                          <columns>
+                            <TableColumn fx:id="columnSuplentesCasa" prefWidth="119.19999694824219" text="Banco Casa" />
+                          </columns>
+                        </TableView>
+                        <TableView fx:id="tableSuplentesFora" layoutX="409.0" layoutY="251.0" prefHeight="150.0" prefWidth="120.0">
+                          <columns>
+                            <TableColumn fx:id="columnSuplentesFora" prefWidth="119.20001220703125" text="Banco Fora" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="btnEntraTitularCasa" layoutX="14.0" layoutY="418.0" mnemonicParsing="false" onAction="#onActionEntradaCasa" text="&gt; Titular">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnSaidaCasa" layoutX="141.0" layoutY="418.0" mnemonicParsing="false" onAction="#onActionSaidaCasa" text="Retirar">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnEntraBancoCasa" layoutX="78.0" layoutY="418.0" mnemonicParsing="false" onAction="#onActionEntradaCasa" text="&gt; Banco">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnMudarEstadoCasa" layoutX="213.0" layoutY="418.0" mnemonicParsing="false" onAction="#onActionEstadoJogoCasa" text="Mudar">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnEntraBancoFora" layoutX="344.0" layoutY="417.0" mnemonicParsing="false" onAction="#onActionEntradaFora" text="&gt; Banco">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnMudarEstadoFora" layoutX="474.0" layoutY="417.0" mnemonicParsing="false" onAction="#onActionEstadoJogoFora" text="Retirar">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="onActionSaidaFora" layoutX="280.0" layoutY="417.0" mnemonicParsing="false" onAction="#onActionEntradaFora" text="&gt; Titular">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnSaidaFora" layoutX="409.0" layoutY="417.0" mnemonicParsing="false" onAction="#onActionSaidaFora" text="Retirar">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="tabEventos" text="Eventos">
+            <Tab fx:id="tabEventos" disable="true" text="Eventos">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

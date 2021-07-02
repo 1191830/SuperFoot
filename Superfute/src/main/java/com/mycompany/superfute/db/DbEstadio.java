@@ -96,24 +96,18 @@ public class DbEstadio {
         String cmd = "";
 
         try {
-            cmd = "select estadio.id as 'idEstadio', estadio.nome as 'nomeEstadio' "
-                    + ", cidade as 'idCidade', cidade.nome as 'nomeCidade' "
-                    + "from estadio INNER JOIN cidade "
-                    + "ON estadio.cidade = cidade.id";
+            cmd = "select * from estadio";
 
             Statement st = conn.createStatement();
 
             ResultSet rs = st.executeQuery(cmd);
 
             while (rs.next()) {
-                Cidade c = new Cidade();
-                c.setId(rs.getInt("idCidade"));
-                c.setNome(rs.getString("nomeCidade"));
-                
+                             
                 Estadio obj = new Estadio(
-                        rs.getInt("idEstadio"),
-                        rs.getString("nomeEstadio"),
-                        c);
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        DbCidade.getCidadebyID(rs.getInt("cidade")));
                 
                arrEstadio.add(obj);
             }

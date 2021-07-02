@@ -11,6 +11,8 @@ import java.io.IOException;
 import com.mycompany.superfute.db.DbArbitro;
 import com.mycompany.superfute.db.DbEquipa;
 import com.mycompany.superfute.db.DbEstadio;
+import com.mycompany.superfute.db.DbJogo;
+import com.mycompany.superfute.db.DbJogador;
 import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Estadio;
 import com.mycompany.superfute.models.Evento;
@@ -36,11 +38,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -72,20 +72,6 @@ public class JogoFormController implements Initializable {
     @FXML
     private ComboBox<Pessoa> selecionarArbitro;
     @FXML
-    private TableView<?> tabelaFormacao;
-    @FXML
-    private TableColumn<?, ?> colunaEquipaCasa;
-    @FXML
-    private TableColumn<?, ?> colunaTitularCasa;
-    @FXML
-    private TableColumn<?, ?> colunaSuplentesCasa;
-    @FXML
-    private TableColumn<?, ?> colunaEquipaVisitante;
-    @FXML
-    private TableColumn<?, ?> colunaTitularVisitante;
-    @FXML
-    private TableColumn<?, ?> colunaSuplentesVisitante;
-    @FXML
     private TableView<Evento> tabelaEventos;
     @FXML
     private TableColumn<Evento, String> colunaEvento;
@@ -99,9 +85,25 @@ public class JogoFormController implements Initializable {
     private TableColumn<Evento, String> colunaParte;
     @FXML
     private Button btnEditarEvento;
+    @FXML
+    private Tab tabJogo;
+    @FXML
+    private Tab tabFormacao;
+    @FXML
+    private Tab tabEventos;
+    @FXML
+    private Button btnCriarEvento;
+    @FXML
+    private Button btnApagarEvento;
     
     private Jogo jogo;   
     private ObservableList<Evento> observableList;
+    private ObservableList<Jogador> observableListPlantelCasa;
+    private ObservableList<Jogador> observableListPlantelFora;
+    private ObservableList<Jogador> observableListTitularesCasa;
+    private ObservableList<Jogador> observableListTitularesFora;
+    private ObservableList<Jogador> observableListSuplentesCasa;
+    private ObservableList<Jogador> observableListSuplentesFora;   
     private Stage stageDialog;
     private boolean btnClicked;
     private ArrayList<Estadio> estadios;
@@ -111,28 +113,55 @@ public class JogoFormController implements Initializable {
     private ArrayList<Evento> listaEvento;
     private ArrayList<String> horas;
     private ArrayList<String> minutos;
+    private ArrayList<Jogador> listaPlantelCasa;
+    private ArrayList<Jogador> listaPlantelFora;
+    private ArrayList<Jogador> listaTitularesCasa;
+    private ArrayList<Jogador> listaTitularesFora;
+    private ArrayList<Jogador> listaSuplentesCasa;
+    private ArrayList<Jogador> listaSuplentesFora;
+    private Jogo infoJogo;
+    private Equipa equipaCasa;
+    private Equipa equipaFora;
     @FXML
-    private Tab tabJogo;
+    private TableView<Jogador> tablePlantelCasa;
     @FXML
-    private Tab tabFormacao;
+    private TableColumn<Jogador, String> columnPlantelCasa;
     @FXML
-    private ComboBox<?> selecionarTitularCasa;
+    private TableView<Jogador> tableTitularesCasa;
     @FXML
-    private ComboBox<?> selecionarSuplenteCasa;
+    private TableColumn<Jogador, String> columnTitularesCasa;
     @FXML
-    private ComboBox<?> selecionarTitularFora;
+    private TableView<Jogador> tablePlantelFora;
     @FXML
-    private ComboBox<?> selecionarSuplenteFora;
+    private TableColumn<Jogador, String> columnPlantelFora;
     @FXML
-    private Button btnAdicionar;
+    private TableView<Jogador> tableTitularesFora;
     @FXML
-    private Button btnRemover;
+    private TableColumn<Jogador, String> columnTitularesFora;
     @FXML
-    private Tab tabEventos;
+    private TableView<Jogador> tableSuplentesCasa;
     @FXML
-    private Button btnCriarEvento;
+    private TableColumn<Jogador, String> columnSuplentesCasa;
     @FXML
-    private Button btnApagarEvento;
+    private TableView<Jogador> tableSuplentesFora;
+    @FXML
+    private TableColumn<Jogador, String> columnSuplentesFora;
+    @FXML
+    private Button btnEntraTitularCasa;
+    @FXML
+    private Button btnEntraBancoCasa;
+    @FXML
+    private Button btnEntraBancoFora;
+    @FXML
+    private Button onActionSaidaFora;
+    @FXML
+    private Button btnSaidaCasa;
+    @FXML
+    private Button btnMudarEstadoCasa;
+    @FXML
+    private Button btnMudarEstadoFora;
+    @FXML
+    private Button btnSaidaFora;
 
     public Jogo getJogo() {
         return jogo;
@@ -140,13 +169,21 @@ public class JogoFormController implements Initializable {
 
     public void setJogo(Jogo jogo) throws SQLException {
         this.jogo = jogo;
-        definirValorCamposObjeto();
-        //procura pelo jogo selecionado atraves do id      
-        fillEventos();            
+        if(jogo.getJogo() != 0){
+            System.out.println(jogo.getJogo());
+            jogo.setEquipaCasa(DbEquipa.getEquipaJogo(jogo, 0));
+            jogo.setEquipaFora(DbEquipa.getEquipaJogo(jogo, 1));
+            infoJogo = DbJogo.getJogoById(jogo.getJogo());
+            fillEventos();
+            equipaCasa = jogo.getEquipaCasa();
+            equipaFora = jogo.getEquipaFora();
+            fillTablePlantel();
+        }            
         try {
 
             preencherArrayList();
             inserirCampos();
+            definirValorCamposObjeto();
          
         } catch (SQLException ex) {
             Logger.getLogger(JogoFormController.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,14 +212,6 @@ public class JogoFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-
-            preencherArrayList();
-            inserirCampos();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(JogoFormController.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
     }
 
@@ -202,7 +231,6 @@ public class JogoFormController implements Initializable {
     public void preencherArrayList() throws SQLException {
         equipas = DbEquipa.getEquipasObject();
         arbitros = DbArbitro.obterArbitros();
-        //  jogadores =  DbJogador.obterJogadorNomePorEquipa();
         estadios = DbEstadio.obterEstadios();
         horasMinutos();
     }
@@ -219,11 +247,16 @@ public class JogoFormController implements Initializable {
 
     public void definirValorCamposObjeto() {
         if (jogo != null) {
-            selecionarEquipaCasa.setValue(jogo.getEquipaCasa());
-            SelecionarEquipaVisitante.setValue(jogo.getEquipaFora());
-            selecionarArbitro.setValue(jogo.getArbitro());
-            selecionarEstadio.setValue(jogo.getEstadio());
-
+            if (jogo.getJogo() != 0){
+               selecionarEquipaCasa.setValue(jogo.getEquipaCasa());
+               SelecionarEquipaVisitante.setValue(jogo.getEquipaFora());
+                selecionarArbitro.setValue(jogo.getArbitro());
+                selecionarEstadio.setValue(jogo.getEstadio());
+                selecionarArbitro.setValue(infoJogo.getArbitro());
+                selecionarEstadio.setValue(infoJogo.getEstadio());
+                tabFormacao.setDisable(false);
+                tabEventos.setDisable(false);
+            }
         }
     }
 
@@ -319,7 +352,7 @@ public class JogoFormController implements Initializable {
      * @throws SQLException 
      */
     public void fillEventos() throws SQLException{
-    
+        
         colunaEvento.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getEvento()));
         colunaPessoa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getJogador().getNome()));       
         colunaEquipa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getEquipa().getNome()));
@@ -382,30 +415,77 @@ public class JogoFormController implements Initializable {
     }
 
     @FXML
-    private void actionEquipaCasa(ActionEvent event) {
-        Equipa eq = new Equipa();
-        eq = selecionarEquipaCasa.getSelectionModel().getSelectedItem();
-        if(eq == SelecionarEquipaVisitante.getSelectionModel().getSelectedItem()){
+    private void actionEquipaCasa(ActionEvent event) throws SQLException {
+
+        equipaCasa = selecionarEquipaCasa.getSelectionModel().getSelectedItem();
+        if(equipaCasa == SelecionarEquipaVisitante.getSelectionModel().getSelectedItem()){
             selecionarEquipaCasa.setValue(null);
+            MessageBoxes.ShowMessage(Alert.AlertType.WARNING, "Nao Pode selecionar a mesma equipa", "Selecionar");
+        }else if(SelecionarEquipaVisitante.getSelectionModel().getSelectedItem() != null){
+            tabFormacao.setDisable(false);
+            fillTablePlantel();
+
         }
     }
 
     @FXML
-    private void actionEquipaVisitante(ActionEvent event) {
-         Equipa eq = new Equipa();
-        eq = SelecionarEquipaVisitante.getSelectionModel().getSelectedItem();
-        if(eq == selecionarEquipaCasa.getSelectionModel().getSelectedItem()){
+    private void actionEquipaVisitante(ActionEvent event) throws SQLException {
+
+        equipaFora = SelecionarEquipaVisitante.getSelectionModel().getSelectedItem();
+        if(equipaFora == selecionarEquipaCasa.getSelectionModel().getSelectedItem()){
             SelecionarEquipaVisitante.setValue(null);
+            MessageBoxes.ShowMessage(Alert.AlertType.WARNING, "Nao Pode selecionar a mesma equipa", "Selecionar");
+        }else if(selecionarEquipaCasa.getSelectionModel().getSelectedItem() != null){
+            tabFormacao.setDisable(false);
+            fillTablePlantel();
+            
+            
         }
     }
-
-    @FXML
-    private void onActionAdicionar(ActionEvent event) {
+    
+    private void fillTablePlantel() throws SQLException{
+        
+        columnPlantelCasa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getNome()));
+        listaPlantelCasa = DbJogador.obterJogadorNomePorEquipa(equipaCasa);
+        observableListPlantelCasa = FXCollections.observableArrayList(listaPlantelCasa);
+        tablePlantelCasa.setItems(observableListPlantelCasa);
+        
+        columnPlantelFora.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getNome()));
+        listaPlantelFora = DbJogador.obterJogadorNomePorEquipa(equipaFora);
+        observableListPlantelFora = FXCollections.observableArrayList(listaPlantelFora);
+        tablePlantelFora.setItems(observableListPlantelFora);
+        
+        listaTitularesCasa = DbJogador.obterJogadorEquipaJogo(jogo, equipaCasa, 1);
+        listaSuplentesCasa = DbJogador.obterJogadorEquipaJogo(jogo, equipaCasa, 2);
+        listaTitularesFora = DbJogador.obterJogadorEquipaJogo(jogo, equipaFora, 1);
+        listaSuplentesFora = DbJogador.obterJogadorEquipaJogo(jogo, equipaFora, 2);
+        if(listaTitularesCasa != null || listaSuplentesCasa != null 
+                || listaTitularesFora != null || listaSuplentesFora != null){
+            fillTableFormacoes();
+        }
+        
+    }
+    
+    private void fillTableFormacoes() throws SQLException{
+        
+        columnTitularesCasa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getNome()));       
+        observableListTitularesCasa = FXCollections.observableArrayList(listaTitularesCasa);
+        tableTitularesCasa.setItems(observableListTitularesCasa);
+        
+        columnSuplentesCasa.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getNome()));       
+        observableListSuplentesCasa = FXCollections.observableArrayList(listaSuplentesCasa);
+        tableSuplentesCasa.setItems(observableListSuplentesCasa);
+        
+        columnTitularesFora.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getNome()));
+        observableListTitularesFora = FXCollections.observableArrayList(listaTitularesFora);
+        tableTitularesFora.setItems(observableListTitularesFora);
+        
+        columnSuplentesFora.setCellValueFactory(date -> new SimpleStringProperty(date.getValue().getNome()));        
+        observableListSuplentesFora = FXCollections.observableArrayList(listaSuplentesFora);
+        tableSuplentesFora.setItems(observableListSuplentesFora);
+        
     }
 
-    @FXML
-    private void onActionRemover(ActionEvent event) {
-    }
 
     @FXML
     private void btnCriarEvento(ActionEvent event) {
@@ -413,6 +493,30 @@ public class JogoFormController implements Initializable {
 
     @FXML
     private void btnApagarEvento(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionEntradaCasa(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionSaidaCasa(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionEntradaFora(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionSaidaFora(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionEstadoJogoCasa(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionEstadoJogoFora(ActionEvent event) {
     }
 
 }

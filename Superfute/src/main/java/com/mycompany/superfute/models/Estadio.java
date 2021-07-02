@@ -52,7 +52,7 @@ public class Estadio {
 
     @Override
     public String toString() {
-        return "Estadio{" + "id=" + id + ", nome=" + nome + ", Cidade=" + cidade + '}';
+        return this.nome + ", " + this.cidade.getNome() + ", " + this.cidade.getPais().getNome();
     }
     
     
