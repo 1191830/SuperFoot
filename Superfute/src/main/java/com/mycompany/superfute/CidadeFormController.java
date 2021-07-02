@@ -132,9 +132,6 @@ public class CidadeFormController implements Initializable {
             
             
             //cbPais.setValue(cidade.getPais().getNome());
-        } else{
-        
-            System.out.println("NOVO");
         }
     }
     

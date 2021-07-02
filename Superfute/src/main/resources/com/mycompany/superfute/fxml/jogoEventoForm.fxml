@@ -14,35 +14,35 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="22.0" layoutY="56.0" text="Tipo de Evento">
+      <Label layoutX="24.0" layoutY="184.0" text="Tipo de Evento">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="selecionarTipoEvento" layoutX="19.0" layoutY="83.0" prefWidth="150.0" />
+      <ComboBox fx:id="selecionarTipoEvento" layoutX="24.0" layoutY="210.0" prefWidth="150.0" />
       <Label layoutX="190.0" layoutY="57.0" text="Pessoa">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
       <ComboBox fx:id="selecionarPessoa" disable="true" layoutX="190.0" layoutY="84.0" onAction="#onActionPessoaSelected" prefWidth="150.0" />
-      <Label layoutX="22.0" layoutY="185.0" text="Parte do jogo">
+      <Label layoutX="190.0" layoutY="122.0" text="Parte do jogo">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="selecionarParte" layoutX="22.0" layoutY="210.0" prefWidth="150.0" />
+      <ComboBox fx:id="selecionarParte" layoutX="189.0" layoutY="147.0" prefWidth="150.0" />
       <Label layoutX="22.0" layoutY="122.0" text="Minuto">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="190.0" layoutY="122.0" text="Equipa">
+      <Label layoutX="24.0" layoutY="57.0" text="Equipa">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="selecionarEquipa" layoutX="190.0" layoutY="147.0" onAction="#onActionEquipaSelected" prefWidth="150.0" />
+      <ComboBox fx:id="selecionarEquipa" layoutX="22.0" layoutY="84.0" onAction="#onActionEquipaSelected" prefWidth="150.0" />
       <Button fx:id="btnAplicar" layoutX="169.0" layoutY="280.0" mnemonicParsing="false" onAction="#btnAplicar" prefHeight="34.0" prefWidth="80.0" text="Aplicar" />
       <Button fx:id="btnCancelar" layoutX="265.0" layoutY="280.0" mnemonicParsing="false" onAction="#btnCancelar" prefHeight="34.0" prefWidth="80.0" text="Cancelar" />
       <TextField fx:id="txtMinuto" layoutX="23.0" layoutY="147.0" prefHeight="26.0" prefWidth="150.0" promptText="Minuto do Evento" />

@@ -102,7 +102,9 @@ public class ClassificacaoController implements Initializable {
         Parent toLiga = FXMLLoader.load(getClass().getResource("fxml/liga.fxml"));
             
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(toLiga));
+        Scene scene = new Scene(toLiga);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/new.css");
         stage.show();
     }
     

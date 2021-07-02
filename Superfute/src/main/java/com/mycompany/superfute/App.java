@@ -18,12 +18,12 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-
         scene = new Scene(loadFXML("fxml/inicio"));
 
-
+        
         stage.setScene(scene);
         stage.setTitle("Inicio");
+        scene.getStylesheets().add("css/new.css");
         stage.show();
     }
 

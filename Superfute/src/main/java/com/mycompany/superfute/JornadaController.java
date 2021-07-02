@@ -126,7 +126,9 @@ public class JornadaController implements Initializable {
                 NewJornadaController controller = loader.getController();
 
                 Stage stage = new Stage();
-                stage.setScene(new Scene(root));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                scene.getStylesheets().add("css/new.css");
                 stage.show();
 
                 controller.initLiga(liga);
@@ -146,7 +148,9 @@ public class JornadaController implements Initializable {
             JogoController controller = loader.getController();
             
              Stage stage = new Stage();
-             stage.setScene(new Scene(root));
+             Scene scene = new Scene(root);
+             stage.setScene(scene);
+             scene.getStylesheets().add("css/new.css");
              stage.setTitle("Jornada " + jornadaSelecionada.getIdJornada() + " " + jornadaSelecionada.getIdLiga());
              stage.show();
 
@@ -164,7 +168,9 @@ public class JornadaController implements Initializable {
         Parent toLiga = FXMLLoader.load(getClass().getResource("fxml/liga.fxml"));
             
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(toLiga));
+        Scene scene = new Scene(toLiga);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/new.css");
         stage.show();
     }
 

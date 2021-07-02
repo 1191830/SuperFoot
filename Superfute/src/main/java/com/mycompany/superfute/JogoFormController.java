@@ -7,7 +7,6 @@ package com.mycompany.superfute;
 
 import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbEvento;
-import com.mycompany.superfute.db.DbJogo;
 import java.io.IOException;
 import com.mycompany.superfute.db.DbArbitro;
 import com.mycompany.superfute.db.DbEquipa;
@@ -38,6 +37,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
@@ -98,23 +98,7 @@ public class JogoFormController implements Initializable {
     @FXML
     private TableColumn<Evento, String> colunaParte;
     @FXML
-    private Button btnAdicionarFormação;
-    @FXML
-    private Button btnEditarFormação;
-    @FXML
-    private Button btnRemoverFormação;
-    @FXML
-    private Button btnAdicionarEvento;
-    @FXML
     private Button btnEditarEvento;
-    @FXML
-    private Button btnRemoverEvento;
-    @FXML
-    private RadioButton radioEquipaCasa;
-    @FXML
-    private ToggleGroup equipaFormacao;
-    @FXML
-    private RadioButton radioEquipaVisitante;
     
     private Jogo jogo;   
     private ObservableList<Evento> observableList;
@@ -127,6 +111,28 @@ public class JogoFormController implements Initializable {
     private ArrayList<Evento> listaEvento;
     private ArrayList<String> horas;
     private ArrayList<String> minutos;
+    @FXML
+    private Tab tabJogo;
+    @FXML
+    private Tab tabFormacao;
+    @FXML
+    private ComboBox<?> selecionarTitularCasa;
+    @FXML
+    private ComboBox<?> selecionarSuplenteCasa;
+    @FXML
+    private ComboBox<?> selecionarTitularFora;
+    @FXML
+    private ComboBox<?> selecionarSuplenteFora;
+    @FXML
+    private Button btnAdicionar;
+    @FXML
+    private Button btnRemover;
+    @FXML
+    private Tab tabEventos;
+    @FXML
+    private Button btnCriarEvento;
+    @FXML
+    private Button btnApagarEvento;
 
     public Jogo getJogo() {
         return jogo;
@@ -271,19 +277,7 @@ public class JogoFormController implements Initializable {
     private void btnCancelar(ActionEvent event) {
     }
 
-    @FXML
-    private void btnAdicionarFormação(ActionEvent event) {
-    }
 
-    @FXML
-    private void btnEditarFormação(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnRemoverFormação(ActionEvent event) {
-    }
-
-    @FXML
     private void btnAdicionarEvento(ActionEvent event) throws SQLException, IOException {
         
         Evento evento = new Evento();
@@ -363,6 +357,7 @@ public class JogoFormController implements Initializable {
         dialogStage.setTitle(
                 "Evento");
         Scene scene = new Scene(page);
+        scene.getStylesheets().add("css/new.css");
 
         dialogStage.setScene(scene);
 
@@ -402,6 +397,22 @@ public class JogoFormController implements Initializable {
         if(eq == selecionarEquipaCasa.getSelectionModel().getSelectedItem()){
             SelecionarEquipaVisitante.setValue(null);
         }
+    }
+
+    @FXML
+    private void onActionAdicionar(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionRemover(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnCriarEvento(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnApagarEvento(ActionEvent event) {
     }
 
 }

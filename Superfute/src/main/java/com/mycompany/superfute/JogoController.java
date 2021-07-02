@@ -151,7 +151,9 @@ public class JogoController implements Initializable {
             controller.initJogo(jogoSelecionado);
             
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));           
+            Scene scene = new Scene(root);
+            stage.setScene(scene); 
+            scene.getStylesheets().add("css/new.css");
             stage.showAndWait();
             initTable();
             }
@@ -167,7 +169,9 @@ public class JogoController implements Initializable {
             
         JornadaController controller = loader.getController();
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene); 
+        scene.getStylesheets().add("css/new.css");
         stage.show();
 
         liga = DbLiga.obterLigaID(jornada.getIdLiga());
@@ -192,6 +196,7 @@ public class JogoController implements Initializable {
         dialogStage.setTitle(
                 "Jogo");
         Scene scene = new Scene(page);
+        scene.getStylesheets().add("css/new.css");
 
         dialogStage.setScene(scene);
 

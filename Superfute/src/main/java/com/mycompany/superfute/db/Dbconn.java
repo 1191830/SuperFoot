@@ -29,7 +29,7 @@ public class Dbconn {
                 "jdbc:sqlserver://ctespbd.dei.isep.ipp.pt:1433;"
                         + "database=DIAS_Grupo2_2021;"
                         + "user=DIAS_grupo2_2021;"
-                        + "password=Superfoot123;"
+                        + "password=Dias123;"
                         + "encrypt=true;"
                         + "trustServerCertificate=true;"
                         + "loginTimeout=30;";

@@ -44,9 +44,9 @@
             </TableView>
          </content>
       </ScrollPane>
-      <ImageView fitHeight="100.0" fitWidth="104.0" layoutX="380.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="134.0" fitWidth="134.0" layoutX="365.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../assets/leagues.png" />
+            <Image url="@../../../../assets/gaming-squad-logo-maker-with-heavy-armored-soldier-character-2754v-2890.png" />
          </image>
       </ImageView>
       <Label fx:id="labelAno" layoutX="104.0" layoutY="25.0" text="SUPER FOOT">

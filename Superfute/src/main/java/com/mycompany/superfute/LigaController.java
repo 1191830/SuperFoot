@@ -141,6 +141,7 @@ public class LigaController implements Initializable {
     private void btnJornadas(ActionEvent event) throws IOException, SQLException {
 
         changeWindows("fxml/jornada.fxml", event);
+        
     }
 
     @FXML
@@ -151,7 +152,9 @@ public class LigaController implements Initializable {
         loader.setLocation(getClass().getResource("fxml/equipa.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/new.css");
         stage.setTitle("Equipas");
 
         stage.show();
@@ -164,7 +167,9 @@ public class LigaController implements Initializable {
         loader.setLocation(getClass().getResource("fxml/jogador.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/new.css");
         stage.setTitle("Jogadores");
         stage.show();
         
@@ -172,7 +177,7 @@ public class LigaController implements Initializable {
 
     @FXML
     private void btnClassificacao(ActionEvent event) throws IOException, SQLException {
-        changeWindows("fxml/classificacao.fxml", event);
+        changeWindows("fxml/classificacao.fxml", event);       
     }
 
     @FXML
@@ -182,8 +187,10 @@ public class LigaController implements Initializable {
         loader.setLocation(getClass().getResource("fxml/expulsoesJogador.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.setTitle("Estatisticas Jogadores");
+        scene.getStylesheets().add("css/new.css");
         stage.show();
 
     }
@@ -195,7 +202,9 @@ public class LigaController implements Initializable {
         loader.setLocation(getClass().getResource("fxml/melhorMarcador.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/new.css");
         stage.show();
     }
 
@@ -216,7 +225,9 @@ public class LigaController implements Initializable {
         loader.setLocation(getClass().getResource("fxml/Arbitros.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/new.css");
         stage.setTitle("Arbitros");
         stage.show();
 
@@ -233,10 +244,12 @@ public class LigaController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(path));
             Parent root = loader.load();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("css/new.css");
             if (event.getSource() == btnJornadas) {
                 JornadaController controller = loader.getController();
                 Stage stage = new Stage();
-                stage.setScene(new Scene(root));
+                stage.setScene(scene);
                 stage.setTitle("Jornadas " + liga.getAno());
                 stage.show();
 
@@ -249,7 +262,7 @@ public class LigaController implements Initializable {
             } else if (event.getSource() == btnClassificacao) {
                 ClassificacaoController controller = loader.getController();
                 Stage stage = new Stage();
-                stage.setScene(new Scene(root));
+                stage.setScene(scene);
                 stage.setTitle("Liga " + liga.getAno());
                 stage.show();
 
@@ -269,6 +282,7 @@ public class LigaController implements Initializable {
             alertBox2.setContentText("Por favor selecione uma Liga");
             alertBox2.showAndWait();
         }
+        
     }
 
     public static boolean controllerLigaForm(Liga liga) throws IOException, SQLException {
@@ -281,6 +295,7 @@ public class LigaController implements Initializable {
         dialogStage.setTitle("Liga");
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
+        scene.getStylesheets().add("css/new.css");
 
         // Setando o cliente no Controller.
         LigaFormController controller = loader.getController();

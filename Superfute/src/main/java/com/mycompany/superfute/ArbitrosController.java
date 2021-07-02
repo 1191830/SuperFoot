@@ -85,8 +85,6 @@ public class ArbitrosController implements Initializable {
 
         if (pessoa == null) {
 
-            System.out.println("PESSOAL NULO");
-
         } else {
             arrArbitros.add(pessoa);
             arrPessoasSemFuncao.remove(pessoa);
@@ -104,8 +102,6 @@ public class ArbitrosController implements Initializable {
         pessoa = tabelaArbitros.getSelectionModel().getSelectedItem();
 
         if (pessoa == null) {
-
-            System.out.println("PESSOAL NULO");
 
         } else {
             arrPessoasSemFuncao.add(pessoa);
@@ -135,9 +131,6 @@ public class ArbitrosController implements Initializable {
                     //aapagar a base de dados dos arbitos
                    //  DbArbitro.saveArbitro(p.getId());
                   DbArbitro.deleteArbitro(p.getId());
-                   
-                     System.out.println(p);
-                     System.out.println("AQUI");    
         }
         }
         
@@ -145,11 +138,6 @@ public class ArbitrosController implements Initializable {
             // Se a arbito não estiver no array inical , é apagado da base de dados dos arbitos
             
              if(!arrArbitrosInicial.contains(p)){
-            
-                 
-                 //Guardaa base de dados dos arbitos
-                    System.out.println("Adicionar");
-                    System.out.println(p);
                     DbArbitro.saveArbitro(p.getId());
                    
                 

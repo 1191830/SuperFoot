@@ -136,6 +136,7 @@ public class CidadeController implements Initializable {
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Cidade");
         Scene scene = new Scene(page);
+        scene.getStylesheets().add("css/new.css");
         dialogStage.setScene(scene);
 
         // Setando o cliente no Controller.
