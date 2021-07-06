@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute;
 
+import Utils.MessageBoxes;
 import com.mycompany.superfute.db.DbJogo;
 import com.mycompany.superfute.db.DbLiga;
 import com.mycompany.superfute.models.Jogo;
@@ -24,6 +25,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -132,14 +134,22 @@ public class JogoController implements Initializable {
     @FXML
     private void btnEditarJogo(ActionEvent event) throws IOException, SQLException {
         boolean btnClicked = controllerJogoForm(jogoSelecionado, jornada);
-        if(btnClicked){
-            System.out.println("AQUI Editar");
         
-        }
+        
     }
 
     @FXML
-    private void btnApagarJogo(ActionEvent event) {
+    private void btnApagarJogo(ActionEvent event) throws SQLException {
+        try{
+            DbJogo.deleteJogoEquipa(jogoSelecionado);
+            DbJogo.deleteJogo(jogoSelecionado);
+            initTable();
+            MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION, 
+                    "O jogo foi apagado com sucesso", "Apagado Com Sucesso");
+        }catch(Exception e){
+            MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                    "Não foi possível Apagar.", "Erro ao Apagar");
+        }
     }
 
     @FXML

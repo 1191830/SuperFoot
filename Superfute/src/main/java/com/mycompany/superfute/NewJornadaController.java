@@ -6,8 +6,6 @@
 package com.mycompany.superfute;
 
 import com.mycompany.superfute.db.DbJornada;
-import com.mycompany.superfute.db.DbLiga;
-import com.mycompany.superfute.models.Jornada;
 import com.mycompany.superfute.models.Liga;
 import java.io.IOException;
 import java.net.URL;
@@ -62,7 +60,9 @@ public class NewJornadaController implements Initializable {
                 JornadaController controller = loader.getController();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            scene.getStylesheets().add("css/new.css");
             stage.show();
             
             controller.initLiga(selectedLiga);

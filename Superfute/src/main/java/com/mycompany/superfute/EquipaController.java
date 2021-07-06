@@ -169,6 +169,7 @@ public class EquipaController implements Initializable {
         dialogStage.setTitle(
                 "Equipa");
         Scene scene = new Scene(page);
+        scene.getStylesheets().add("css/new.css");
 
         dialogStage.setScene(scene);
 
@@ -203,6 +204,7 @@ public class EquipaController implements Initializable {
         dialogStage.setTitle(
                 "Equipa");
         Scene scene = new Scene(page);
+        scene.getStylesheets().add("css/new.css");
 
         dialogStage.setScene(scene);
 

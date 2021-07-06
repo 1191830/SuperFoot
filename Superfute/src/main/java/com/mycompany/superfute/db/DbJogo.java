@@ -10,6 +10,7 @@ import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Jornada;
 import com.mycompany.superfute.models.Pessoa;
+import com.mycompany.superfute.models.Jogador;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -271,6 +272,60 @@ public class DbJogo {
         }
     }
         
+        public static void deleteJogo(Jogo jogo) throws SQLException {
+        
+        String cmd = "";
+
+        try {
+            Connection conn = Dbconn.getConn();
+            
+            //Novo Jogo
+            cmd = "Delete from jogo where id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(cmd);
+            statement.setInt(1, jogo.getJogo());
+
+            //Execute the update
+            statement.executeUpdate();
+
+            //commit in case you have turned autocommit to false
+            conn.commit();
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+        } catch (SQLException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+        }
+    }
+        
+        public static void deleteJogoEquipa(Jogo jogo) throws SQLException {
+        
+        String cmd = "";
+
+        try {
+            Connection conn = Dbconn.getConn();
+            
+            //Novo Jogo
+            cmd = "Delete from jogoEquipa where idJogo = ?";
+
+            PreparedStatement statement = conn.prepareStatement(cmd);
+            statement.setInt(1, jogo.getJogo());
+
+            //Execute the update
+            statement.executeUpdate();
+
+            //commit in case you have turned autocommit to false
+            conn.commit();
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+        } catch (SQLException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+        }
+    }
+        
     public static void insertJogoEquipa(Jogo jogo, int casaFora) throws SQLException {
         
         String cmd = "";
@@ -288,6 +343,114 @@ public class DbJogo {
             }else{
                 statement.setInt(2, jogo.getEquipaFora().getId());
             }          
+
+            //Execute the update
+            statement.executeUpdate();
+
+            //commit in case you have turned autocommit to false
+            conn.commit();
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+        } catch (SQLException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+        }
+    }
+    
+        public static void insertPessoaJogo(Jogo jogo, Jogador jogador, int funcao, int estado, int casaFora) throws SQLException {
+        
+        String cmd = "";
+
+        try {
+            Connection conn = Dbconn.getConn();
+            
+            //Novo Jogo
+            cmd = "INSERT INTO pessoaJogo(idPessoa, idEquipa, idJogo, funcaoJogo, estadoEmJogo) VALUES (?, ?, ?, " + funcao + ", " + estado + ")";
+
+            PreparedStatement statement = conn.prepareStatement(cmd);
+            statement.setInt(1, jogador.getId());
+            if (casaFora == 0){
+                statement.setInt(2, jogo.getEquipaCasa().getId());
+            }else{
+                statement.setInt(2, jogo.getEquipaFora().getId());
+            }
+            statement.setInt(3, jogo.getJogo());      
+
+            //Execute the update
+            statement.executeUpdate();
+
+            //commit in case you have turned autocommit to false
+            conn.commit();
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+        } catch (SQLException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+        }
+    }
+    
+    public static void updatePessoaJogo(Jogo jogo, Jogador jogador) throws SQLException {
+        int funcao = -1;
+        String cmd = "";
+
+        try {
+            Connection conn = Dbconn.getConn();
+            
+            //Novo Jogo
+            cmd = "Select funcaoJogo from pessoaJogo where idPessoa = ? and idJogo = ?";
+
+            PreparedStatement statement = conn.prepareStatement(cmd);
+            statement.setInt(1, jogador.getId());
+            statement.setInt(2, jogo.getJogo());
+                      
+
+            //Execute the update
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                funcao = rs.getInt("funcaoJogo");                
+             }
+            if (funcao == 1 ){
+                cmd = "Update pessoaJogo set funcaoJogo = 2 where idPessoa = ? and idJogo = ?";
+            }else{
+                cmd = "Update pessoaJogo set funcaoJogo = 1 where idPessoa = ? and idJogo = ?";
+            }
+            statement = conn.prepareStatement(cmd);
+            statement.setInt(1, jogador.getId());
+            statement.setInt(2, jogo.getJogo());
+                      
+
+            //Execute the update
+            statement.executeUpdate();
+            
+            //commit in case you have turned autocommit to false
+            conn.commit();
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+        } catch (SQLException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+        }
+    }
+    
+    
+    
+    public static void deletePessoaJogo(Jogo jogo, Jogador jogador) throws SQLException {
+        
+        String cmd = "";
+
+        try {
+            Connection conn = Dbconn.getConn();
+            
+            //Novo Jogo
+            cmd = "Delete from pessoaJogo where idPessoa = ? and idJogo = ?";
+
+            PreparedStatement statement = conn.prepareStatement(cmd);
+            statement.setInt(1, jogador.getId());
+            statement.setInt(2, jogo.getJogo());
+                      
 
             //Execute the update
             statement.executeUpdate();

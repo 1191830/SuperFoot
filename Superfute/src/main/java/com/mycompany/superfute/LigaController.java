@@ -153,8 +153,8 @@ public class LigaController implements Initializable {
         Parent root = loader.load();
         Stage stage = new Stage();
         Scene scene = new Scene(root);
-        stage.setScene(scene);
         scene.getStylesheets().add("css/new.css");
+        stage.setScene(scene);
         stage.setTitle("Equipas");
 
         stage.show();
@@ -168,8 +168,8 @@ public class LigaController implements Initializable {
         Parent root = loader.load();
         Stage stage = new Stage();
         Scene scene = new Scene(root);
-        stage.setScene(scene);
         scene.getStylesheets().add("css/new.css");
+        stage.setScene(scene);
         stage.setTitle("Jogadores");
         stage.show();
         

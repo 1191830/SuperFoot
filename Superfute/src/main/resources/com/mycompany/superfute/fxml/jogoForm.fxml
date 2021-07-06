@@ -133,12 +133,12 @@
                               <Font size="11.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnMudarEstadoFora" layoutX="474.0" layoutY="417.0" mnemonicParsing="false" onAction="#onActionEstadoJogoFora" text="Retirar">
+                        <Button fx:id="btnMudarEstadoFora" layoutX="474.0" layoutY="417.0" mnemonicParsing="false" onAction="#onActionEstadoJogoFora" text="Mudar">
                            <font>
                               <Font size="11.0" />
                            </font>
                         </Button>
-                        <Button fx:id="onActionSaidaFora" layoutX="280.0" layoutY="417.0" mnemonicParsing="false" onAction="#onActionEntradaFora" text="&gt; Titular">
+                        <Button fx:id="btnEntraTitularFora" layoutX="280.0" layoutY="417.0" mnemonicParsing="false" onAction="#onActionEntradaFora" text="&gt; Titular">
                            <font>
                               <Font size="11.0" />
                            </font>

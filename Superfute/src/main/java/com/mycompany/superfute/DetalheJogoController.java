@@ -158,7 +158,10 @@ public class DetalheJogoController implements Initializable {
             JogoEquipasController controller = loader.getController();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            scene.getStylesheets().add("css/new.css");
+            stage.setTitle("Formacoes Iniciais");
             stage.show();
 
             controller.initJogo(resultado);
@@ -266,6 +269,7 @@ public class DetalheJogoController implements Initializable {
         dialogStage.setTitle(
                 "Evento");
         Scene scene = new Scene(page);
+        scene.getStylesheets().add("css/new.css");
 
         dialogStage.setScene(scene);
 

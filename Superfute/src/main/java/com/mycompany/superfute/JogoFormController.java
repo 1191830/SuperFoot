@@ -6,6 +6,7 @@
 package com.mycompany.superfute;
 
 import Utils.MessageBoxes;
+import static com.mycompany.superfute.DetalheJogoController.controllerJogoEventoForm;
 import com.mycompany.superfute.db.DbEvento;
 import java.io.IOException;
 import com.mycompany.superfute.db.DbArbitro;
@@ -42,6 +43,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -124,6 +126,7 @@ public class JogoFormController implements Initializable {
     private Jogo infoJogo;
     private Equipa equipaCasa;
     private Equipa equipaFora;
+    private Jogador jogador;
     @FXML
     private TableView<Jogador> tablePlantelCasa;
     @FXML
@@ -155,8 +158,6 @@ public class JogoFormController implements Initializable {
     @FXML
     private Button btnEntraBancoFora;
     @FXML
-    private Button onActionSaidaFora;
-    @FXML
     private Button btnSaidaCasa;
     @FXML
     private Button btnMudarEstadoCasa;
@@ -166,6 +167,8 @@ public class JogoFormController implements Initializable {
     private Button btnSaidaFora;
     
     private Jornada jornada;
+    @FXML
+    private Button btnEntraTitularFora;
 
     public Jogo getJogo() {
         return jogo;
@@ -221,6 +224,84 @@ public class JogoFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        tablePlantelCasa.setRowFactory(tr -> {
+            TableRow<Jogador> row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if (row.isEmpty()) {
+                    tablePlantelCasa.getSelectionModel().clearSelection();
+                } else if (event.getClickCount() == 1) {
+                    //jornada selecionada passa a ser a jornada selecionada na table
+                    jogador = row.getItem();                                     
+                }
+            });
+            return row;
+        });
+        
+        tableSuplentesCasa.setRowFactory(tr -> {
+            TableRow<Jogador> row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if (row.isEmpty()) {
+                    tableSuplentesCasa.getSelectionModel().clearSelection();
+                } else if (event.getClickCount() == 1) {
+                    //jornada selecionada passa a ser a jornada selecionada na table
+                    jogador = row.getItem();                                     
+                }
+            });
+            return row;
+        });
+        
+        tableTitularesCasa.setRowFactory(tr -> {
+            TableRow<Jogador> row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if (row.isEmpty()) {
+                    tableTitularesCasa.getSelectionModel().clearSelection();
+                } else if (event.getClickCount() == 1) {
+                    //jornada selecionada passa a ser a jornada selecionada na table
+                    jogador = row.getItem();                                     
+                }
+            });
+            return row;
+        });
+        
+        tablePlantelFora.setRowFactory(tr -> {
+            TableRow<Jogador> row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if (row.isEmpty()) {
+                    tablePlantelFora.getSelectionModel().clearSelection();
+                } else if (event.getClickCount() == 1) {
+                    //jornada selecionada passa a ser a jornada selecionada na table
+                    jogador = row.getItem();                                     
+                }
+            });
+            return row;
+        });
+        
+        tableTitularesFora.setRowFactory(tr -> {
+            TableRow<Jogador> row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if (row.isEmpty()) {
+                    tableTitularesFora.getSelectionModel().clearSelection();
+                } else if (event.getClickCount() == 1) {
+                    //jornada selecionada passa a ser a jornada selecionada na table
+                    jogador = row.getItem();                                     
+                }
+            });
+            return row;
+        });
+        
+        tableSuplentesFora.setRowFactory(tr -> {
+            TableRow<Jogador> row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if (row.isEmpty()) {
+                    tableSuplentesFora.getSelectionModel().clearSelection();
+                } else if (event.getClickCount() == 1) {
+                    //jornada selecionada passa a ser a jornada selecionada na table
+                    jogador = row.getItem();                                     
+                }
+            });
+            return row;
+        });
 
     }
 
@@ -502,35 +583,113 @@ public class JogoFormController implements Initializable {
 
 
     @FXML
-    private void btnCriarEvento(ActionEvent event) {
+    private void btnCriarEvento(ActionEvent event) throws IOException, SQLException {
+        
+        Evento evento = new Evento();
+       
+        boolean flag = false;
+        if (controllerJogoEventoForm(jogo, evento)) {
+            flag = DbEvento.insertEvento(evento);            
+            if (flag) {
+                fillEventos(); //faz update à tabela de eventos
+                MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
+                        "Evento inserido com sucesso!", "Inserir Evento");
+            } else {
+                MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                        "Não foi possível inserir o evento.", "Erro ao inserir");
+            }
+        }
     }
 
     @FXML
-    private void btnApagarEvento(ActionEvent event) {
+    private void btnApagarEvento(ActionEvent event) throws SQLException {
+        
+        boolean flag = false;
+        Evento evento = tabelaEventos.getSelectionModel().getSelectedItem();
+          flag = DbEvento.deleteEvento(evento.getId());
+          if(flag){
+               fillEventos();
+               MessageBoxes.ShowMessage(Alert.AlertType.INFORMATION,
+                        "Evento apagado com sucesso!", "Apagar Evento");
+          }else{
+              MessageBoxes.ShowMessage(Alert.AlertType.ERROR,
+                        "Não foi possível apagar evento.", "Erro ao apagar");
+          }
     }
 
     @FXML
-    private void onActionEntradaCasa(ActionEvent event) {
+    private void onActionEntradaCasa(ActionEvent event) throws SQLException {
+        if(event.getSource() == btnEntraTitularCasa){
+            DbJogo.insertPessoaJogo(jogo, jogador, 1, 2, 0);
+        }else if(event.getSource() == btnEntraBancoCasa){
+            DbJogo.insertPessoaJogo(jogo, jogador, 2, 1, 0);
+        }
+        try{
+            fillTablePlantel();
+            fillTableFormacoes();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
-    private void onActionSaidaCasa(ActionEvent event) {
+    private void onActionSaidaCasa(ActionEvent event) throws SQLException {
+        DbJogo.deletePessoaJogo(jogo, jogador);
+        try{
+            fillTablePlantel();
+            fillTableFormacoes();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
-    private void onActionEntradaFora(ActionEvent event) {
+    private void onActionEntradaFora(ActionEvent event) throws SQLException {
+        if(event.getSource() == btnEntraTitularFora){
+            DbJogo.insertPessoaJogo(jogo, jogador, 1, 2, 1);
+        }else if(event.getSource() == btnEntraBancoFora){
+            DbJogo.insertPessoaJogo(jogo, jogador, 2, 1, 1);
+        }
+        try{
+            fillTablePlantel();
+            fillTableFormacoes();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
-    private void onActionSaidaFora(ActionEvent event) {
+    private void onActionSaidaFora(ActionEvent event) throws SQLException {
+        DbJogo.deletePessoaJogo(jogo, jogador);
+        try{
+            fillTablePlantel();
+            fillTableFormacoes();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
-    private void onActionEstadoJogoCasa(ActionEvent event) {
+    private void onActionEstadoJogoCasa(ActionEvent event) throws SQLException {
+        DbJogo.updatePessoaJogo(jogo, jogador);
+        try{
+            fillTablePlantel();
+            fillTableFormacoes();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
     }
 
     @FXML
-    private void onActionEstadoJogoFora(ActionEvent event) {
+    private void onActionEstadoJogoFora(ActionEvent event) throws SQLException {
+        DbJogo.updatePessoaJogo(jogo, jogador);
+        try{
+            fillTablePlantel();
+            fillTableFormacoes();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
     
     public void controllerJogo(Jogo jogo) throws IOException, SQLException{

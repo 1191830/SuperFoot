@@ -124,6 +124,7 @@ public class PaisController implements Initializable {
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Paises");
         Scene scene = new Scene(page);
+        scene.getStylesheets().add("css/new.css");
         dialogStage.setScene(scene);
 
         // Setando o cliente no Controller.

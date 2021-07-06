@@ -133,6 +133,7 @@ public class PessoaController implements Initializable {
         dialogStage.setTitle(
                 "Pessoa");
         Scene scene = new Scene(page);
+        scene.getStylesheets().add("css/new.css");
 
         dialogStage.setScene(scene);
 

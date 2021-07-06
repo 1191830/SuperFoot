@@ -60,6 +60,7 @@ public class ExtrasController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/pais.fxml"));
         Scene scene = new Scene(root);
          Stage window = new Stage();
+         scene.getStylesheets().add("css/new.css");
         window.setTitle("Paises");
         window.setResizable(false);
         window.setScene(scene);
@@ -71,6 +72,7 @@ public class ExtrasController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/cidade.fxml"));
         Scene scene = new Scene(root);
          Stage window = new Stage();
+         scene.getStylesheets().add("css/new.css");
         window.setTitle("Cidades");
         window.setResizable(false);
         window.setScene(scene);
@@ -86,6 +88,7 @@ public class ExtrasController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/estadio.fxml"));
         Scene scene = new Scene(root);
          Stage window = new Stage();
+         scene.getStylesheets().add("css/new.css");
         window.setTitle("Estadio");
         window.setResizable(false);
         window.setScene(scene);
@@ -105,6 +108,7 @@ public class ExtrasController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/pessoa.fxml"));
         Scene scene = new Scene(root);
          Stage window = new Stage();
+         scene.getStylesheets().add("css/new.css");
         window.setTitle("Pessoa");
         window.setResizable(false);
         window.setScene(scene);

@@ -22,7 +22,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -116,6 +115,7 @@ public class JogadorController implements Initializable {
         dialogStage.setTitle(
                 "Detalhe jogador");
         Scene scene = new Scene(page);
+        scene.getStylesheets().add("css/new.css");
         dialogStage.setScene(scene);
         // Setando o cliente no Controller.
         DetalheJogadorController controller = loader.getController();
@@ -149,6 +149,7 @@ public class JogadorController implements Initializable {
         dialogStage.setTitle(
                 "Pessoa");
         Scene scene = new Scene(page);
+        scene.getStylesheets().add("css/new.css");
 
         dialogStage.setScene(scene);
 
