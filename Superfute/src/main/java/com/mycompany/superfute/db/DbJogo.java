@@ -5,6 +5,7 @@
  */
 package com.mycompany.superfute.db;
 
+import static com.mycompany.superfute.db.DbEstadio.ShowMessage;
 import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Jogo;
 import com.mycompany.superfute.models.Jornada;
@@ -14,8 +15,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -74,6 +77,22 @@ public class DbJogo {
             }
             return jogo;
         }
+     
+     public static int getLastId(){
+         int id= 0;
+        try {
+            Connection con = Dbconn.getConn();
+            Statement st = con.createStatement();
+            ResultSet rst = st.executeQuery("select TOP 1 id from jogo order by id desc");
+            while (rst.next()) {
+                id = rst.getInt("id");
+            }
+            return id;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+     }
      
     public static ArrayList<Pessoa> getPessoaJogo(Jogo jogo, Equipa equipa, int funcao) throws SQLException {
 
@@ -220,5 +239,67 @@ public class DbJogo {
             System.err.println("Erro: " + ex.getMessage());
         }
         return jogos;
+    }
+    
+        public static void insertJogo(Jogo jogo) throws SQLException {
+        
+        String cmd = "";
+
+        try {
+            Connection conn = Dbconn.getConn();
+            
+            //Novo Jogo
+            cmd = "INSERT INTO jogo(liga, jornada, idEstadio, arbitro, dia) VALUES (?, ?, ?, ?, getDate())";
+
+            PreparedStatement statement = conn.prepareStatement(cmd);
+            statement.setInt(1, jogo.getJornada().getIdLiga());
+            statement.setInt(2, jogo.getJornada().getIdJornada());
+            statement.setInt(3, jogo.getEstadio().getId());
+            statement.setInt(4, jogo.getArbitro().getId());
+
+            //Execute the update
+            statement.executeUpdate();
+
+            //commit in case you have turned autocommit to false
+            conn.commit();
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+        } catch (SQLException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+        }
+    }
+        
+    public static void insertJogoEquipa(Jogo jogo, int casaFora) throws SQLException {
+        
+        String cmd = "";
+
+        try {
+            Connection conn = Dbconn.getConn();
+            
+            //Novo Jogo
+            cmd = "INSERT INTO jogoEquipa(idJogo, idEquipa, casaFora) VALUES (?, ?, " + casaFora + ")";
+
+            PreparedStatement statement = conn.prepareStatement(cmd);
+            statement.setInt(1, jogo.getJogo());
+            if(casaFora == 0){
+                statement.setInt(2, jogo.getEquipaCasa().getId());
+            }else{
+                statement.setInt(2, jogo.getEquipaFora().getId());
+            }          
+
+            //Execute the update
+            statement.executeUpdate();
+
+            //commit in case you have turned autocommit to false
+            conn.commit();
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "Registo Duplicado", "Falhou ao guardar registo!");
+        } catch (SQLException ex) {
+            System.err.println("Erro: " + ex.getMessage());
+            ShowMessage(Alert.AlertType.ERROR, "", "Falhou ao guardar registo!");
+        }
     }
 }

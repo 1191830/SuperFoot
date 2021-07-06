@@ -13,6 +13,7 @@ import com.mycompany.superfute.db.DbEquipa;
 import com.mycompany.superfute.db.DbEstadio;
 import com.mycompany.superfute.db.DbJogo;
 import com.mycompany.superfute.db.DbJogador;
+import com.mycompany.superfute.models.Jornada;
 import com.mycompany.superfute.models.Equipa;
 import com.mycompany.superfute.models.Estadio;
 import com.mycompany.superfute.models.Evento;
@@ -32,6 +33,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -162,13 +164,20 @@ public class JogoFormController implements Initializable {
     private Button btnMudarEstadoFora;
     @FXML
     private Button btnSaidaFora;
+    
+    private Jornada jornada;
 
     public Jogo getJogo() {
         return jogo;
     }
+    
+    public void setJornada(Jornada jornada){
+        this.jornada = jornada;
+    }
 
-    public void setJogo(Jogo jogo) throws SQLException {
+    public void setJogo(Jogo jogo, Jornada jornada) throws SQLException {
         this.jogo = jogo;
+        setJornada(jornada);
         if(jogo.getJogo() != 0){
             System.out.println(jogo.getJogo());
             jogo.setEquipaCasa(DbEquipa.getEquipaJogo(jogo, 0));
@@ -265,6 +274,7 @@ public class JogoFormController implements Initializable {
             jogo.setEquipaCasa(selecionarEquipaCasa.getSelectionModel().getSelectedItem());
             jogo.setEquipaFora(SelecionarEquipaVisitante.getSelectionModel().getSelectedItem());
             jogo.setArbitro(selecionarArbitro.getSelectionModel().getSelectedItem());
+            jogo.setEstadio(selecionarEstadio.getSelectionModel().getSelectedItem());          
         }
     }
 
@@ -302,8 +312,12 @@ public class JogoFormController implements Initializable {
     }
 
     @FXML
-    private void btnAplicar(ActionEvent event) {
+    private void btnAplicar(ActionEvent event) throws IOException, SQLException {
         setDadosJogo();
+        controllerJogo(jogo);
+        
+
+        
     }
 
     @FXML
@@ -518,5 +532,27 @@ public class JogoFormController implements Initializable {
     @FXML
     private void onActionEstadoJogoFora(ActionEvent event) {
     }
+    
+    public void controllerJogo(Jogo jogo) throws IOException, SQLException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/jogo.fxml"));
+        Parent root = loader.load();
+            
+        JogoController controller = loader.getController();
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene); 
+        scene.getStylesheets().add("css/new.css");
+        stage.show();
+        
+        controller.criarJogo(jogo, jornada);     
+        
+        // get a handle to the stage
+        Stage stage2 = (Stage) btnAplicar.getScene().getWindow();
+        // close the scene
+        stage2.close();
+    }
+    
+
 
 }

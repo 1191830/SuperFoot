@@ -65,7 +65,7 @@ public class Jogo {
         this.golosFora = golosFora;
         
     }
-
+    
     public int getJogo() {
         return jogo;
     }

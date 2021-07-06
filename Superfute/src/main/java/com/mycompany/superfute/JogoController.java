@@ -71,6 +71,7 @@ public class JogoController implements Initializable {
     private ArrayList<Jogo> listaJogos;
     private ObservableList<Jogo> observableList;
     private Jogo jogoSelecionado;
+    private Jogo jogo;
     
     
 
@@ -116,20 +117,21 @@ public class JogoController implements Initializable {
         jornada = jornadaSelecionada;
         initTable();
     }
+    public void setJogo(Jogo jogo) throws SQLException{
+        this.jogo = jogo;      
+    }
 
     @FXML
     private void btnCriarJogo(ActionEvent event) throws IOException, SQLException {
         Jogo jogo =  new Jogo();
-        boolean btnClicked = controllerJogoForm(jogo);
-        if(btnClicked){
-            System.out.println("AQUI Criar");
+   
+        boolean btnClicked = controllerJogoForm(jogo, jornada);       
         
-        }
     }
 
     @FXML
     private void btnEditarJogo(ActionEvent event) throws IOException, SQLException {
-        boolean btnClicked = controllerJogoForm(jogoSelecionado);
+        boolean btnClicked = controllerJogoForm(jogoSelecionado, jornada);
         if(btnClicked){
             System.out.println("AQUI Editar");
         
@@ -183,7 +185,7 @@ public class JogoController implements Initializable {
         stage2.close();
         
     }
-    public static boolean controllerJogoForm(Jogo jogo) throws IOException, SQLException {
+    public static boolean controllerJogoForm(Jogo jogo, Jornada jornada) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader();
         loader
                 .setLocation(JogoFormController.class
@@ -205,12 +207,23 @@ public class JogoController implements Initializable {
 
         controller.setStageDialog(dialogStage);
 
-        controller.setJogo(jogo);
+        controller.setJogo(jogo, jornada);
 
         // Mostra o Dialog e espera até que o usuário o feche
         dialogStage.showAndWait();
 
         return controller.isBtnClicked();
+    }
+    
+        public void criarJogo(Jogo jogo, Jornada jornada) throws SQLException{
+            initJornada(jornada);
+            setJogo(jogo);
+            jogo.setJornada(jornada);
+            DbJogo.insertJogo(jogo);
+            jogo.setJogo(DbJogo.getLastId());
+            DbJogo.insertJogoEquipa(jogo, 0);
+            DbJogo.insertJogoEquipa(jogo, 1);
+            initTable();
     }
     
 }
